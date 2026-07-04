@@ -13,10 +13,9 @@ export default async function Home() {
   return (
     <div className="bg-brand-linen w-full h-full">
       <Hero
-        title={t("title")}
-        subtitle={t("sub_title")}
+        headline={t("sub_title")}
         text={t("main_text")}
-        overlayColor="rgba(0,0,0,0.5)"
+        overlayColor="rgba(0, 0, 0, 0.5)"
       >
         <HeroCTAs />
       </Hero>

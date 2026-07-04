@@ -10,19 +10,20 @@
         "about": "About Us",
         "experiences": "Experiences",
         "shop": "Farm Shop",
-        "reach_us": "How to Reach Us"
+        "reach_us": "How to Reach Us",
+        "contact": "Contact us"
     },
     "footer": {
         "copyright": "© {year} Le Piaje. All rights reserved."
     },
     "landing_page": {
         "hero": {
-            "title": "Le Piaje",
-            "sub_title": "A Welcome as Genuine as the Tastes of the Land",
-            "main_text": "We are a family of agricultural entrepreneurs with a deep commitment to hospitality and the enhancement of the natural and cultural heritage of our land. Whether you are curious travelers, families looking for relaxing times, gourmets or lovers of uncontaminated nature, Le Piaje will open its doors to you to make you live a unique experience. You will discover a world made of authentic flavors, routes and views telling the story of Tuscia.",
+            "sub_title": "Where the welcome is as genuine as the land's flavors",
+            "main_text": "A family farm in Tuscia where warm hospitality, honest food, and unspoiled nature come together.",
             "cta_villa": "Book La Villa Perlata",
-            "cta_hostel": "Pilgrim hostel",
-            "cta_contact": "Contact us"
+            "cta_hostel": "Book Pilgrim Hostel",
+            "cta_contact": "Contact us",
+            "cta_discover": "Discover"
         },
         "guest_favorite": {
             "badge": "Guest favorite",

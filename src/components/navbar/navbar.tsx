@@ -44,7 +44,10 @@ export function Navbar() {
           side="right"
         >
           <div className="text-brand-ink place-content-center grid gap-2 py-6">
-            <NavLinks className={mobileLinkClass} />
+            <NavLinks
+              className={mobileLinkClass}
+              contactClassName={`${mobileLinkClass} mt-2 shrink-0 whitespace-nowrap rounded-md bg-brand-terracotta px-6 text-brand-linen hover:bg-brand-terracotta-dark hover:text-brand-linen`}
+            />
             <div className="flex justify-center items-center my-16 space-x-6">
               <Link href="mailto:giulianaclementini.ad@gmail.com" className="text-brand-muted hover:text-brand-terracotta transition-colors">
                 <Mail size={21} />
@@ -68,7 +71,7 @@ export function Navbar() {
         </SheetContent>
       </Sheet>
 
-      <nav className="ml-auto hidden lg:flex gap-4">
+      <nav className="ml-auto hidden shrink-0 items-center gap-3 lg:flex xl:gap-4">
         <NavLinks className={desktopLinkClass} />
       </nav>
     </header>

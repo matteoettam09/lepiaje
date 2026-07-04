@@ -10,19 +10,20 @@
         "about": "Chi Siamo",
         "experiences": "Esperienze",
         "shop": "Bottega",
-        "reach_us": "Come Raggiungerci"
+        "reach_us": "Come Raggiungerci",
+        "contact": "Contattaci"
     },
     "footer": {
         "copyright": "© {year} Le Piaje. Tutti i diritti riservati."
     },
     "landing_page": {
         "hero": {
-            "title": "Le Piaje",
-            "sub_title": "Ospitalità Genuina, come i Sapori della Terra",
-            "main_text": "Siamo una famiglia di imprenditori agricoli con un profondo impegno verso l'ospitalità e la valorizzazione del patrimonio naturale e culturale della nostra terra. Che siate viaggiatori curiosi, famiglie in cerca di relax, buongustai o amanti della natura incontaminata, Le Piaje vi aprirà le sue porte per farvi vivere un'esperienza unica. Scoprirete un mondo fatto di sapori autentici, percorsi e panorami che raccontano la storia della Tuscia.",
+            "sub_title": "Dove l'accoglienza è genuina come i sapori della terra",
+            "main_text": "Un'azienda agricola di famiglia in Tuscia, dove ospitalità sincera, cibo genuino e natura incontaminata si uniscono.",
             "cta_villa": "Prenota La Villa Perlata",
-            "cta_hostel": "Ostello del pellegrino",
-            "cta_contact": "Contattaci"
+            "cta_hostel": "Prenota l'Ostello del Pellegrino",
+            "cta_contact": "Contattaci",
+            "cta_discover": "Scopri"
         },
         "guest_favorite": {
             "badge": "Preferito dagli ospiti",

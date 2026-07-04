@@ -3,7 +3,16 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
-export function NavLinks({ className }: { className?: string }) {
+const contactButtonClassName =
+  "inline-flex h-9 shrink-0 items-center justify-center whitespace-nowrap rounded-md bg-brand-terracotta px-5 text-sm font-semibold text-brand-linen transition hover:bg-brand-terracotta-dark";
+
+export function NavLinks({
+  className,
+  contactClassName = contactButtonClassName,
+}: {
+  className?: string;
+  contactClassName?: string;
+}) {
     const t = useTranslations("nav");
 
     const links = [
@@ -27,6 +36,13 @@ export function NavLinks({ className }: { className?: string }) {
                     {link.label}
                 </Link>
             ))}
+            <Link
+                href="/#contact"
+                className={contactClassName}
+                prefetch={false}
+            >
+                {t("contact")}
+            </Link>
         </>
     );
 }

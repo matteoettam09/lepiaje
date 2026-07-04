@@ -1,48 +1,44 @@
 import React from "react";
-import Image from "next/image";
-import heroBackgroundImage from "../../../public/assets/farm/melograni.jpeg";
+import { HeroBackgroundVideo } from "./hero_background_video";
 
 interface HeroProps {
-  title: string;
-  subtitle?: string;
-  overlayColor?: string;
+  headline: string;
   text?: string;
+  overlayColor?: string;
   children?: React.ReactNode;
 }
 
 export default function Hero({
-  title,
-  subtitle,
-  overlayColor,
+  headline,
   text,
+  overlayColor,
   children,
 }: HeroProps) {
   return (
     <div className="relative h-screen w-full overflow-hidden">
-      <Image
-        src={heroBackgroundImage}
-        alt="Hero background"
-        fill
-        sizes="100%"
-        className="blur-sm object-cover"
-      />
+      <HeroBackgroundVideo />
       <div
-        className="absolute border-0 inset-0"
+        className="absolute inset-0"
         style={{ backgroundColor: overlayColor ?? "rgba(42, 38, 34, 0.45)" }}
-      ></div>
-      <div className="md:max-2xl:px-40 px-5 md:max-2xl:pb-0 pb-20 gap-y-8 relative z-10 flex h-full flex-col items-center justify-center text-center text-brand-linen">
-        <div>
-          <h1 className="text-brand-linen mb-4 text-4xl font-bold md:max-2xl:text-6xl drop-shadow-sm">
-            {title}
+      />
+
+      {children && (
+        <div className="absolute inset-x-0 top-24 bottom-28 z-10 flex items-center justify-center px-5 md:bottom-32">
+          {children}
+        </div>
+      )}
+
+      <div className="absolute bottom-0 left-0 right-0 z-10 w-full border-t border-brand-terracotta-dark/40 bg-brand-terracotta/90 px-5 py-5 text-center shadow-soft backdrop-blur-[2px] md:px-10 md:py-6">
+        <div className="mx-auto max-w-4xl">
+          <h1 className="font-display text-2xl font-semibold text-brand-linen md:text-3xl lg:text-4xl">
+            {headline}
           </h1>
-          {subtitle && (
-            <p className="text-brand-linen/90 font-thin text-2xl italic md:text-2xl drop-shadow-sm">
-              {subtitle}
+          {text && (
+            <p className="mt-2 font-sans text-sm leading-relaxed text-brand-linen/95 md:text-base">
+              {text}
             </p>
           )}
         </div>
-        {text && <p className="text-brand-linen/90 text-xl md:text-xl drop-shadow-sm">{text}</p>}
-        {children}
       </div>
     </div>
   );

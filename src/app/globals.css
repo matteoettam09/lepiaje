@@ -45,8 +45,26 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-brand-linen text-brand-ink font-sans antialiased;
+  }
+
+  @keyframes discover-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(0.35rem);
+    }
+  }
+
+  .discover-hint {
+    animation: discover-float 2.4s ease-in-out infinite;
   }
 
   h1,

@@ -52,7 +52,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
   };
 
   return (
-    <div className="relative">
+    <div id="discover" className="relative scroll-mt-24">
       <div className="w-full">
         <div className="absolute z-10 h-full w-full inset-0 bg-[rgba(0,0,0,0.3)]"></div>
         <Image
