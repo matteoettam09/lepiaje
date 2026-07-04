@@ -3,6 +3,11 @@ import { v4 as uuidv4 } from "uuid"
 import { RoomGender } from "@/types";
 import { Property as PropertyEnum } from "@/enums";
 import { la_villa_perlata_location, la_villa_perlata_airbnb_url, la_villa_perlata_google_maps_url } from "@/constants/la_villa_perlata_location";
+import {
+    VILLA_BASE_PRICE_PER_NIGHT,
+    VILLA_EXTRA_GUEST_PRICE,
+} from "@/constants/villa_pricing";
+import { CENTESIMO_PRICE_PER_PERSON_PER_NIGHT } from "@/constants/centesimo_pricing";
 import { al_centesimo_chilometro_booking_url, al_centesimo_chilometro_google_maps_url, al_centesimo_chilometro_location } from "@/constants/centesimo_chilometro_location";
 
 const generateBeds = (count: number, gender: string): BedType[] => Array.from({ length: count }, () => ({
@@ -52,8 +57,8 @@ export const propertySeedDataForLePiaje: Property[] = [
         id: PropertyEnum.LA_VILLA_PERLATA,
         name: "La Villa Perlata",
         location_name: "Via del Lago, 65, 01027 Montefiascone VT, Italy",
-        price_per_night: 20,
-        price_per_additional_guest: 15,
+        price_per_night: VILLA_BASE_PRICE_PER_NIGHT,
+        price_per_additional_guest: VILLA_EXTRA_GUEST_PRICE,
         description: `The accommodation is 2 km from the shores of Lake Bolsena and close to many country trails. You'll love it for its views, vast outdoor spaces, atmosphere and privacy. My place is good for couples and families (with kids).
 
 Located in the so-called "Valle Perlata", you will have the opportunity to immerse yourself in nature, crossing numerous paths and walking to the lake without being disturbed by the noise of traffic. The accommodation is framed by the farm's fields, where fruit, olives and especially grapes are produced.
@@ -162,8 +167,8 @@ The rooms are located on the second floor. You'll find both bed linens and towel
         id: PropertyEnum.AL_CENTESIMO_CHILOMETRO,
         name: "Al Centesimo Chilometro",
         location_name: "164 Via Asinello, 01027 Montefiascone, Italy",
-        price_per_night: 20,
-        price_per_additional_guest: 13,
+        price_per_night: CENTESIMO_PRICE_PER_PERSON_PER_NIGHT,
+        price_per_additional_guest: 0,
         description: `Located in Montefiascone, Al Centesimo Chilometro — Ristoro del Pellegrino welcomes pilgrims and travellers with a garden, free private parking, and a shared lounge. A practical stop along the Via Francigena.`,
         rooms: [...roomSeedDataForAlCentesimoChilometroFemale.map(bed => bed.uuid), ...roomSeedDataForAlCentesimoChilometroMale.map(bed => bed.uuid)],
         room_features: [

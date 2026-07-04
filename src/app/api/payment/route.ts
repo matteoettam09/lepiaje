@@ -7,6 +7,9 @@ import { createPendingBooking } from "@/lib/booking/bookingService";
 import { computeBookingPrice } from "@/lib/payments/pricing";
 import { getStripeClient } from "@/lib/payments/stripeClient";
 import { createBookingPaymentIntent } from "@/lib/payments/createBookingPaymentIntent";
+import { withGuestCount, countBookingGuests } from "@/lib/booking/guestCount";
+import { VILLA_MAX_GUESTS } from "@/constants/villa_pricing";
+import { Property as PropertyEnum } from "@/enums";
 
 const responseHandler = new ResponseHandler();
 
@@ -24,14 +27,28 @@ export async function POST(req: Request) {
     }
 
     try {
-        const { bookingData }: { bookingData: BookingType } = await req.json();
+        const { bookingData: rawBookingData }: { bookingData: BookingType } =
+            await req.json();
+        const bookingData = withGuestCount(rawBookingData);
 
-        if (!bookingData?.bookerEmail || !bookingData.checkIn || !bookingData.checkOut) {
+        if (!bookingData.bookerEmail || !bookingData.checkIn || !bookingData.checkOut) {
             return responseHandler.respond({
                 status: HttpStatusCode.BAD_REQUEST,
                 error: true,
                 errorDetails: "Missing booking data",
                 message: "Invalid booking request",
+            });
+        }
+
+        if (
+            bookingData.propertyId === PropertyEnum.LA_VILLA_PERLATA &&
+            countBookingGuests(bookingData) > VILLA_MAX_GUESTS
+        ) {
+            return responseHandler.respond({
+                status: HttpStatusCode.BAD_REQUEST,
+                error: true,
+                errorDetails: `Maximum ${VILLA_MAX_GUESTS} guests for La Villa Perlata`,
+                message: "Too many guests",
             });
         }
 

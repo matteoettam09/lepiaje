@@ -111,10 +111,6 @@
         }
     },
     "about_us_page": {
-        "hero": {
-            "title": "La Nostra Storia in Tuscia",
-            "sub_title": "Azienda agricola, ospitalità e sapori del Lago di Bolsena"
-        },
         "our_mission": {
             "title": "La Nostra Missione",
             "main_text": "A Le Piaje uniamo l'agricoltura attiva a un'ospitalità autentica. Invitiamo gli ospiti a vivere la nostra terra attraverso soggiorni in campagna, accoglienza per pellegrini sulla Via Francigena e i sapori genuini della nostra azienda.",
@@ -122,19 +118,6 @@
             "bullet_point_two": "Offrire soggiorni agriturismo autentici radicati nella nostra famiglia contadina",
             "bullet_point_three": "Accogliere pellegrini e viaggiatori con ospitalità semplice e sincera",
             "bullet_point_four": "Produrre e condividere cibo artigianale dal nostro orto, vigneto e oliveto"
-        },
-        "life_gallery": {
-            "title": "La Vita a Le Piaje",
-            "tabs": {
-                "meet_us": "Conoscici",
-                "farm": "Fattoria e Terra",
-                "guests_events": "Ospiti ed Eventi"
-            },
-            "captions": {
-                "meet_us": "La famiglia e le persone di Le Piaje — un'accoglienza come a casa.",
-                "farm": "Vigneti, oliveti e orto biologico al centro di tutto ciò che facciamo.",
-                "guests_events": "Convivialità, giornate al lago, eventi e soggiorni che sembrano casa."
-            }
         },
         "book_ctas": {
             "villa": "Prenota La Villa Perlata",
@@ -155,6 +138,9 @@
     },
     "booking": {
         "per_night": "/ notte",
+        "per_person_per_night": "/ persona / notte",
+        "price_per_night_label": "Prezzo per notte:",
+        "price_per_person_per_night": "Prezzo per persona per notte:",
         "pick_dates": "Seleziona date",
         "availability": "Disponibilità",
         "male_beds": "Posti letto maschili disponibili",
@@ -191,6 +177,11 @@
         "places": {
             "villa_perlata": {
                 "description": "La struttura si trova a 2 km dalle rive del Lago di Bolsena, vicino a numerosi sentieri di campagna. La amerete per la vista, gli ampi spazi all'aperto, l'atmosfera e la privacy. Il mio alloggio è adatto a coppie e famiglie (con bambini).\n\nSituata nella cosiddetta \"Valle Perlata\", avrete la possibilità di immergervi nella natura, percorrendo numerosi sentieri e raggiungendo il lago a piedi senza essere disturbati dal rumore del traffico. La struttura è incorniciata dai campi dell'azienda agricola, dove si producono frutta, olive e soprattutto uva.\n\nOltre al giardino, potrete passeggiare tra i melograni e gli oliveti davanti alla casa e tra i filari dei due vigneti alla sua sinistra, da cui godere di una vista magnifica. Quando la stagione lo permette, potrete raccogliere i prodotti dell'orto e degli alberi da frutto coltivati con metodo biologico.\n\nLe camere si trovano al secondo piano. Troverete sia la biancheria da letto che gli asciugamani. Le utenze sono incluse nel prezzo."
+            },
+            "centesimo": {
+                "description": "Al Centesimo Chilometro — Ristoro del Pellegrino si trova a Montefiascone, una delle tappe storiche della Via Francigena, l'antica strada di pellegrinaggio da Canterbury a Roma. Per secoli, i viandanti hanno attraversato a piedi le colline della Tuscia in cerca di cibo, riposo e riparo prima dell'ultimo tratto verso la Città Eterna.\n\nQuella tradizione di accoglienza continua anche oggi. Offriamo un'ospitalità semplice e sincera a pellegrini e viaggiatori: letti in dormitorio separati per uomini e donne, un giardino dove fermarsi, parcheggio privato gratuito e una sala comune dove si scambiano storie di cammino davanti a un pasto o un bicchiere di vino.\n\nChe stiate percorrendo la Francigena o esplorando il Lago di Bolsena e i vigneti di Montefiascone, il nostro ostello è una base pratica e autentica nel cuore della Tuscia.",
+                "francigena_link_label": "Scopri di più sulla Via Francigena",
+                "francigena_url": "https://www.viefrancigene.org/it/news/introduzione"
             }
         }
     },

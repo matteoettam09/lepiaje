@@ -36,14 +36,12 @@ export default async function PropertyPage({
     );
   }
   const waze = open_location_on_waze(property.location);
-  const tusciaPlaces = await getTranslations("tuscia_page.places");
   const propertyPlaces = await getTranslations("property_page.places");
-  const description =
+  const isCentesimo = property.id === PropertyEnum.AL_CENTESIMO_CHILOMETRO;
+  const villaDescription =
     property.id === PropertyEnum.LA_VILLA_PERLATA
       ? propertyPlaces("villa_perlata.description")
-      : property.id === PropertyEnum.AL_CENTESIMO_CHILOMETRO
-        ? tusciaPlaces("centesimo.about")
-        : property.description;
+      : property.description;
 
   return (
     <div className="container mx-auto px-4 pt-28 pb-16">
@@ -61,9 +59,26 @@ export default async function PropertyPage({
             <h2 className="text-2xl text-brand-ink font-bold mb-4">
               Description
             </h2>
-            <p className="whitespace-pre-line text-brand-muted">{description}</p>
+            {isCentesimo ? (
+              <>
+                <p className="whitespace-pre-line text-brand-muted">
+                  {propertyPlaces("centesimo.description")}
+                </p>
+                <a
+                  href={propertyPlaces("centesimo.francigena_url")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-block text-sm font-semibold text-brand-terracotta transition-colors hover:text-brand-terracotta-dark hover:underline"
+                >
+                  {propertyPlaces("centesimo.francigena_link_label")}
+                </a>
+              </>
+            ) : (
+              <p className="whitespace-pre-line text-brand-muted">
+                {villaDescription}
+              </p>
+            )}
           </div>
-          {/* TODO<> add reviews here</> */}
         </div>
 
         <div className="md:max-2xl:order-2 order-1">
@@ -74,7 +89,9 @@ export default async function PropertyPage({
             propertyId={property.id}
             propertyName={property.name}
             isLaVillaPerlata={isLaVillaPerlata}
-            pricePerAdditionalGuest={property.price_per_additional_guest}
+            {...(!isCentesimo && {
+              pricePerAdditionalGuest: property.price_per_additional_guest,
+            })}
           />
         </div>
       </div>

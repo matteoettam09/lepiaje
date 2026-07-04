@@ -7,6 +7,9 @@ import {
     confirmBookingImmediately,
     createPendingBooking,
 } from "@/lib/booking/bookingService";
+import { withGuestCount, countBookingGuests } from "@/lib/booking/guestCount";
+import { VILLA_MAX_GUESTS } from "@/constants/villa_pricing";
+import { Property as PropertyEnum } from "@/enums";
 
 export async function POST(request: Request) {
     const responseHandler = new ResponseHandler();
@@ -22,7 +25,7 @@ export async function POST(request: Request) {
         }
 
         const body = await request.json();
-        const booking: BookingType = body;
+        const booking: BookingType = withGuestCount(body);
         const mode: "block" | "pending" = body.mode === "block" ? "block" : "pending";
 
         if (!booking.checkIn || !booking.checkOut || !booking.bookerEmail || !booking.numberOfGuests || !booking.propertyName) {
@@ -30,6 +33,18 @@ export async function POST(request: Request) {
                 error: true,
                 errorDetails: `Missing required fields in booking ${JSON.stringify(booking)}`,
                 message: "Missing required booking details",
+                status: HttpStatusCode.BAD_REQUEST,
+            });
+        }
+
+        if (
+            booking.propertyId === PropertyEnum.LA_VILLA_PERLATA &&
+            countBookingGuests(booking) > VILLA_MAX_GUESTS
+        ) {
+            return responseHandler.respond({
+                error: true,
+                errorDetails: `Maximum ${VILLA_MAX_GUESTS} guests for La Villa Perlata`,
+                message: "Too many guests",
                 status: HttpStatusCode.BAD_REQUEST,
             });
         }

@@ -2,7 +2,7 @@
 import * as Yup from "yup";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import Link from "next/link";
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import GuestList from "./property_guest_list";
-import { format, addDays } from "date-fns";
+import { format } from "date-fns";
 import { useLocale, useTranslations } from "next-intl";
 import { it, enUS } from "react-day-picker/locale";
 import { BookingType } from "@/types";
@@ -29,6 +29,15 @@ import {
   processAvailabilityForDates,
   DateRange as AvailDateRange,
 } from "./availabilityUtils";
+import { advanceBookingDateSelection } from "@/lib/booking/dateSelection";
+import { countBookingGuests } from "@/lib/booking/guestCount";
+import { Property as PropertyEnum } from "@/enums";
+import {
+    VILLA_BASE_PRICE_PER_NIGHT,
+    VILLA_EXTRA_GUEST_PRICE,
+    VILLA_MAX_GUESTS,
+} from "@/constants/villa_pricing";
+import { CENTESIMO_PRICE_PER_PERSON_PER_NIGHT } from "@/constants/centesimo_pricing";
 interface PropertyBookingProps {
   price: number;
   airbnb?: string;
@@ -36,7 +45,7 @@ interface PropertyBookingProps {
   propertyName: string;
   booking?: string;
   isLaVillaPerlata?: boolean;
-  pricePerAdditionalGuest: number;
+  pricePerAdditionalGuest?: number;
 }
 const validationSchema = Yup.object().shape({
   bookerName: Yup.string().required("Booker name is required"),
@@ -79,10 +88,16 @@ export function PropertyBooking({
   booking,
   isLaVillaPerlata,
 }: PropertyBookingProps) {
-  const [dates, setDates] = useState<AvailDateRange | null>({
-    from: new Date(),
-    to: null,
-  });
+  const isCentesimo = propertyId === PropertyEnum.AL_CENTESIMO_CHILOMETRO;
+  const effectiveBasePrice = isLaVillaPerlata
+    ? VILLA_BASE_PRICE_PER_NIGHT
+    : isCentesimo
+      ? CENTESIMO_PRICE_PER_PERSON_PER_NIGHT
+      : price;
+  const effectiveExtraGuestPrice = isLaVillaPerlata
+    ? VILLA_EXTRA_GUEST_PRICE
+    : (pricePerAdditionalGuest ?? 0);
+  const [dates, setDates] = useState<AvailDateRange | null>(null);
   const [hasOverlap, setHasOverlap] = useState<boolean>(false);
   const [guestList, setGuestList] = useState<
     { name: string; gender: string }[]
@@ -102,6 +117,22 @@ export function PropertyBooking({
   const [availableMixedBeds, setAvailableMixedBeds] = useState(0);
   const { beds, loading } = useAvailability(propertyId);
 
+  const totalHostelBeds =
+    (beds?.male_rooms?.length ?? 0) + (beds?.female_rooms?.length ?? 0);
+
+  const handleDateSelect = (range: DateRange | undefined) => {
+    setDates((prev) => advanceBookingDateSelection(prev, range));
+  };
+
+  const maxGuests = isLaVillaPerlata
+    ? VILLA_MAX_GUESTS
+    : Math.max(
+        1,
+        availableMaleBeds + availableFemaleBeds > 0
+          ? availableMaleBeds + availableFemaleBeds
+          : totalHostelBeds
+      );
+
   useEffect(() => {
     if (!beds || !dates?.from || !dates?.to) return;
 
@@ -119,27 +150,27 @@ export function PropertyBooking({
   }, [beds, dates, propertyId, t]);
 
   useEffect(() => {
-    if (dates?.from && (!dates.to || dates.to <= dates.from)) {
-      setDates((prev) => {
-        const from = prev?.from ?? new Date();
-        return {
-          from,
-          to: addDays(from, 1),
-        };
-      });
+    if (!dates?.from || !dates?.to) {
+      setPriceDetails(null);
+      return;
     }
-  }, [dates?.from, dates?.to]);
 
-  useEffect(() => {
     const pricing = calculate_price(
       dates,
-      price,
-      pricePerAdditionalGuest,
-      guestList.length + 1
+      effectiveBasePrice,
+      isCentesimo ? 0 : effectiveExtraGuestPrice,
+      countBookingGuests({ guests: guestList }),
+      propertyId
     );
     setPriceDetails(pricing);
-    // eslint-disable-next-line
-  }, [dates, guestList]);
+  }, [
+    dates,
+    guestList,
+    effectiveBasePrice,
+    effectiveExtraGuestPrice,
+    propertyId,
+  ]);
+
   useEffect(() => {
     if (isLaVillaPerlata) {
       setBookerGender("mixed");
@@ -173,7 +204,7 @@ export function PropertyBooking({
         check_out: (dates?.to as Date) || undefined,
       };
     }),
-    numberOfGuests: guestList.length + 1, //TODO check if it is better to add it here or dynamically on email and booking schema
+    numberOfGuests: countBookingGuests({ guests: guestList }),
     totalPaid: priceDetails?.totalPrice || 0,
     bookerEmail,
     bookerPhone,
@@ -184,7 +215,8 @@ export function PropertyBooking({
   return (
     <div className="border rounded-lg p-6">
       <h2 className="text-2xl text-brand-ink font-bold mb-4">
-        €{price} {t("per_night")}
+        €{effectiveBasePrice}{" "}
+        {isCentesimo ? t("per_person_per_night") : t("per_night")}
       </h2>
       <div className="space-y-4">
         <Popover>
@@ -223,9 +255,7 @@ export function PropertyBooking({
                 from: (dates?.from as Date) || undefined,
                 to: (dates?.to as Date) || undefined,
               }}
-              onSelect={
-                setDates as Dispatch<SetStateAction<DateRange | undefined>>
-              }
+              onSelect={handleDateSelect}
               numberOfMonths={2}
               loading={loading}
               datesBlocked={unAvailableDates}
@@ -319,12 +349,9 @@ export function PropertyBooking({
                   </div>
 
                   <div>
-                    <div className="my-2 flex items-center justify-between gap-x-2">
-                      <label className="block text-brand-muted text-sm font-medium">
-                        {t("your_email")}:
-                      </label>
-                      <label className="text-sm text-red-500">*{t("required")}</label>
-                    </div>
+                    <label className="block text-brand-muted text-sm font-medium my-2">
+                      {t("your_email")}:
+                    </label>
                     <Field
                       type="email"
                       name="bookerEmail"
@@ -365,18 +392,22 @@ export function PropertyBooking({
         </div>
 
         <GuestList
-          maxGuests={
-            isLaVillaPerlata ? 3 : availableFemaleBeds + availableMaleBeds
-          }
-          isLaVillaPerlata={isLaVillaPerlata!}
+          maxGuests={maxGuests}
+          isLaVillaPerlata={Boolean(isLaVillaPerlata)}
           guestList={guestList}
           setGuestList={setGuestList}
         />
 
         <PriceBreakdown
           priceDetails={priceDetails}
-          pricePerGuest={pricePerAdditionalGuest}
-          pricePerNight={price}
+          pricePerNight={effectiveBasePrice}
+          pricePerGuest={effectiveExtraGuestPrice}
+          showAdditionalGuestPrice={!isCentesimo}
+          pricePerNightLabel={
+            isCentesimo
+              ? t("price_per_person_per_night")
+              : t("price_per_night_label")
+          }
         />
 
         <Button

@@ -11,16 +11,31 @@ vi.mock("@/models/Property", () => ({
 }));
 
 describe("computeBookingPrice", () => {
-    const baseBooking: BookingType = {
+    const hostelBooking: BookingType = {
         bookerGender: "male",
+        propertyName: "Al Centesimo Chilometro",
+        propertyId: PropertyEnum.AL_CENTESIMO_CHILOMETRO,
+        checkIn: new Date("2026-06-01"),
+        checkOut: new Date("2026-06-03"),
+        checkInTime: "15:00",
+        checkOutTime: "11:00",
+        numberOfGuests: 2,
+        guests: [{ name: "Extra Guest", gender: "female" }],
+    };
+
+    const villaBooking: BookingType = {
+        bookerGender: "mixed",
         propertyName: "La Villa Perlata",
         propertyId: PropertyEnum.LA_VILLA_PERLATA,
         checkIn: new Date("2026-06-01"),
         checkOut: new Date("2026-06-03"),
         checkInTime: "15:00",
         checkOutTime: "11:00",
-        numberOfGuests: 2,
-        guests: [],
+        numberOfGuests: 3,
+        guests: [
+            { name: "Guest 2", gender: "mixed" },
+            { name: "Guest 3", gender: "mixed" },
+        ],
     };
 
     beforeEach(() => {
@@ -30,22 +45,50 @@ describe("computeBookingPrice", () => {
     it("returns error when property is not found", async () => {
         vi.mocked(Property.findOne).mockResolvedValue(null);
 
-        const result = await computeBookingPrice(baseBooking);
+        const result = await computeBookingPrice(hostelBooking);
 
         expect(result.totalPrice).toBe(0);
         expect(result.error).toBe("Property not found");
     });
 
-    it("calculates total price from property rates and guest count", async () => {
+    it("calculates Centesimo price per person per night", async () => {
         vi.mocked(Property.findOne).mockResolvedValue({
-            price_per_night: 20,
-            price_per_additional_guest: 15,
+            price_per_night: 99,
+            price_per_additional_guest: 99,
         } as Awaited<ReturnType<typeof Property.findOne>>);
 
-        const result = await computeBookingPrice(baseBooking);
+        const result = await computeBookingPrice(hostelBooking);
 
         expect(result.error).toBeUndefined();
-        expect(result.totalPrice).toBe(2 * (20 + 15));
+        expect(result.totalPrice).toBe(2 * 2 * 25);
+    });
+
+    it("derives guest count from guests array, ignoring client numberOfGuests", async () => {
+        vi.mocked(Property.findOne).mockResolvedValue({
+            price_per_night: 99,
+            price_per_additional_guest: 99,
+        } as Awaited<ReturnType<typeof Property.findOne>>);
+
+        const result = await computeBookingPrice({
+            ...hostelBooking,
+            numberOfGuests: 99,
+            guests: [{ name: "Extra Guest", gender: "female" }],
+        });
+
+        expect(result.error).toBeUndefined();
+        expect(result.totalPrice).toBe(2 * 2 * 25);
+    });
+
+    it("uses villa pricing from the third guest", async () => {
+        vi.mocked(Property.findOne).mockResolvedValue({
+            price_per_night: 175,
+            price_per_additional_guest: 50,
+        } as Awaited<ReturnType<typeof Property.findOne>>);
+
+        const result = await computeBookingPrice(villaBooking);
+
+        expect(result.error).toBeUndefined();
+        expect(result.totalPrice).toBe(2 * (175 + 50));
     });
 
     it("returns error when dates are missing", async () => {
@@ -55,7 +98,7 @@ describe("computeBookingPrice", () => {
         } as Awaited<ReturnType<typeof Property.findOne>>);
 
         const result = await computeBookingPrice({
-            ...baseBooking,
+            ...hostelBooking,
             checkIn: undefined,
             checkOut: undefined,
         });

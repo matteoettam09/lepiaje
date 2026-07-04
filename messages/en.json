@@ -111,10 +111,6 @@
         }
     },
     "about_us_page": {
-        "hero": {
-            "title": "Our Story in Tuscia",
-            "sub_title": "Farm, hospitality, and the flavors of Lake Bolsena"
-        },
         "our_mission": {
             "title": "Our Mission",
             "main_text": "At Le Piaje we combine working agriculture with warm hospitality. We invite guests to experience our land through stays in the countryside, pilgrim hospitality on the Via Francigena, and the authentic tastes of our farm.",
@@ -122,19 +118,6 @@
             "bullet_point_two": "Offer genuine agriturismo stays rooted in our family farm",
             "bullet_point_three": "Welcome pilgrims and travelers with simple, honest hospitality",
             "bullet_point_four": "Produce and share homemade food from our garden, vineyard, and olive groves"
-        },
-        "life_gallery": {
-            "title": "Life at Le Piaje",
-            "tabs": {
-                "meet_us": "Meet Us",
-                "farm": "Farm & Land",
-                "guests_events": "Guests & Events"
-            },
-            "captions": {
-                "meet_us": "The family and hands behind Le Piaje — welcoming you as one of our own.",
-                "farm": "Vineyards, olive groves, and kitchen gardens at the heart of everything we do.",
-                "guests_events": "Shared meals, lake days, celebrations, and stays that feel like coming home."
-            }
         },
         "book_ctas": {
             "villa": "Book La Villa Perlata",
@@ -155,6 +138,9 @@
     },
     "booking": {
         "per_night": "/ night",
+        "per_person_per_night": "/ person / night",
+        "price_per_night_label": "Price per night:",
+        "price_per_person_per_night": "Price per person per night:",
         "pick_dates": "Pick dates",
         "availability": "Availability",
         "male_beds": "Male beds available",
@@ -191,6 +177,11 @@
         "places": {
             "villa_perlata": {
                 "description": "The accommodation is 2 km from the shores of Lake Bolsena and close to many country trails. You'll love it for its views, vast outdoor spaces, atmosphere and privacy. My place is good for couples and families (with kids).\n\nLocated in the so-called \"Valle Perlata\", you will have the opportunity to immerse yourself in nature, crossing numerous paths and walking to the lake without being disturbed by the noise of traffic. The accommodation is framed by the farm's fields, where fruit, olives and especially grapes are produced.\n\nIn addition to the garden, you can walk among the pomegranate and olive groves in front of the house and among the rows of the two vineyards to the left of it, where you can enjoy a magnificent view. If the season allows, you can harvest the produce from the garden and the organically grown fruit trees.\n\nThe rooms are located on the second floor. You'll find both bed linens and towels. Utilities are included in the price."
+            },
+            "centesimo": {
+                "description": "Al Centesimo Chilometro — Ristoro del Pellegrino sits in Montefiascone, one of the historic stopping points on the Via Francigena, the great medieval pilgrimage route from Canterbury to Rome. For centuries, walkers crossed the hills of Tuscia on foot, seeking food, rest, and shelter before the final stretch toward the Eternal City.\n\nThat tradition of welcome continues here today. We offer simple, honest hospitality for pilgrims and travellers: dormitory beds for men and women, a garden to pause in, free private parking, and a shared lounge where stories from the road are exchanged over a meal or a glass of wine.\n\nWhether you are walking the Francigena or exploring Lake Bolsena and the vineyards of Montefiascone, our hostel is a practical, genuine base in the heart of Tuscia.",
+                "francigena_link_label": "Learn more about the Via Francigena",
+                "francigena_url": "https://www.viefrancigene.org/en/news/introduction"
             }
         }
     },
