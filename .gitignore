@@ -42,4 +42,4 @@ yarn-error.log*
 next-env.d.ts
 
 # hero source (commit optimized mp4 + poster only)
-public/assets/villa_perlata/esterni/hero_video.mov
+public/assets/hero_video.mov

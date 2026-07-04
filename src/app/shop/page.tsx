@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useTranslations, useLocale } from "next-intl";
 import { ProductType, CartItem } from "@/types";
 import { Button } from "@/components/ui/button";
+import shopHero from "../../../public/assets/barbecue.jpg";
 
 let stripePromise: ReturnType<typeof loadStripe> | null = null;
 
@@ -162,9 +164,22 @@ export default function ShopPage() {
     return (
         <div className="min-h-screen bg-brand-linen text-brand-ink pt-28 pb-16 px-4">
             <div className="max-w-5xl mx-auto">
-                <header className="text-center mb-12">
-                    <h1 className="text-4xl font-bold text-brand-ink mb-2">{t("title")}</h1>
-                    <p className="text-brand-muted">{t("subtitle")}</p>
+                <header className="relative mb-12 h-[240px] overflow-hidden rounded-xl md:h-[320px]">
+                    <Image
+                        src={shopHero}
+                        alt=""
+                        fill
+                        priority
+                        sizes="(max-width: 768px) 100vw, 1024px"
+                        className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-brand-ink/50" />
+                    <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
+                        <h1 className="text-4xl font-bold text-brand-linen mb-2">
+                            {t("title")}
+                        </h1>
+                        <p className="text-brand-linen/90">{t("subtitle")}</p>
+                    </div>
                 </header>
 
                 {loading && <p className="text-center">Loading...</p>}

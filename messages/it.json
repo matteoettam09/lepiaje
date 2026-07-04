@@ -119,16 +119,49 @@
             "bullet_point_three": "Accogliere pellegrini e viaggiatori con ospitalità semplice e sincera",
             "bullet_point_four": "Produrre e condividere cibo artigianale dal nostro orto, vigneto e oliveto"
         },
-        "book_ctas": {
-            "villa": "Prenota La Villa Perlata",
-            "hostel": "Prenota l'Ostello del Pellegrino"
+        "our_values": {
+            "title": "I Nostri Valori",
+            "trust_title": "Fiducia",
+            "trust_description": "Manteniamo le promesse verso ospiti, pellegrini e territorio: prezzi chiari, comunicazione trasparente e un'accoglienza su cui poter contare in ogni momento del soggiorno.",
+            "collaboration_title": "Collaborazione",
+            "collaboration_description": "Lavoriamo insieme come famiglia e con gli ospiti, i vicini e la comunità locale — condividendo la tavola, l'orto e le tradizioni della Tuscia.",
+            "innovation_title": "Innovazione",
+            "innovation_description": "Rispettiamo la tradizione cercando modi concreti di migliorare — dall'agricoltura sostenibile all'accoglienza dei pellegrini sulla Via Francigena con cura e semplicità.",
+            "passion_title": "Passione",
+            "passion_description": "L'amore per questa terra, per la nostra fattoria e per chi ci visita guida ogni nostra scelta — dalla cura dei vigneti a un letto caldo dopo una lunga camminata."
+        },
+        "our_history": {
+            "title": "La Nostra Storia",
+            "image_alt": "Ingresso de Le Piaje",
+            "milestones": [
+                {
+                    "year": "1953",
+                    "event": "Viene impiantato il primo vigneto di famiglia sulle colline sopra il Lago di Bolsena."
+                },
+                {
+                    "year": "1965",
+                    "event": "Nasce il primo oliveto di famiglia, in Valle Perlata."
+                },
+                {
+                    "year": "1990",
+                    "event": "Le Piaje inizia a produrre frutta in azienda — una tradizione che condividiamo ancora oggi con i nostri ospiti."
+                },
+                {
+                    "year": "2013",
+                    "event": "Apre La Villa Perlata, la nostra casa vacanze tra vigneti e oliveti."
+                },
+                {
+                    "year": "2021",
+                    "event": "Apre il Ristoro del Pellegrino ad Al Centesimo Chilometro, accoglienza per i camminatori della Via Francigena a Montefiascone."
+                }
+            ]
         }
     },
     "experiences_page": {
         "hero_title": "Esperienze a Le Piaje",
         "hero_subtitle": "Scopri la fattoria, la terra e le tradizioni della Tuscia",
         "farm_tours_title": "Passeggiate in Fattoria e Vigneto",
-        "farm_tours_text": "Passeggia tra i nostri vigneti, oliveti e melograni. Quando la stagione lo permette, raccogli prodotti biologici dall'orto e scopri la vita in una fattoria attiva nella Valle della Perla, vicino al Lago di Bolsena.",
+        "farm_tours_text": "Passeggia tra i nostri vigneti, oliveti e melograni. Quando la stagione lo permette, raccogli prodotti biologici dall'orto e scopri la vita in una fattoria attiva in Valle Perlata, vicino al Lago di Bolsena.",
         "pilgrim_title": "Ristoro del Pellegrino",
         "pilgrim_text": "Al Centesimo Chilometro — Ristoro del Pellegrino — accoglie i camminatori della Via Francigena con dormitori, cucina condivisa e una piccola cappella.",
         "tasting_title": "Sapori Artigianali",
@@ -183,7 +216,11 @@
                 "francigena_link_label": "Scopri di più sulla Via Francigena",
                 "francigena_url": "https://www.viefrancigene.org/it/news/introduzione"
             }
-        }
+        },
+        "show_all_photos": "Mostra tutte le foto",
+        "photo_count": "{current} / {total}",
+        "more_photos": "+{count} foto",
+        "no_photos": "Nessuna foto disponibile"
     },
     "tuscia_page": {
         "link": "Scopri di più",

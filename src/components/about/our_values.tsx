@@ -1,34 +1,37 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Shield, Users, Lightbulb, Heart, LucideIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
 
-const values = [
+const VALUE_KEYS = [
   {
     icon: Shield,
-    title: "Trust",
-    description: "some words about trust here",
+    titleKey: "trust_title",
+    descriptionKey: "trust_description",
   },
   {
     icon: Users,
-    title: "Collaboration",
-    description: "some words about collaboration here",
+    titleKey: "collaboration_title",
+    descriptionKey: "collaboration_description",
   },
   {
     icon: Lightbulb,
-    title: "Innovation",
-    description: "some words about Innovation here",
+    titleKey: "innovation_title",
+    descriptionKey: "innovation_description",
   },
   {
     icon: Heart,
-    title: "Passion",
-    description: "some words about passion here",
+    titleKey: "passion_title",
+    descriptionKey: "passion_description",
   },
-];
+] as const;
 
 export function OurValues() {
+  const t = useTranslations("about_us_page.our_values");
+
   return (
     <AnimateOnScroll index={3} className="py-16 bg-brand-stone">
       <div className="container mx-auto px-4">
@@ -38,11 +41,17 @@ export function OurValues() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Our Values
+          {t("title")}
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {values.map((value, index) => (
-            <ValueCard key={index} value={value} index={index} />
+          {VALUE_KEYS.map((value, index) => (
+            <ValueCard
+              key={value.titleKey}
+              icon={value.icon}
+              title={t(value.titleKey)}
+              description={t(value.descriptionKey)}
+              index={index}
+            />
           ))}
         </div>
       </div>
@@ -51,10 +60,14 @@ export function OurValues() {
 }
 
 function ValueCard({
-  value,
+  icon: Icon,
+  title,
+  description,
   index,
 }: {
-  value: { icon: LucideIcon; title: string; description: string };
+  icon: LucideIcon;
+  title: string;
+  description: string;
   index: number;
 }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -72,10 +85,10 @@ function ValueCard({
         animate={{ scale: isHovered ? 1.1 : 1 }}
         transition={{ duration: 0.3 }}
       >
-        <value.icon className="w-16 h-16 mx-auto mb-4 text-brand-terracotta" />
+        <Icon className="w-16 h-16 mx-auto mb-4 text-brand-terracotta" />
       </motion.div>
-      <h3 className="font-bold text-xl mb-2 text-brand-ink">{value.title}</h3>
-      <p className="text-brand-muted">{value.description}</p>
+      <h3 className="font-bold text-xl mb-2 text-brand-ink">{title}</h3>
+      <p className="text-brand-muted">{description}</p>
     </motion.div>
   );
 }

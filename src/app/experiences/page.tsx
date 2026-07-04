@@ -1,5 +1,6 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
+import golfHero from "../../../public/assets/golf1.jpeg";
 
 export default async function ExperiencesPage() {
     const t = await getTranslations("experiences_page");
@@ -14,11 +15,22 @@ export default async function ExperiencesPage() {
     return (
         <div className="min-h-screen bg-brand-linen text-brand-ink pt-28 pb-16 px-4">
             <div className="max-w-4xl mx-auto">
-                <header className="text-center mb-16">
-                    <h1 className="text-4xl md:text-5xl font-bold text-brand-ink mb-4">
-                        {t("hero_title")}
-                    </h1>
-                    <p className="text-xl text-brand-muted">{t("hero_subtitle")}</p>
+                <header className="relative mb-16 h-[280px] overflow-hidden rounded-xl md:h-[360px]">
+                    <Image
+                        src={golfHero}
+                        alt=""
+                        fill
+                        priority
+                        sizes="(max-width: 768px) 100vw, 896px"
+                        className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-brand-ink/45" />
+                    <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
+                        <h1 className="text-4xl md:text-5xl font-bold text-brand-linen mb-4">
+                            {t("hero_title")}
+                        </h1>
+                        <p className="text-xl text-brand-linen/90">{t("hero_subtitle")}</p>
+                    </div>
                 </header>
 
                 <div className="space-y-12">
@@ -33,21 +45,6 @@ export default async function ExperiencesPage() {
                             <p className="text-brand-muted leading-relaxed">{section.text}</p>
                         </section>
                     ))}
-                </div>
-
-                <div className="mt-16 text-center flex flex-wrap gap-4 justify-center">
-                    <Link
-                        href="/property/villa-perlata"
-                        className="px-6 py-3 bg-brand-terracotta text-brand-linen hover:bg-brand-terracotta-dark transition-colors font-medium"
-                    >
-                        La Villa Perlata
-                    </Link>
-                    <Link
-                        href="/shop"
-                        className="px-6 py-3 border border-brand-sand text-brand-ink hover:bg-brand-stone transition-colors font-medium"
-                    >
-                        Farm Shop
-                    </Link>
                 </div>
             </div>
         </div>
