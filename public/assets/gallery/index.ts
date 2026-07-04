@@ -15,7 +15,7 @@ import friends from "../villa_perlata/esterni/friends.png";
 import boat from "../who_we_are/boat.png";
 import ristoro from "../100esimo/ristoro.jpeg";
 import cucina from "../100esimo/cucina.jpg";
-import fuori from "../100esimo/fuori1.jpeg";
+import fuori from "../100esimo/fuori2.jpeg";
 import villaInterno from "../villa_perlata/terra/salotto.jpg";
 
 export type GalleryTab = "meet_us" | "farm" | "guests_events";

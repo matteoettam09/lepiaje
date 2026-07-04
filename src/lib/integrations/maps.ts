@@ -1,8 +1,12 @@
-export const MAP_STYLE_URL =
-    "https://tiles.openfreemap.org/styles/liberty";
+import { TUSCIA_MAP_POINTS } from "@/constants/tuscia_map_points";
+import { computeMapViewForPoints } from "./fit-map-to-points";
 
-export const DEFAULT_MAP_VIEW = {
-    latitude: 42.54536257675014,
-    longitude: 12.020030529169912,
-    zoom: 13,
-} as const;
+export const MAP_STYLE_URL =
+  "https://tiles.openfreemap.org/styles/liberty";
+
+// Approximate Tuscia map panel size on desktop (55% of a ~1280px layout).
+export const DEFAULT_MAP_VIEW = computeMapViewForPoints(TUSCIA_MAP_POINTS, {
+  width: 720,
+  height: 480,
+  padding: 40,
+});

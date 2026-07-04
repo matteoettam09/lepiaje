@@ -21,7 +21,7 @@ export function NavLinks({
         { href: "/experiences", label: t("experiences") },
         { href: "/shop", label: t("shop") },
         { href: "/about", label: t("about") },
-        { href: "/reach-us", label: t("reach_us") },
+        { href: "/tuscia", label: t("tuscia") },
     ];
 
     return (

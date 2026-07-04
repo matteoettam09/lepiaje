@@ -10,6 +10,34 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "picsum.photos",
       },
+      {
+        protocol: "https",
+        hostname: "www.archeoares.it",
+      },
+      {
+        protocol: "https",
+        hostname: "www.isolabisentina.org",
+      },
+      {
+        protocol: "https",
+        hostname: "civitadibagnoregio.cloud",
+      },
+      {
+        protocol: "https",
+        hostname: "media.cultura.gov.it",
+      },
+      {
+        protocol: "https",
+        hostname: "www.sacrobosco.eu",
+      },
+      {
+        protocol: "https",
+        hostname: "visitbolsena.it",
+      },
+      {
+        protocol: "https",
+        hostname: "www.secretumbria.it",
+      },
     ],
   },
   serverExternalPackages: ["mongoose"],

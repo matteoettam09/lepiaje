@@ -10,7 +10,7 @@
         "about": "About Us",
         "experiences": "Experiences",
         "shop": "Farm Shop",
-        "reach_us": "How to Reach Us",
+        "tuscia": "Discover Tuscia",
         "contact": "Contact us"
     },
     "footer": {
@@ -174,7 +174,7 @@
         "reference": "Booking reference",
         "email_sent": "A confirmation email has been sent to your inbox.",
         "go_home": "Go to Home",
-        "reach_us": "How to reach us"
+        "tuscia": "Discover Tuscia"
     },
     "shop_page": {
         "title": "Farm Shop",
@@ -183,5 +183,53 @@
         "checkout": "Checkout",
         "empty_cart": "Your cart is empty",
         "total": "Total"
+    },
+    "property_page": {
+        "places": {
+            "villa_perlata": {
+                "description": "The accommodation is 2 km from the shores of Lake Bolsena and close to many country trails. You'll love it for its views, vast outdoor spaces, atmosphere and privacy. My place is good for couples and families (with kids).\n\nLocated in the so-called \"Valle Perlata\", you will have the opportunity to immerse yourself in nature, crossing numerous paths and walking to the lake without being disturbed by the noise of traffic. The accommodation is framed by the farm's fields, where fruit, olives and especially grapes are produced.\n\nIn addition to the garden, you can walk among the pomegranate and olive groves in front of the house and among the rows of the two vineyards to the left of it, where you can enjoy a magnificent view. If the season allows, you can harvest the produce from the garden and the organically grown fruit trees.\n\nThe rooms are located on the second floor. You'll find both bed linens and towels. Utilities are included in the price."
+            }
+        }
+    },
+    "tuscia_page": {
+        "link": "Learn more",
+        "places": {
+            "villa_perlata": {
+                "name": "La Villa Perlata",
+                "about": "In the Pearl Valley, 2 km from Lake Bolsena. A farm stay surrounded by vineyards and olive groves — views, privacy, and country paths to the lake."
+            },
+            "centesimo": {
+                "name": "Al Centesimo Chilometro",
+                "about": "Located in Montefiascone, Al Centesimo Chilometro — Ristoro del Pellegrino welcomes pilgrims and travellers with a garden, free private parking, and a shared lounge. A practical stop along the Via Francigena."
+            },
+            "rocca_papi": {
+                "name": "Rocca dei Papi",
+                "about": "La Rocca dei Papi is the ancient fortress built by Innocent III at the end of the twelfth century. It stands 633 metres above sea level, guarding the village of Montefiascone from the top of the hill — a strategic vantage point over the surrounding countryside and Lake Bolsena."
+            },
+            "isola_bisentina": {
+                "name": "Isola Bisentina",
+                "about": "A private island in the heart of Lake Bolsena, one of Europe's largest volcanic lakes. Open to guided visits with historic churches, nature trails, and contemporary art — inhabited since Etruscan and Roman times."
+            },
+            "civita_di_bagnoregio": {
+                "name": "Civita di Bagnoregio",
+                "about": "Known as \"the dying city\", this Etruscan village perches on a tuff spur above the Valle dei Calanchi. Reachable only by a footbridge, it is one of Italy's most enchanting borghi — medieval lanes, timeless atmosphere, and breathtaking views."
+            },
+            "villa_lante": {
+                "name": "Villa Lante",
+                "about": "Renaissance villa and garden in Bagnaia, famed for its Mannerist terraces, fountains, and geometric parterres cascading down the hillside. A national museum and one of Italy's finest historic gardens."
+            },
+            "sacro_bosco": {
+                "name": "Sacro Bosco",
+                "about": "The Sacred Wood of Bomarzo — a 16th-century Mannerist garden of monstrous sculptures, temples, and inscriptions carved in volcanic rock. A surreal walk through myth, wonder, and Renaissance imagination."
+            },
+            "rocca_monaldeschi": {
+                "name": "Rocca Monaldeschi della Cervara",
+                "about": "Medieval fortress on the shores of Lake Bolsena, overlooking the town from its rocky spur. Home to a museum tracing the history of the lake and its communities."
+            },
+            "duomo_orvieto": {
+                "name": "Duomo di Orvieto",
+                "about": "Cathedral of Santa Maria Assunta — a Gothic-Romanesque masterpiece famed for its dazzling façade, Signorelli frescoes, and commanding hilltop perch above the Umbrian countryside."
+            }
+        }
     }
 }

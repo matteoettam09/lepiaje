@@ -10,7 +10,7 @@
         "about": "Chi Siamo",
         "experiences": "Esperienze",
         "shop": "Bottega",
-        "reach_us": "Come Raggiungerci",
+        "tuscia": "Scopri la Tuscia",
         "contact": "Contattaci"
     },
     "footer": {
@@ -174,7 +174,7 @@
         "reference": "Riferimento prenotazione",
         "email_sent": "Ti abbiamo inviato un'email di conferma.",
         "go_home": "Torna alla home",
-        "reach_us": "Come raggiungerci"
+        "tuscia": "Scopri la Tuscia"
     },
     "shop_page": {
         "title": "Bottega",
@@ -183,5 +183,53 @@
         "checkout": "Acquista",
         "empty_cart": "Il carrello è vuoto",
         "total": "Totale"
+    },
+    "property_page": {
+        "places": {
+            "villa_perlata": {
+                "description": "La struttura si trova a 2 km dalle rive del Lago di Bolsena, vicino a numerosi sentieri di campagna. La amerete per la vista, gli ampi spazi all'aperto, l'atmosfera e la privacy. Il mio alloggio è adatto a coppie e famiglie (con bambini).\n\nSituata nella cosiddetta \"Valle Perlata\", avrete la possibilità di immergervi nella natura, percorrendo numerosi sentieri e raggiungendo il lago a piedi senza essere disturbati dal rumore del traffico. La struttura è incorniciata dai campi dell'azienda agricola, dove si producono frutta, olive e soprattutto uva.\n\nOltre al giardino, potrete passeggiare tra i melograni e gli oliveti davanti alla casa e tra i filari dei due vigneti alla sua sinistra, da cui godere di una vista magnifica. Quando la stagione lo permette, potrete raccogliere i prodotti dell'orto e degli alberi da frutto coltivati con metodo biologico.\n\nLe camere si trovano al secondo piano. Troverete sia la biancheria da letto che gli asciugamani. Le utenze sono incluse nel prezzo."
+            }
+        }
+    },
+    "tuscia_page": {
+        "link": "Scopri di più",
+        "places": {
+            "villa_perlata": {
+                "name": "La Villa Perlata",
+                "about": "Nella Valle Perlata, a 2 km dal Lago di Bolsena. Casa vacanze tra vigneti e oliveti — panorami, privacy e sentieri di campagna fino al lago."
+            },
+            "centesimo": {
+                "name": "Al Centesimo Chilometro",
+                "about": "Situato a Montefiascone, Al Centesimo Chilometro — Ristoro del Pellegrino accoglie pellegrini e viaggiatori con un giardino, parcheggio privato gratuito e sala comune. Una tappa pratica lungo la Via Francigena."
+            },
+            "rocca_papi": {
+                "name": "Rocca dei Papi",
+                "about": "La Rocca dei Papi è l'antica fortezza costruita da Innocenzo III alla fine del XII secolo. Sorge a 633 metri sul livello del mare, a difesa del borgo di Montefiascone, in una posizione strategica che domina l'ampia area circostante e il Lago di Bolsena."
+            },
+            "isola_bisentina": {
+                "name": "Isola Bisentina",
+                "about": "Isola privata nel cuore del Lago di Bolsena, uno dei più grandi laghi vulcanici d'Europa. Visite guidate tra chiese storiche, sentieri naturalistici e arte contemporanea — abitata fin dall'epoca etrusca e romana."
+            },
+            "civita_di_bagnoregio": {
+                "name": "Civita di Bagnoregio",
+                "about": "Conosciuta come \"la città che muore\", questo borgo etrusco sorge su uno sperone tufaceo sopra la Valle dei Calanchi. Raggiungibile solo con un ponte pedonale, è uno dei borghi più affascinanti d'Italia — vicoli medievali, atmosfera senza tempo e panorami mozzafiato."
+            },
+            "villa_lante": {
+                "name": "Villa Lante",
+                "about": "Villa rinascimentale e giardino a Bagnaia, celebre per le terrazze manieriste, le fontane e i parterre geometrici che scendono lungo il pendio. Museo nazionale e uno dei più bei giardini storici d'Italia."
+            },
+            "sacro_bosco": {
+                "name": "Sacro Bosco",
+                "about": "Il Sacro Bosco di Bomarzo — giardino manierista del XVI secolo con sculture mostruose, templi e iscrizioni scolpite nella roccia vulcanica. Un passeggio surreale tra mito, meraviglia e immaginazione rinascimentale."
+            },
+            "rocca_monaldeschi": {
+                "name": "Rocca Monaldeschi della Cervara",
+                "about": "Fortezza medievale sulle rive del Lago di Bolsena, che domina il paese dal suo sperone roccioso. Ospita un museo dedicato alla storia del lago e delle sue comunità."
+            },
+            "duomo_orvieto": {
+                "name": "Duomo di Orvieto",
+                "about": "Duomo di Santa Maria Assunta — capolavoro gotico-romanico celebre per la facciata scintillante, gli affreschi di Signorelli e la posizione dominante sulla campagna umbra."
+            }
+        }
     }
 }

@@ -54,18 +54,13 @@ export const propertySeedDataForLePiaje: Property[] = [
         location_name: "Via del Lago, 65, 01027 Montefiascone VT, Italy",
         price_per_night: 20,
         price_per_additional_guest: 15,
-        description: `The accommodation is located 2km from the shores of Lake Bolsena and close to many country trails. You will love it for its views, vast outdoor spaces, atmosphere and privacy. It is suitable for couples and families (with children).
-            The space 
-            Located in the so-called "Pearl Valley", you will have the opportunity to immerse yourself in nature, crossing numerous paths and reach the lake on foot without being disturbed by the noise of traffic. The accommodation is framed by the fields of the farm, where fruits, olives and especially grapes are produced.
-            Guest access
-        
-            In addition to the garden, you can walk among the pomegranate and olive plantations in front of the house and between the rows of the two vineyards to the left of it, where you can enjoy a magnificent view.
-            If the season allows it, you can pick the products of the garden and the fruit trees of organic production.
-        
-            Other things to note
-        
-        The rooms are on the first floor. You will find both bed linen and bath linen. Consumption is included in the price.
-        `,
+        description: `The accommodation is 2 km from the shores of Lake Bolsena and close to many country trails. You'll love it for its views, vast outdoor spaces, atmosphere and privacy. My place is good for couples and families (with kids).
+
+Located in the so-called "Valle Perlata", you will have the opportunity to immerse yourself in nature, crossing numerous paths and walking to the lake without being disturbed by the noise of traffic. The accommodation is framed by the farm's fields, where fruit, olives and especially grapes are produced.
+
+In addition to the garden, you can walk among the pomegranate and olive groves in front of the house and among the rows of the two vineyards to the left of it, where you can enjoy a magnificent view. If the season allows, you can harvest the produce from the garden and the organically grown fruit trees.
+
+The rooms are located on the second floor. You'll find both bed linens and towels. Utilities are included in the price.`,
         rooms: roomSeedDataForLaVillaPerlata.map(bed => bed.uuid),
         room_features: [
             "6 guests",
@@ -169,11 +164,7 @@ export const propertySeedDataForLePiaje: Property[] = [
         location_name: "164 Via Asinello, 01027 Montefiascone, Italy",
         price_per_night: 20,
         price_per_additional_guest: 13,
-        description: `Located in Montefiascone, 18 miles from Duomo Orvieto, Al Centesimo Chilometro - Ristoro del Pellegrino has accommodations with a garden, free private parking and a shared lounge. The property is around 12 miles from Cività di Bagnoregio, 12 miles from Villa Lante and 20 miles from Bomarzo - The Monster Park. Certain accommodations at the property have a patio with a garden view.
-            With a private bathroom equipped with a shower and a hairdryer, rooms at the hostel also feature free WiFi, while certain rooms are equipped with a city view.
-        
-            Natural springs of Bagnaccio is 9.4 miles from Al Centesimo Chilometro - Ristoro del Pellegrino, while Villa Lante al Gianicolo is 12 miles from the property. Perugia San Francesco d'Assisi Airport is 60 miles away.
-            Couples in particular like the location – they rated it 8.9 for a two-person trip.`,
+        description: `Located in Montefiascone, Al Centesimo Chilometro — Ristoro del Pellegrino welcomes pilgrims and travellers with a garden, free private parking, and a shared lounge. A practical stop along the Via Francigena.`,
         rooms: [...roomSeedDataForAlCentesimoChilometroFemale.map(bed => bed.uuid), ...roomSeedDataForAlCentesimoChilometroMale.map(bed => bed.uuid)],
         room_features: [
             "Bed in 4-Bed Male Dormitory Room",

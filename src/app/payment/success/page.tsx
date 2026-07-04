@@ -48,10 +48,10 @@ function PaymentSuccessContent() {
                     {t("go_home")}
                 </Link>
                 <Link
-                    href="/reach-us"
+                    href="/tuscia"
                     className="px-6 py-2 border border-brand-sand text-brand-ink hover:bg-brand-stone font-medium transition-colors"
                 >
-                    {t("reach_us")}
+                    {t("tuscia")}
                 </Link>
             </div>
         </div>

@@ -8,10 +8,31 @@ import "react-day-picker/style.css";
 import LocaleSwitcher from "@/components/language_switcher/locale_switcher";
 import WhatsAppAndEmail from "@/components/whatsapp_email_buttons/whatsapp_email_buttons";
 import { fontDisplay, fontBody } from "@/lib/brand/fonts";
+import { getSiteUrl } from "@/lib/site-url";
+
+const siteDescription =
+  "Agriturismo in Montefiascone, Tuscia — farm stay near Lake Bolsena with two guest houses and local experiences.";
 
 export const metadata: Metadata = {
-  title: "Le Piaje",
-  description: "Azienda Agricola",
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: "Le Piaje",
+    template: "%s | Le Piaje",
+  },
+  description: siteDescription,
+  openGraph: {
+    type: "website",
+    locale: "it_IT",
+    alternateLocale: ["en_US"],
+    siteName: "Le Piaje",
+    title: "Le Piaje",
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Le Piaje",
+    description: siteDescription,
+  },
 };
 
 export default async function RootLayout({
