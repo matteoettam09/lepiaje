@@ -1,80 +1,95 @@
 import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { connection } from "@/config/db";
-import Stripe from 'stripe';
 import Log from "@/models/Log";
 import { BookingType } from "@/types";
+import { createPendingBooking } from "@/lib/booking/bookingService";
+import { computeBookingPrice } from "@/lib/payments/pricing";
+import { getStripeClient } from "@/lib/payments/stripeClient";
+import { createBookingPaymentIntent } from "@/lib/payments/createBookingPaymentIntent";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const responseHandler = new ResponseHandler();
 
 export async function POST(req: Request) {
     await connection();
+
+    const stripe = getStripeClient();
     if (!stripe) {
         return responseHandler.respond({
             status: HttpStatusCode.BAD_REQUEST,
             error: true,
-            errorDetails: `something went wrong loading stripe --> ${stripe}`,
-            message: "stripe was either null or undefined"
-        })
+            errorDetails: "Stripe failed to load",
+            message: "stripe was either null or undefined",
+        });
     }
 
     try {
-        const { amount, bookingData, bookerEmail }: { amount: number, bookingData: BookingType, bookerEmail: string } = await req.json();
+        const { bookingData }: { bookingData: BookingType } = await req.json();
 
-        if (!amount || !bookingData || !bookerEmail) {
+        if (!bookingData?.bookerEmail || !bookingData.checkIn || !bookingData.checkOut) {
             return responseHandler.respond({
                 status: HttpStatusCode.BAD_REQUEST,
                 error: true,
-                errorDetails: `the amount -> ${amount} is not valid`,
-                message: "something went wrong with getting the amount"
-            })
+                errorDetails: "Missing booking data",
+                message: "Invalid booking request",
+            });
         }
 
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: amount! * 100,
-            currency: "eur",
-            description: `Payment for booking - ${amount} EUR`,
-            metadata: {
-                amount: amount! * 100,
-                bookerEmail,
-            },
-        });
-
-        if (!paymentIntent) {
+        const { totalPrice, error: priceError } = await computeBookingPrice(bookingData);
+        if (priceError || totalPrice <= 0) {
             return responseHandler.respond({
                 status: HttpStatusCode.BAD_REQUEST,
-                message: "something went wrong creating payment intent",
-                errorDetails: `failed to create payment intent, payment intent is ${paymentIntent}`,
-                error: true
-            })
+                error: true,
+                errorDetails: priceError ?? "Invalid price",
+                message: priceError ?? "Could not compute booking price",
+            });
         }
+
+        const { booking, error: bookingError } = await createPendingBooking(
+            bookingData,
+            totalPrice
+        );
+
+        if (bookingError || !booking.uuid) {
+            return responseHandler.respond({
+                status: HttpStatusCode.BAD_REQUEST,
+                error: true,
+                errorDetails: bookingError ?? "Booking creation failed",
+                message: bookingError ?? "Dates not available",
+            });
+        }
+
+        const paymentResult = await createBookingPaymentIntent(
+            stripe,
+            booking,
+            totalPrice
+        );
 
         return responseHandler.respond({
             status: HttpStatusCode.OK,
             error: false,
             errorDetails: "n/a",
-            message: paymentIntent.client_secret!
-        })
+            message: {
+                clientSecret: paymentResult.clientSecret,
+                bookingReference: paymentResult.bookingReference,
+                amount: paymentResult.amount,
+            },
+        });
     } catch (error) {
-
-        console.log("error in creating a payment intent and charging", error, JSON.stringify(error))
+        console.log("error in creating a payment intent", error);
         const logErrorToDb = new Log({
             endpoint: "api/payment",
-            message: "something failed submitted a payment",
+            message: "something failed creating payment intent",
             requestData: JSON.stringify(error),
             occurredAt: new Date(),
-            method: "POST"
-
-        })
-        await logErrorToDb.save()
+            method: "POST",
+        });
+        await logErrorToDb.save();
         return responseHandler.respond({
             status: HttpStatusCode.INTERNAL_SERVER,
             message: "something went wrong with the payment route",
-            errorDetails: `something went wrong with creating a stripe payment. Details --> ${error} stringify ---> ${JSON.stringify(error)}`,
-            error: true
-        })
+            errorDetails: `Payment error: ${error}`,
+            error: true,
+        });
     }
 }
-
-

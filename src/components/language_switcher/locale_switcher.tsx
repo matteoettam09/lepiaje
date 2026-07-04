@@ -1,28 +1,21 @@
+"use client";
+
 import { useLocale, useTranslations } from "next-intl";
-import LocaleSwitcherSelect from "./language_switcher_select";
-import usFlag from "../../../public/assets/us_flag.jpg";
-import italyFlag from "../../../public/assets/italy_flag.png";
+import { Locale } from "@/i18n/config";
+import LanguageToggle from "./language_toggle";
 
 export default function LocaleSwitcher() {
   const t = useTranslations("locale_switcher");
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
 
   return (
-    <LocaleSwitcherSelect
-      defaultValue={locale}
-      items={[
-        {
-          value: "en",
-          label: t("en"),
-          flag: usFlag,
-        },
-        {
-          value: "it",
-          label: t("it"),
-          flag: italyFlag,
-        },
-      ]}
-      label={t("label")}
+    <LanguageToggle
+      locale={locale}
+      groupLabel={t("label")}
+      ariaLabels={{
+        en: t("en"),
+        it: t("it"),
+      }}
     />
   );
 }

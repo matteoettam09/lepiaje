@@ -4,36 +4,184 @@
         "en": "Inglese",
         "label": "Lingua"
     },
+    "nav": {
+        "villa_perlata": "La Villa Perlata",
+        "centesimo": "Al Centesimo Chilometro",
+        "about": "Chi Siamo",
+        "experiences": "Esperienze",
+        "shop": "Bottega",
+        "reach_us": "Come Raggiungerci",
+        "contact": "Contattaci"
+    },
+    "footer": {
+        "copyright": "© {year} Le Piaje. Tutti i diritti riservati."
+    },
     "landing_page": {
         "hero": {
-            "title": "Le Piaje",
-            "sub_title": "Ospitalità Genuina, come i Sapori della Terra",
-            "main_text": "Siamo una famiglia di imprenditori agricoli con un profondo impegno verso l'ospitalità e la valorizzazione del patrimonio naturale e culturale della nostra terra. Che siate viaggiatori curiosi, famiglie in cerca di relax, buongustai o amanti della natura incontaminata, Le Piaje vi aprirà le sue porte per farvi vivere un'esperienza unica. Scoprirete un mondo fatto di sapori autentici, percorsi e panorami che raccontano la storia della Tuscia."
+            "sub_title": "Dove l'accoglienza è genuina come i sapori della terra",
+            "main_text": "Un'azienda agricola di famiglia in Tuscia, dove ospitalità sincera, cibo genuino e natura incontaminata si uniscono.",
+            "cta_villa": "Prenota La Villa Perlata",
+            "cta_hostel": "Prenota l'Ostello del Pellegrino",
+            "cta_contact": "Contattaci",
+            "cta_discover": "Scopri"
         },
-        "contact_form":{
-            "title": "Contact Us In Italian",
-            "main_text": "In Italian Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.",
+        "book_ctas": {
+            "learn_more": "Scopri di più su di noi"
+        },
+        "highlights": {
+            "boat": "Il Lago di Bolsena a portata di mano",
+            "friends": "Eventi e momenti di convivialità",
+            "ristoro": "Accoglienza per i pellegrini della Francigena",
+            "farm": "Prodotti artigianali dalla nostra terra"
+        },
+        "testimonials": {
+            "title": "Cosa Dicono i Nostri Ospiti",
+            "reviews": [
+                {
+                    "name": "Adriano",
+                    "country": "Italia",
+                    "countryCode": "IT",
+                    "headline": "La casa è meravigliosa e la vista è mozzafiato.",
+                    "quote": "A pochi minuti dal lago, garantisce un'incredibile comodità. Di notte si vedono benissimo le stelle. La casa è curata e bellissima. Giuliana è stata molto gentile. Lo consiglio vivamente a chi cerca una vacanza rilassante e tranquilla. Tornerò."
+                },
+                {
+                    "name": "Alba",
+                    "country": "Spagna",
+                    "countryCode": "ES",
+                    "headline": "Posto fantastico!!!!",
+                    "quote": "La proprietaria è super gentile. C'è colazione gratuita e posti auto nella proprietà. Il tavolo e le sedie nel cortile creano uno spazio molto accogliente."
+                },
+                {
+                    "name": "Aneliya",
+                    "country": "Bulgaria",
+                    "countryCode": "BG",
+                    "headline": "È stato perfetto",
+                    "quote": "Tutto era perfetto. La proprietaria è stata molto cordiale, accogliente e disponibile per tutta la durata del soggiorno. L'alloggio era pulito, confortevole e aveva tutto il necessario. La posizione era eccellente, a pochi minuti a piedi dal centro, ideale per esplorare la zona. Abbiamo davvero apprezzato il nostro soggiorno."
+                },
+                {
+                    "name": "Tamuna",
+                    "country": "Georgia",
+                    "countryCode": "GE",
+                    "headline": "Vorrei tornarci!",
+                    "quote": "Tutto era perfetto. Sono arrivata in treno, era tardi e non c'erano autobus in stazione: l'host è venuto a prendermi in macchina gratuitamente. Il posto era davvero pulito, confortevole, con un'atmosfera familiare. Giardino carino, buona colazione… Avevo prenotato una notte e ne ho passate due; ci resterei volentieri anche una settimana intera."
+                },
+                {
+                    "name": "Magnus",
+                    "country": "Norway",
+                    "countryCode": "NO",
+                    "headline": "Ecco qui, non troverete di meglio in zona.",
+                    "quote": "Una vera scoperta in un'area altrimenti molto costosa. Vicino al paese, circa 10 minuti a piedi o un breve tragitto in auto. Gli host sono fantastici e i servizi perfetti. C'è anche una semplice colazione, caffè e succo. Con l'auto è un ottimo posto per rilassarsi dopo aver esplorato il lago e i dintorni. Il Lago di Bolsena e i paesi sulle rive sono assolutamente splendidi, senza essere invasi dalla folla. Una vera scoperta."
+                },
+                {
+                    "name": "Albert",
+                    "country": "Kazakistan",
+                    "countryCode": "KZ",
+                    "headline": "Mi è piaciuto davvero tutto.",
+                    "quote": "Una casa bella, accogliente e spaziosa, una grande proprietà dove passeggiare tra vigneti e olivi. Il Lago di Bolsena è vicino, con spiagge libere meravigliose e acqua limpida. Lo consigliamo senza riserve."
+                },
+                {
+                    "name": "Darlene",
+                    "country": "USA",
+                    "countryCode": "US",
+                    "headline": "Questa casa è un tesoro nascosto.",
+                    "quote": "Le foto dell'annuncio non rendono giustizia al posto. Abbiamo amato la vista e la tranquillità della fattoria sotto di noi. La casa corrisponde alla descrizione. Abbiamo usato la cucina, completamente attrezzata, e mangiato ogni giorno all'aperto con quella vista splendida. La posizione è a metà strada tra il lago e Montefiascone."
+                },
+                {
+                    "name": "Claire",
+                    "country": "Francia",
+                    "countryCode": "FR",
+                    "headline": "È il nostro bnb preferito in assoluto!",
+                    "quote": "Una bellissima casa spaziosa in campagna, un giardino enorme, molto privata, circondata da uliveti. Abbiamo raccolto frutta e verdura dal giardino e rilassato sul portico all'ombra. La cucina è grande e ha tutto il necessario, oltre a un ottimo macchinato del caffè con capsule incluse! L'aria condizionata in ogni stanza è stata perfetta con il caldo estivo. Ottima posizione: 5 minuti da Montefiascone con ristoranti e negozi, e pochi minuti dal lago con spiaggette per nuotare. Semplicemente fantastico, grazie!!!"
+                }
+            ]
+        },
+        "contact_form": {
+            "title": "Contattaci",
+            "main_text": "Hai domande sulla nostra azienda agricola, sugli alloggi o sui prodotti artigianali? Scrivici e ti risponderemo al più presto.",
             "form_inputs": {
-                "full_name": "name in italian",
-                "email": "email",
-                "phone": "phone",
-                "message": "message"
+                "full_name": "Nome completo",
+                "email": "Email",
+                "phone": "Telefono",
+                "message": "Messaggio"
             },
-            "submit_button": "submit"
+            "submit_button": "Invia messaggio"
         }
     },
-    "about_us_page":{
+    "about_us_page": {
         "hero": {
-            "title":"some nice catchy title in Italian",
-            "sub_title":"some nice subtitle or phrase, slogan in Italian"
+            "title": "La Nostra Storia in Tuscia",
+            "sub_title": "Azienda agricola, ospitalità e sapori del Lago di Bolsena"
         },
         "our_mission": {
-            "title":"Our Mission",
-            "main_text": "At Le Piaje, we are dedicated to providing unparalleled luxury experiences in our exquisite villa retreats. Our mission is to create unforgettable moments of relaxation, indulgence, and connection with nature for our esteemed guests.",
-              "bullet_point_one":"",
-              "bullet_point_two":"",
-              "bullet_point_three":"",
-              "bullet_point_four":""
+            "title": "La Nostra Missione",
+            "main_text": "A Le Piaje uniamo l'agricoltura attiva a un'ospitalità autentica. Invitiamo gli ospiti a vivere la nostra terra attraverso soggiorni in campagna, accoglienza per pellegrini sulla Via Francigena e i sapori genuini della nostra azienda.",
+            "bullet_point_one": "Preservare e condividere il patrimonio naturale e culturale di Montefiascone e del Lago di Bolsena",
+            "bullet_point_two": "Offrire soggiorni agriturismo autentici radicati nella nostra famiglia contadina",
+            "bullet_point_three": "Accogliere pellegrini e viaggiatori con ospitalità semplice e sincera",
+            "bullet_point_four": "Produrre e condividere cibo artigianale dal nostro orto, vigneto e oliveto"
+        },
+        "life_gallery": {
+            "title": "La Vita a Le Piaje",
+            "tabs": {
+                "meet_us": "Conoscici",
+                "farm": "Fattoria e Terra",
+                "guests_events": "Ospiti ed Eventi"
+            },
+            "captions": {
+                "meet_us": "La famiglia e le persone di Le Piaje — un'accoglienza come a casa.",
+                "farm": "Vigneti, oliveti e orto biologico al centro di tutto ciò che facciamo.",
+                "guests_events": "Convivialità, giornate al lago, eventi e soggiorni che sembrano casa."
+            }
+        },
+        "book_ctas": {
+            "villa": "Prenota La Villa Perlata",
+            "hostel": "Prenota l'Ostello del Pellegrino"
         }
+    },
+    "experiences_page": {
+        "hero_title": "Esperienze a Le Piaje",
+        "hero_subtitle": "Scopri la fattoria, la terra e le tradizioni della Tuscia",
+        "farm_tours_title": "Passeggiate in Fattoria e Vigneto",
+        "farm_tours_text": "Passeggia tra i nostri vigneti, oliveti e melograni. Quando la stagione lo permette, raccogli prodotti biologici dall'orto e scopri la vita in una fattoria attiva nella Valle della Perla, vicino al Lago di Bolsena.",
+        "pilgrim_title": "Ristoro del Pellegrino",
+        "pilgrim_text": "Al Centesimo Chilometro — Ristoro del Pellegrino — accoglie i camminatori della Via Francigena con dormitori, cucina condivisa e una piccola cappella.",
+        "tasting_title": "Sapori Artigianali",
+        "tasting_text": "Assapora i sapori autentici della nostra terra: prodotti di stagione, olio, vino e specialità della fattoria disponibili in bottega o da gustare durante il soggiorno.",
+        "tourism_title": "Esplora la Tuscia",
+        "tourism_text": "Da Orvieto e Civita di Bagnoregio a Bomarzo e le rive del Lago di Bolsena, Le Piaje è la base ideale per scoprire l'entroterra dell'Italia centrale."
+    },
+    "booking": {
+        "per_night": "/ notte",
+        "pick_dates": "Seleziona date",
+        "availability": "Disponibilità",
+        "male_beds": "Posti letto maschili disponibili",
+        "female_beds": "Posti letto femminili disponibili",
+        "max_occupancy": "Proprietà disponibile",
+        "checking_in": "Chi effettua il check-in?",
+        "your_name": "Il tuo nome",
+        "your_email": "La tua email",
+        "phone_optional": "Telefono (opzionale)",
+        "book_now": "Prenota ora!",
+        "dates_unavailable": "Le date selezionate non sono disponibili",
+        "book_airbnb": "Prenota su Airbnb",
+        "book_booking_com": "Prenota su Booking.com",
+        "gender": "Genere",
+        "required": "obbligatorio"
+    },
+    "payment": {
+        "success_title": "Pagamento riuscito!",
+        "success_message": "Grazie per il pagamento. La prenotazione è confermata!",
+        "reference": "Riferimento prenotazione",
+        "email_sent": "Ti abbiamo inviato un'email di conferma.",
+        "go_home": "Torna alla home",
+        "reach_us": "Come raggiungerci"
+    },
+    "shop_page": {
+        "title": "Bottega",
+        "subtitle": "Prodotti artigianali della nostra terra",
+        "add_to_cart": "Aggiungi al carrello",
+        "checkout": "Acquista",
+        "empty_cart": "Il carrello è vuoto",
+        "total": "Totale"
     }
 }

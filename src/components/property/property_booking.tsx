@@ -2,7 +2,7 @@
 import * as Yup from "yup";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import Link from "next/link";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/popover";
 import GuestList from "./property_guest_list";
 import { format, addDays } from "date-fns";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { it, enUS } from "react-day-picker/locale";
 import { BookingType } from "@/types";
 import { calculate_price } from "@/utils/calculate_price";
@@ -22,31 +22,13 @@ import BookingSummaryModal from "../show_booking_summary/show_booking_summary";
 import { PriceDetails } from "@/types";
 import { PriceBreakdown } from "./price_breakdown";
 import { DateRange } from "react-day-picker";
-
-interface Range {
-  from: string | null | Date;
-  to: string | null | Date;
-}
-interface Occupant {
-  check_in: string;
-  check_out: string;
-  occupants: Occupant[];
-}
-
-interface Room {
-  check_in?: string | null;
-  check_out?: string | null;
-  occupants: Occupant[];
-}
-
-interface BedsFromWebSocket {
-  // eslint-disable-next-line
-  male_rooms?: { roomUuid: string; occupants: any[] }[];
-  // eslint-disable-next-line
-  female_rooms?: { roomUuid: string; occupants: any[] }[];
-  // eslint-disable-next-line
-  mixed_rooms?: { roomUuid: string; occupants: any[] }[];
-}
+import { useAvailability } from "@/hooks/useAvailability";
+import {
+  getBlockedDateRanges,
+  isOverlapping,
+  processAvailabilityForDates,
+  DateRange as AvailDateRange,
+} from "./availabilityUtils";
 interface PropertyBookingProps {
   price: number;
   airbnb?: string;
@@ -65,6 +47,29 @@ const validationSchema = Yup.object().shape({
   bookerGender: Yup.string().required("Gender is necessary"),
 });
 
+type BookerFormValues = {
+  bookerName: string;
+  bookerEmail: string;
+  bookerPhone: string;
+  bookerGender: string;
+};
+
+function SyncBookerValues({
+  values,
+  isLaVillaPerlata,
+  onSync,
+}: {
+  values: BookerFormValues;
+  isLaVillaPerlata?: boolean;
+  onSync: (values: BookerFormValues, isLaVillaPerlata?: boolean) => void;
+}) {
+  useEffect(() => {
+    onSync(values, isLaVillaPerlata);
+  }, [values, isLaVillaPerlata, onSync]);
+
+  return null;
+}
+
 export function PropertyBooking({
   price,
   airbnb,
@@ -74,7 +79,7 @@ export function PropertyBooking({
   booking,
   isLaVillaPerlata,
 }: PropertyBookingProps) {
-  const [dates, setDates] = useState<Range | null>({
+  const [dates, setDates] = useState<AvailDateRange | null>({
     from: new Date(),
     to: null,
   });
@@ -83,6 +88,7 @@ export function PropertyBooking({
     { name: string; gender: string }[]
   >([]);
   const locale = useLocale();
+  const t = useTranslations("booking");
   const [bookerEmail, setBookerEmail] = useState<string>("");
   const [bookerPhone, setBookerPhone] = useState<string>("");
   const [bookerName, setBookerName] = useState<string>("");
@@ -90,234 +96,29 @@ export function PropertyBooking({
   const [showSummary, setShowSummary] = useState<boolean>(false);
   const [priceDetails, setPriceDetails] = useState<null | PriceDetails>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [unAvailableDates, setUnAvailableDates] = useState<Range[]>([]);
+  const [unAvailableDates, setUnAvailableDates] = useState<AvailDateRange[]>([]);
   const [availableMaleBeds, setAvailableMaleBeds] = useState(0);
   const [availableFemaleBeds, setAvailableFemaleBeds] = useState(0);
   const [availableMixedBeds, setAvailableMixedBeds] = useState(0);
-  const [beds, setBeds] = useState<BedsFromWebSocket | null>(null);
-
-  function isOverlapping(
-    dateRanges: Range[],
-    targetRange: Range | null
-  ): boolean {
-    if (
-      !dateRanges ||
-      !targetRange?.from ||
-      !targetRange.to ||
-      !dateRanges?.length
-    ) {
-      console.log(
-        "the date ranges and target ranges are null or undefined and must be checked"
-      );
-      return false;
-    }
-    const targetFrom = new Date(targetRange.from).getTime();
-    const targetTo = new Date(targetRange.to).getTime();
-
-    for (const range of dateRanges) {
-      const rangeFrom = new Date(range.from!).getTime();
-      const rangeTo = new Date(range.to!).getTime();
-
-      if (
-        (rangeFrom <= targetTo && rangeFrom >= targetFrom) ||
-        (rangeTo <= targetTo && rangeTo >= targetFrom) ||
-        (rangeFrom <= targetFrom && rangeTo >= targetTo)
-      ) {
-        return true;
-      }
-    }
-
-    return false;
-  }
+  const { beds, loading } = useAvailability(propertyId);
 
   useEffect(() => {
-    let ws: WebSocket | undefined;
+    if (!beds || !dates?.from || !dates?.to) return;
 
-    const connectWebSocket = () => {
-      const propertyId = isLaVillaPerlata ? 1 : 2;
+    const result = processAvailabilityForDates(beds, propertyId, dates);
+    setAvailableMaleBeds(result.availableMaleBeds);
+    setAvailableFemaleBeds(result.availableFemaleBeds);
+    setAvailableMixedBeds(result.availableMixedBeds);
 
-      ws = new WebSocket(
-        `${process.env.NEXT_PUBLIC_WEB_SOCKET_SERVER}/?propertyId=${propertyId}`
-      );
+    const blocked = getBlockedDateRanges(beds, propertyId);
+    setUnAvailableDates(blocked);
 
-      ws.onopen = () => {
-        console.log("WebSocket connected.");
-        ws?.send(
-          JSON.stringify({
-            propertyId,
-            getBothAvailabilities: propertyId === 2, // Fetch both male and female only for propertyId === 2
-          })
-        );
-      };
-
-      ws.onmessage = (event) => {
-        try {
-          console.log("changed detected");
-          const data = JSON.parse(event.data);
-
-          if (!data || typeof data !== "object") {
-            console.error(
-              "Unexpected data structure received from WebSocket:",
-              data
-            );
-            return;
-          }
-          if (propertyId === 1) {
-            setBeds({
-              mixed_rooms: data.mixed_rooms || [],
-            });
-          } else if (propertyId === 2) {
-            setBeds({
-              male_rooms: data.male_rooms || [],
-              female_rooms: data.female_rooms || [],
-            });
-          }
-
-          setLoading(false);
-        } catch (error) {
-          console.error("Error parsing WebSocket data:", error);
-        }
-      };
-
-      ws.onclose = () => {
-        console.log("WebSocket connection closed.");
-        setLoading(true);
-      };
-
-      ws.onerror = (error) => {
-        console.error("WebSocket error:", error);
-      };
-    };
-
-    connectWebSocket();
-
-    return () => {
-      if (ws) {
-        ws.close();
-      }
-    };
-  }, [isLaVillaPerlata]);
-
-  const countAvailableBeds = (
-    // eslint-disable-next-line
-    rooms: any[],
-    fromDate: Date,
-    toDate: Date
-  ): { isFull: boolean; availableBedsToBook: number } => {
-    const totalBeds = rooms.length;
-    let occupied = 0;
-    rooms.forEach((room) => {
-      // eslint-disable-next-line
-      const occupiedBeds = room.occupants.filter((occupant: any) => {
-        const checkIn = new Date(occupant.check_in);
-        const checkOut = new Date(occupant.check_out);
-        return fromDate < checkOut && toDate > checkIn; // Overlapping dates
-      }).length;
-      occupied = occupied + occupiedBeds;
-    });
-
-    return {
-      isFull: occupied === totalBeds,
-      availableBedsToBook: totalBeds - occupied,
-    };
-  };
-
-  function findCommonDateRanges(data: Room[]): Range[] {
-    const normalizeDate = (date: string) => date.split("T")[0];
-
-    const uniqueDateRanges = new Set<string>();
-    data.forEach((room) =>
-      room.occupants.forEach((occupant) => {
-        const normalizedRange = `${normalizeDate(occupant.check_in)}|${normalizeDate(occupant.check_out)}`;
-        uniqueDateRanges.add(normalizedRange);
-      })
-    );
-
-    const dateRanges = Array.from(uniqueDateRanges).map((range) => {
-      const [from, to] = range.split("|");
-      return { from, to };
-    });
-
-    const commonDateRanges = dateRanges.filter(({ from, to }) =>
-      data.every((room) =>
-        room.occupants.some(
-          (occupant) =>
-            normalizeDate(occupant.check_in) === from &&
-            normalizeDate(occupant.check_out) === to
-        )
-      )
-    );
-
-    return commonDateRanges;
-  }
-
-  const processAvailabilityData = () => {
-    if (!dates?.from || !dates?.to) {
-      console.log(
-        "it is necessary to send the from and to dates to the processAvailabilityData function"
-      );
-      return;
-    }
-
-    const mixedRooms = beds?.mixed_rooms || [];
-    const unavailableDates: Range[] = [];
-    let mixedAvailableBeds = 0;
-
-    if (propertyId === 1) {
-      // Process only mixed_rooms for propertyId === 1
-      const { isFull, availableBedsToBook } = countAvailableBeds(
-        mixedRooms,
-        dates?.from as Date,
-        dates?.to as Date
-      );
-
-      mixedAvailableBeds = availableBedsToBook;
-
-      if (isFull) {
-        unavailableDates.push({ from: dates?.from, to: dates?.to });
-      }
-    }
-
-    setAvailableMixedBeds(mixedAvailableBeds);
-
-    if (propertyId === 2) {
-      const maleRooms = beds?.male_rooms || [];
-      const femaleRooms = beds?.female_rooms || [];
-
-      const { isFull: isMaleFull, availableBedsToBook: availabilityMale } =
-        countAvailableBeds(maleRooms, dates?.from as Date, dates?.to as Date);
-      const { isFull: isFemaleFull, availableBedsToBook: availabilityFemale } =
-        countAvailableBeds(femaleRooms, dates?.from as Date, dates?.to as Date);
-
-      if (isMaleFull && isFemaleFull) {
-        unavailableDates.push({ from: dates?.from, to: dates?.to });
-      }
-
-      setAvailableMaleBeds(availabilityMale);
-      setAvailableFemaleBeds(availabilityFemale);
-    }
-
-    setUnAvailableDates(unavailableDates);
-  };
+    const overlap = isOverlapping(blocked, dates);
+    setHasOverlap(overlap);
+    setError(overlap ? t("dates_unavailable") : null);
+  }, [beds, dates, propertyId, t]);
 
   useEffect(() => {
-    if (beds) {
-      processAvailabilityData();
-    }
-    // eslint-disable-next-line
-  }, [dates, beds]);
-
-  useEffect(() => {
-    if (unAvailableDates.length !== 0 && dates?.to && dates?.from) {
-      const overlap = isOverlapping(unAvailableDates, dates);
-
-      setHasOverlap(overlap);
-      if (overlap) setError("The selected dates are not available");
-      if (!overlap) {
-        setError(null);
-      }
-    }
     if (dates?.from && (!dates.to || dates.to <= dates.from)) {
       setDates((prev) => {
         const from = prev?.from ?? new Date();
@@ -327,8 +128,7 @@ export function PropertyBooking({
         };
       });
     }
-    // eslint-disable-next-line
-  }, [beds, dates, dates?.from, dates?.to, unAvailableDates.length]);
+  }, [dates?.from, dates?.to]);
 
   useEffect(() => {
     const pricing = calculate_price(
@@ -345,6 +145,18 @@ export function PropertyBooking({
       setBookerGender("mixed");
     }
   }, [isLaVillaPerlata]);
+
+  const syncBookerValues = useCallback(
+    (values: BookerFormValues, isVilla?: boolean) => {
+      setBookerEmail(values.bookerEmail);
+      setBookerPhone(values.bookerPhone);
+      setBookerName(values.bookerName);
+      if (!isVilla) {
+        setBookerGender(values.bookerGender);
+      }
+    },
+    []
+  );
 
   const bookingData: BookingType = {
     propertyId,
@@ -369,27 +181,10 @@ export function PropertyBooking({
     bookerGender,
   };
 
-  useEffect(() => {
-    if (beds) {
-      processAvailabilityData();
-
-      if (propertyId === 1) {
-        const datesToBlock = findCommonDateRanges(beds?.mixed_rooms || []);
-        setUnAvailableDates(datesToBlock);
-      } else if (propertyId === 2) {
-        const datesToBlock = findCommonDateRanges([
-          ...beds.female_rooms!,
-          ...beds.male_rooms!,
-        ]);
-        setUnAvailableDates(datesToBlock);
-      }
-    }
-    // eslint-disable-next-line
-  }, [dates, beds, propertyId]);
   return (
     <div className="border rounded-lg p-6">
-      <h2 className="text-2xl text-gray-200 font-bold mb-4">
-        ${price} / night
+      <h2 className="text-2xl text-brand-ink font-bold mb-4">
+        €{price} {t("per_night")}
       </h2>
       <div className="space-y-4">
         <Popover>
@@ -412,7 +207,7 @@ export function PropertyBooking({
                   format(dates.from, "LLL dd, y")
                 )
               ) : (
-                <span>Pick dates</span>
+                <span>{t("pick_dates")}</span>
               )}
             </Button>
           </PopoverTrigger>
@@ -422,7 +217,6 @@ export function PropertyBooking({
           >
             <Calendar
               locale={locale === "it" ? it : enUS}
-              autoFocus
               mode="range"
               defaultMonth={(dates?.from as Date) || undefined}
               selected={{
@@ -450,53 +244,40 @@ export function PropertyBooking({
             // eslint-disable-next-line
             onSubmit={(values) => {}}
           >
-            {({ values, handleChange, handleBlur }) => {
-              // eslint-disable-next-line
-              useEffect(() => {
-                setBookerEmail(values.bookerEmail);
-                setBookerPhone(values.bookerPhone);
-                setBookerName(values.bookerName);
-                if (!isLaVillaPerlata) {
-                  setBookerGender(values.bookerGender);
-                }
-              }, [values]);
-
-              return (
+            {({ values, handleChange, handleBlur }) => (
+              <>
+                <SyncBookerValues
+                  values={values}
+                  isLaVillaPerlata={isLaVillaPerlata}
+                  onSync={syncBookerValues}
+                />
                 <Form>
                   <div>
                     <div>
-                      <p className="text-lg font-bold text-gray-400">
-                        Availability
+                      <p className="text-lg font-bold text-brand-muted">
+                        {t("availability")}
                       </p>
                       {!isLaVillaPerlata ? (
                         <>
-                          <div>
-                            <p className="text-blue-500 text-md">
-                              Male beds available {availableMaleBeds ?? "N/A"}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-pink-400 text-md">
-                              Female beds available{" "}
-                              {availableFemaleBeds ?? "N/A"}
-                            </p>
-                          </div>
+                          <p className="text-blue-500 text-md">
+                            {t("male_beds")} {availableMaleBeds ?? "N/A"}
+                          </p>
+                          <p className="text-pink-400 text-md">
+                            {t("female_beds")} {availableFemaleBeds ?? "N/A"}
+                          </p>
                         </>
                       ) : (
-                        <div>
-                          <p className="text-gray-300 text-md">
-                            {" "}
-                            max occupancy: {Math.max(availableMixedBeds, 0)}
-                          </p>
-                        </div>
+                        <p className="text-brand-muted text-md">
+                          {t("max_occupancy")}: {availableMixedBeds > 0 ? "Yes" : "No"}
+                        </p>
                       )}
                     </div>
-                    <p className="text-gray-300 my-2 text-2xl font-semibold">
-                      Who is Checking in?
+                    <p className="text-brand-muted my-2 text-2xl font-semibold">
+                      {t("checking_in")}
                     </p>
 
-                    <label className="block text-gray-400 text-sm font-medium">
-                      Your Name:
+                    <label className="block text-brand-muted text-sm font-medium">
+                      {t("your_name")}:
                     </label>
                     <div className="flex  gap-x-2">
                       <Field
@@ -518,7 +299,7 @@ export function PropertyBooking({
                           required
                         >
                           <option value="" disabled>
-                            Gender
+                            {t("gender")}
                           </option>
                           <option value="male">Male</option>
                           <option value="female">Female</option>
@@ -539,10 +320,10 @@ export function PropertyBooking({
 
                   <div>
                     <div className="my-2 flex items-center justify-between gap-x-2">
-                      <label className="block text-gray-400 text-sm font-medium">
-                        Your Email:
+                      <label className="block text-brand-muted text-sm font-medium">
+                        {t("your_email")}:
                       </label>
-                      <label className="text-sm text-red-500">*required</label>
+                      <label className="text-sm text-red-500">*{t("required")}</label>
                     </div>
                     <Field
                       type="email"
@@ -560,8 +341,8 @@ export function PropertyBooking({
                   </div>
 
                   <div>
-                    <label className="block text-gray-400 text-sm font-medium">
-                      Phone (Optional):
+                    <label className="block text-brand-muted text-sm font-medium">
+                      {t("phone_optional")}:
                     </label>
                     <Field
                       type="tel"
@@ -578,8 +359,8 @@ export function PropertyBooking({
                     />
                   </div>
                 </Form>
-              );
-            }}
+              </>
+            )}
           </Formik>
         </div>
 
@@ -613,12 +394,12 @@ export function PropertyBooking({
           className={`w-full ${
             hasOverlap || error
               ? "text-white bg-red-500"
-              : "hover:text-slate-950 bg-green-600 hover:bg-green-300"
+              : "bg-brand-terracotta text-brand-linen hover:bg-brand-terracotta-dark"
           }`}
         >
           {hasOverlap || error
-            ? "Selected dates are not available"
-            : "Book now!"}
+            ? t("dates_unavailable")
+            : t("book_now")}
         </Button>
 
         {error && <p className="text-red-600">{error}</p>}
@@ -630,25 +411,27 @@ export function PropertyBooking({
         <div>
           {airbnb && (
             <Link target={"_blank"} href={airbnb}>
-              <p className="text-sm text-gray-600 hover:text-[#FF5A5F]">
-                Book with Airbnb
+              <p className="text-sm text-brand-muted hover:text-[#FF5A5F]">
+                {t("book_airbnb")}
               </p>
             </Link>
           )}
           {booking && (
             <Link target={"_blank"} href={booking}>
-              <p className="text-sm text-gray-600 hover:text-blue-500">
-                Book with Booking.com
+              <p className="text-sm text-brand-muted hover:text-blue-500">
+                {t("book_booking_com")}
               </p>
             </Link>
           )}
         </div>
       </div>
-      <BookingSummaryModal
-        isOpen={showSummary}
-        onClose={() => setShowSummary(false)}
-        bookingData={bookingData}
-      />
+      {showSummary && (
+        <BookingSummaryModal
+          isOpen={showSummary}
+          onClose={() => setShowSummary(false)}
+          bookingData={bookingData}
+        />
+      )}
     </div>
   );
 }

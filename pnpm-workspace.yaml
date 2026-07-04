@@ -1,0 +1,11 @@
+packages:
+  - "."
+
+autoInstallPeers: true
+strictPeerDependencies: false
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+  mongodb-memory-server: true
+  unrs-resolver: true

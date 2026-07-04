@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
-import villaPerlata6 from "../../../public/assets/villa_perlata/6.jpg"; // TODO: Replace with actual image desired
+import villaPerlata6 from "../../../public/assets/villa_perlata/esterni/1.jpg";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
@@ -19,7 +19,7 @@ export function Hero() {
       index={0}
       className="relative w-full h-screen md:max-2xl:min-h-[600px] flex items-center justify-center overflow-hidden "
     >
-      <div className="absolute inset-0 w-full h-full  bg-gray-950">
+      <div className="absolute inset-0 w-full h-full bg-brand-ink">
         <Image
           src={villaPerlata6}
           alt="Le Piaje About Us Hero Background Image"

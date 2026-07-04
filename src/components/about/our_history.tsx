@@ -12,13 +12,13 @@ const milestones = [
 
 export function OurHistory() {
   return (
-    <AnimateOnScroll index={4} className="py-16  bg-gray-950">
+    <AnimateOnScroll index={4} className="py-16 bg-brand-linen">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 text-center text-white">
+        <h2 className="text-3xl font-bold mb-8 text-center text-brand-ink">
           Our History
         </h2>
         <div className="relative">
-          <div className="absolute left-1/2  transform -translate-x-1/2 h-full w-1 bg-slate-200"></div>
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-brand-sand"></div>
           {milestones.map((milestone, index) => (
             <div
               key={index}
@@ -31,19 +31,19 @@ export function OurHistory() {
                   index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"
                 }`}
               >
-                <h3 className="font-bold text-xl text-gray-200">
+                <h3 className="font-bold text-xl text-brand-ink">
                   {milestone.year}
                 </h3>
-                <p className="text-gray-400">{milestone.event}</p>
+                <p className="text-brand-muted">{milestone.event}</p>
 
                 <Link href={milestone.link} target="_blank">
-                  <button className="mt-4 px-6 py-3 bg-amber-600 text-white font-semibold rounded-full hover:bg-amber-700 transition-colors duration-300">
+                  <button className="mt-4 px-6 py-3 bg-brand-terracotta text-brand-linen font-semibold hover:bg-brand-terracotta-dark transition-colors duration-300">
                     Learn More
                   </button>
                 </Link>
               </div>
               <div className="w-2/12 flex justify-center">
-                <div className="w-4 h-4 bg-slate-200 rounded-full"></div>
+                <div className="w-3 h-3 bg-brand-terracotta rounded-full"></div>
               </div>
               <div className=" bg-slate-20 w-5/12"></div>
             </div>

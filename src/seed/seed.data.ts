@@ -8,7 +8,7 @@ import { al_centesimo_chilometro_booking_url, al_centesimo_chilometro_google_map
 const generateBeds = (count: number, gender: string): BedType[] => Array.from({ length: count }, () => ({
     uuid: String(uuidv4()),
     room_gender: gender,
-    occupant: [],
+    occupants: [],
     submittedAt: new Date()
 }))
 

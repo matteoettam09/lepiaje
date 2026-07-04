@@ -1,4 +1,4 @@
-import { AdminBlockDates } from "./property/property_booking";
+import { AdminBlockDates } from "@/components/property/admin_block_dates";
 import { fetch_property } from "@/services/fetch_property";
 import { Property as PropertyEnum } from "@/enums";
 
@@ -16,7 +16,7 @@ export default async function PropertyPage({
 
   if (!property) {
     return (
-      <div className="w-full h-full bg-[#121212] flex items-center justify-center">
+      <div className="w-full h-full bg-brand-stone flex items-center justify-center">
         <div className="text-2xl text-red-500 font-bold">No property found</div>
         );
       </div>
@@ -24,7 +24,7 @@ export default async function PropertyPage({
   }
 
   return (
-    <div className="mt-32 w-screen flex items-center justify-center bg-slate-950">
+    <div className="mt-32 w-screen flex items-center justify-center bg-brand-linen">
       <AdminBlockDates propertyId={property.id} />
     </div>
   );

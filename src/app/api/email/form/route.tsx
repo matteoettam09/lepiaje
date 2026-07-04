@@ -1,18 +1,16 @@
-import { Resend } from "resend";
+import { getResendClient } from "@/lib/email/resendClient";
 import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { FormType } from "@/types";
 import FormNotificationTemplate from "@/components/email_templates/submitted_form_email";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
-// const adminEmailTwo = process.env.ADMIN_EMAIL_TWO_RECEIVER || "";
-// const emailFrom = process.env.DOMAIN_EMAIL_SENDER //TODO replace with real email in env variable when available from a domain
 const responseHandler = new ResponseHandler();
-const emailFrom = "delivered@resend.dev";
+const emailFrom = process.env.NEXT_PUBLIC_SENDER_EMAIL || "delivered@resend.dev";
 
 export async function POST(request: Request) {
   try {
+    const resend = getResendClient();
     if (!resend) {
       return responseHandler.respond({
         status: HttpStatusCode.BAD_REQUEST,

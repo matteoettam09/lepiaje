@@ -1,29 +1,30 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
+import { createSessionToken } from "@/lib/auth/session";
 
-const usernameENV = process.env.USERNAME!
-const passwordENV = process.env.USER_PASSWORD!
+const usernameENV = process.env.USERNAME!;
+const passwordENV = process.env.USER_PASSWORD!;
 
 export async function POST(request: Request) {
     const body = await request.json();
-
-    // Simulate a database check
     const { username, password } = body;
+
     if (username === usernameENV && password === passwordENV) {
+        const token = await createSessionToken(username);
         const response = NextResponse.json({ success: true });
 
-        // Set the HTTP-only cookie
-        response.cookies.set('token', 'valid-token', {
+        response.cookies.set("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-            path: '/',
-            maxAge: 60 * 60 * 24, // 1 day
+            secure: process.env.NODE_ENV === "production",
+            path: "/",
+            maxAge: 60 * 60 * 24,
+            sameSite: "lax",
         });
 
         return response;
     }
 
     return NextResponse.json(
-        { success: false, message: 'Invalid username or password' },
+        { success: false, message: "Invalid username or password" },
         { status: 401 }
     );
 }

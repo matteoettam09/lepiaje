@@ -10,6 +10,24 @@ export default function AdminPanel() {
 
       <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl">
         <Link
+          href="/admin/auth/orders"
+          className="w-full max-w-2xl mb-4 bg-amber-700 text-white shadow-lg rounded-lg p-4 text-center hover:bg-amber-600 transition-colors"
+        >
+          View product orders
+        </Link>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl">
+        <Link
+          href="/admin/auth/bookings"
+          className="w-full max-w-2xl mb-4 bg-brand-terracotta text-brand-linen shadow-soft p-4 text-center hover:bg-brand-terracotta-dark transition-colors"
+        >
+          View all bookings
+        </Link>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl">
+        <Link
           href="/admin/auth/villa-perlata"
           className="flex-1 bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-xl transition-shadow duration-300"
         >

@@ -77,6 +77,21 @@ const bookingSchema = new Schema<BookingType>(
             type: Date,
             default: Date.now,
         },
+        status: {
+            type: String,
+            enum: ["pending", "confirmed", "cancelled"],
+            default: "pending",
+        },
+        stripePaymentIntentId: {
+            type: String,
+            required: false,
+            trim: true,
+        },
+        bookingReference: {
+            type: String,
+            required: false,
+            trim: true,
+        },
     },
     { timestamps: true }
 );

@@ -1,11 +1,10 @@
-import { EmailType } from "./email.types";
 import { Property } from "./property.types";
 
 export interface HttpResponseType {
     status: number,
     error: boolean,
     errorDetails: string | null,
-    message: string | EmailType
+    message: unknown
 }
 
 export interface ClientResponseType {

@@ -1,6 +1,7 @@
 "use client";
-import Map, { Marker } from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
+import Map, { Marker } from "react-map-gl/maplibre";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { MAP_STYLE_URL } from "@/lib/integrations/maps";
 
 interface MapProps {
   latitude: number;
@@ -8,24 +9,21 @@ interface MapProps {
 }
 
 export default function ReusableMap({ latitude, longitude }: MapProps) {
-  const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!;
-
   return (
-    <main className="w-full h-[30em]">
+    <div className="h-[30em] w-full">
       <Map
-        mapboxAccessToken={mapboxToken}
-        mapStyle="mapbox://styles/jdaniel96/cm0zjgcjt00g301nq6bxx1ffk"
+        mapStyle={MAP_STYLE_URL}
         initialViewState={{
           latitude,
           longitude,
           zoom: 8,
         }}
-        style={{ borderRadius: "8px" }}
+        style={{ width: "100%", height: "100%", borderRadius: "8px" }}
         maxZoom={20}
         minZoom={3}
       >
         <Marker longitude={longitude} latitude={latitude} />
       </Map>
-    </main>
+    </div>
   );
 }

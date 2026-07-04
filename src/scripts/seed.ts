@@ -13,6 +13,8 @@ import {
     propertySeedDataForLePiaje
 } from "../seed/seed.data";
 import { BedType, RoomType } from "@/types";
+import Product from "@/models/Product";
+import { productSeedData } from "../seed/product.seed";
 
 const seedData: Record<string, BedType[] | RoomType[] | PropertyType[]> = {
     Bed: [
@@ -67,6 +69,15 @@ const seedDb = async () => {
             } else {
                 console.log("Property data already exists, no seeding necessary.");
             }
+        }
+
+        // Seed products
+        const existingProducts = await Product.findOne();
+        if (!existingProducts) {
+            console.log("No product data found, seeding products...");
+            await Product.insertMany(productSeedData);
+        } else {
+            console.log("Product data already exists, no seeding necessary.");
         }
 
         process.exit();

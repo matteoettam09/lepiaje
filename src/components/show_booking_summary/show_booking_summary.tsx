@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { Badge } from "lucide-react";
+import dynamic from "next/dynamic";
 import Logo from "@/components/logo/logo";
 import {
   Dialog,
@@ -14,7 +15,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useSuccessAlert } from "@/hooks/use_alert";
 import { Alert } from "../alerts/alerts";
 import { BookingType } from "@/types";
-import { PaymentWrapper } from "../stripe/checkout_form";
+
+const PaymentWrapper = dynamic(
+  () =>
+    import("../stripe/checkout_form").then((mod) => ({
+      default: mod.PaymentWrapper,
+    })),
+  { ssr: false }
+);
 
 interface BookingSummaryProps {
   isOpen: boolean;
@@ -44,53 +52,55 @@ export default function BookingSummaryModal({
         }
       }}
     >
-      <DialogDescription hidden>
-        Booking summary and payment form
-      </DialogDescription>
-      <DialogContent className="my-4 bg-slate-950 py-8  w-[90%] h-screen overflow-scroll">
+      {isOpen && (
+        <>
+          <DialogDescription hidden>
+            Booking summary and payment form
+          </DialogDescription>
+          <DialogContent className="my-4 max-h-[90vh] w-[90%] overflow-y-auto bg-brand-linen py-8">
         <DialogHeader>
-          <DialogTitle className="text-gray-400 text-center">
+          <DialogTitle className="text-brand-muted text-center">
             Booking Confirmation
           </DialogTitle>
         </DialogHeader>
 
-        <Card className="w-full bg-slate-950">
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 gap-4">
               <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
 
               <div>
-                <h3 className="text-gray-200 text-center font-semibold text-lg mb-2">
+                <h3 className="text-brand-ink text-center font-semibold text-lg mb-2">
                   {bookingData.propertyName}
                 </h3>
                 <div>
-                  <label className="text-gray-200 font-bold text-xl">
+                  <label className="text-brand-ink font-bold text-xl">
                     Booker:
                   </label>
-                  <h3 className="text-gray-200 font-semibold text-lg mb-2">
+                  <h3 className="text-brand-ink font-semibold text-lg mb-2">
                     {bookingData.bookerName}
                   </h3>
                 </div>
                 <div>
-                  <h3 className="text-gray-200 font-semibold text-lg mb-2">
+                  <h3 className="text-brand-ink font-semibold text-lg mb-2">
                     Dates
                   </h3>
-                  <p className="text-gray-200">
+                  <p className="text-brand-ink">
                     Check-in:{" "}
                     {bookingData.checkIn &&
                       format(new Date(bookingData.checkIn), "MMMM d, yyyy")}
                   </p>
-                  <p className="text-gray-200">
+                  <p className="text-brand-ink">
                     Check-out:{" "}
                     {bookingData.checkOut &&
                       format(new Date(bookingData.checkOut), "MMMM d, yyyy")}
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-gray-200 font-semibold text-lg mb-2">
+                  <h3 className="text-brand-ink font-semibold text-lg mb-2">
                     Guests
                   </h3>
-                  <p className="text-gray-200 font-thin text-md">
+                  <p className="text-brand-ink font-thin text-md">
                     {bookingData.guests.length} Guests
                   </p>
                   {bookingData.guests.map((guest, index) => (
@@ -98,23 +108,25 @@ export default function BookingSummaryModal({
                       key={index}
                       className="flex items-center justify-start"
                     >
-                      <Badge className="mr-2 text-green-600"></Badge>
-                      <p className="text-gray-200">{guest.name}</p>
+                      <Badge className="mr-2 text-brand-terracotta"></Badge>
+                      <p className="text-brand-ink">{guest.name}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-gray-200 text-center font-semibold text-lg mb-4">
-                  Complete Your Payment
-                </h3>
-                <PaymentWrapper
-                  setErrorDetails={setErrorDetails}
-                  showAlert={showAlert}
-                  bookingData={bookingData}
-                />
-              </div>
+              {isOpen && (
+                <div>
+                  <h3 className="text-brand-ink text-center font-semibold text-lg mb-4">
+                    Complete Your Payment
+                  </h3>
+                  <PaymentWrapper
+                    setErrorDetails={setErrorDetails}
+                    showAlert={showAlert}
+                    bookingData={bookingData}
+                  />
+                </div>
+              )}
 
               {isVisible && (
                 <Alert
@@ -130,7 +142,9 @@ export default function BookingSummaryModal({
             </div>
           </CardContent>
         </Card>
-      </DialogContent>
+          </DialogContent>
+        </>
+      )}
     </Dialog>
   );
 }

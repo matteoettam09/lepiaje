@@ -1,56 +1,113 @@
 # Le Piaje
 
-Add a description about Le Piaje which is meaningful to describe the project
+Le Piaje is an Italian agriturismo website for Montefiascone / Lake Bolsena (Tuscia). It offers direct booking for two properties, a farm shop, bilingual marketing (EN/IT), and an admin panel.
 
 ## Tech Stack
 
-To-do
+- **Next.js 15** (App Router) + React 19 + TypeScript
+- **MongoDB** + Mongoose
+- **Stripe** (bookings + shop)
+- **Resend** (transactional email)
+- **next-intl** (English / Italian)
+- **Tailwind CSS** + shadcn/ui
+- **MapLibre GL** + OpenFreeMap (reach-us and property maps; no API key)
 
-## Environment Variables
+## Getting Started
 
-`NEXT_PUBLIC_BASE_URL`
-The project's current base url wether it is development or production
+```bash
+pnpm install
+cp .env.example .env.local
+pnpm run db:up              # start MongoDB (Docker Desktop must be running)
+pnpm run seed               # seed MongoDB (dev only)
+pnpm run dev
+```
 
-`DB_CONNECTION_STRING`
-The mongodb connection string Example: mongodb+srv://[dbusername]:[dbpasswor]@[cluster].[appid].mongodb.net/[datanasename]?retryWrites=true&w=majority
+MongoDB must be running before `pnpm run seed`. The easiest local setup is Docker:
 
-`NEXT_PUBLIC_SENDER_EMAIL`
-the email from which users will received notifications, normally the email that is provided from the domain
+```bash
+pnpm run db:up
+```
 
-`NEXT_PUBLIC_WHATSAPP_NUMBER`
-the whatsapp number users will be taking to chat with once clicked the whatsapp button on the page
+If you prefer Homebrew instead: `brew install mongodb-community@7` then `brew services start mongodb-community@7`.
 
-`RESEND_API_KEY`=
-The api key(free) from resend service to send emails, now at 1000 emails a month
+Open [http://localhost:3000](http://localhost:3000).
 
-`ADMIN_EMAIL_ONE_RECEIVER`
-This email won't be used to send emails to clients, but instead, it will be used to notify the administrator of the page when a client has performed an operation such as a booking, cancellation or purchase
+## Scripts
 
-`ADMIN_EMAIL_TWO_RECEIVER`
-This email won't be used to send emails to clients, but instead, it will be used to notify the administrator of the page when a client has performed an operation such as a booking, cancellation or purchase
+| Command | Description |
+|---------|-------------|
+| `pnpm run dev` | Start development server |
+| `pnpm run build` | Production build |
+| `pnpm run start` | Start production server |
+| `pnpm run db:up` | Start local MongoDB via Docker Compose |
+| `pnpm run db:down` | Stop local MongoDB container |
+| `pnpm run seed` | Seed properties, rooms, beds, products |
+| `pnpm run lint` | ESLint |
+| `pnpm run test` | All Vitest tests (unit + mocked + MongoDB memory-server) |
+| `pnpm run test:unit` | Unit and mocked integration tests only |
+| `pnpm run test:integration` | MongoDB memory-server integration tests |
+| `pnpm run test:e2e` | Playwright E2E smoke tests (optional locally) |
 
-`STRIPE_API_KEY`
-stripe api key that will handle the payments of the app
+## Third-party integrations
 
-square brackets [] are only to make it more readable and they are not necessary when writing the actual string
+Each integration below lists what Le Piaje uses it for, what is **not** in scope, required env vars, and the test file that covers it.
 
-`NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN`
-the access token provided with a mapbox free account to access map features and styles
+### App config (not a third party)
 
-`NEXT_PUBLIC_WEB_SOCKET_SERVER`
-the websocket deployed url from the project that helps controlling and managing syncing the calendars
+| Variable | Purpose |
+|----------|---------|
+| `NEXT_PUBLIC_BASE_URL` | Base URL for client-side API fetches (trailing slash required) |
 
-`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=`
-your stripe publishable key which you can get at the stripe page login in to your account
+### Integration scope
 
-`STRIPE_SECRET_KEY=sk_test_your_secret_key`
-your stripe secret key which you can get at the stripe page login in to your account
+| Integration | Scope in Le Piaje | Env vars | Not in scope | Tests |
+|-------------|-------------------|----------|--------------|-------|
+| **MongoDB** | Properties, rooms, beds, bookings, payments, purchases, contact forms, error logs | `DB_CONNECTION_STRING` | Analytics, backups, replication (ops) | `src/lib/booking/*.integration.test.ts` |
+| **Stripe** | PaymentIntent for direct bookings and farm shop; webhook confirms orders and assigns beds | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Subscriptions, invoicing, Connect | `src/lib/payments/handleStripeWebhook.test.ts` |
+| **Resend** | Admin booking/purchase alerts and guest confirmation emails via React Email templates | `RESEND_API_KEY`, `NEXT_PUBLIC_SENDER_EMAIL`, `ADMIN_EMAIL_ONE_RECEIVER`, `ADMIN_EMAIL_TWO_RECEIVER` | Marketing campaigns, mailing lists | `src/lib/email/sendBookingEmails.test.ts` |
+| **MapLibre / OpenFreeMap** | Client-side interactive maps on `/reach-us` (regional POIs) and property location maps | None (free tiles) | Geocoding, directions API, server-side tiles | `src/lib/integrations/maps.test.ts` |
+| **WhatsApp** | Floating `wa.me` chat link on all pages (no API) | `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp Business API, automated templates | `src/lib/integrations/whatsapp.test.ts` |
+| **Admin auth (JWT)** | Signed session cookie after env credential login; protects `/admin/auth/*` | `USERNAME`, `USER_PASSWORD`, `AUTH_SECRET` | Multi-user accounts, OAuth, RBAC | `src/lib/auth/session.test.ts` |
 
-`STRIPE_WEBHOOK_SECRET`
-your stripe webhook secret string
+## Testing
 
-`USERNAME`
-the username to login to admin panel
+Tests run in CI **without live third-party credentials**. External SDKs (Stripe, Resend) are mocked; MongoDB uses an in-memory server.
 
-`USER_PASSWORD`
-the password to login to admin panel
+```
+pnpm run test              # full suite (CI)
+pnpm run test:unit         # fast unit + mocked tests
+pnpm run test:integration  # MongoDB memory-server only
+pnpm run test:e2e          # Playwright smoke (needs dev server)
+```
+
+| Layer | What it covers |
+|-------|----------------|
+| Unit | Pricing, availability logic, WhatsApp URL builder, map config, JWT session |
+| Mocked integration | Stripe webhook handler, Resend email dispatch |
+| MongoDB integration | Booking lifecycle, bed assignment, availability data shape |
+
+## Architecture
+
+```
+Guest booking flow:
+  Select dates → POST /api/payment (pending booking + PaymentIntent)
+  → Stripe checkout → Webhook confirms booking + assigns beds + emails
+
+Admin:
+  /admin — login
+  /admin/auth — block dates, view bookings/orders
+
+Shop:
+  /shop → POST /api/purchase/payment → Stripe → Webhook saves Purchase
+```
+
+Availability is served by `GET /api/availability?propertyId=`.
+
+## Deployment
+
+Designed for **Vercel**. Configure Stripe webhook to `https://your-domain/api/webhook`.
+
+## Properties
+
+- **La Villa Perlata** — whole-property countryside villa (`/property/villa-perlata`)
+- **Al Centesimo Chilometro** — pilgrim hostel with gender-segregated dorms (`/property/centesimo-chilometro`)

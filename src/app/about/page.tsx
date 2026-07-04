@@ -3,17 +3,22 @@ import { OurMission } from "@/components/about/our_mission";
 import { OurTeam } from "@/components/about/our_team";
 import { OurValues } from "@/components/about/our_values";
 import { OurHistory } from "@/components/about/our_history";
-import { Testimonials } from "@/components/about/Testimonials";
+import { LifeGallery } from "@/components/about/life_gallery";
+import { AboutBookCTAs } from "@/components/about/about_book_ctas";
+import { getImages } from "@/utils/get_images_on_folder";
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const teamImages = await getImages("who_we_are");
+
   return (
-    <div className="min-h-screen h-full w-full bg-slate-950">
+    <div className="min-h-screen h-full w-full bg-brand-linen">
       <Hero />
       <OurMission />
-      <OurTeam folderName="who_we_are" />
+      <LifeGallery />
+      <OurTeam imageUrls={teamImages} />
       <OurValues />
       <OurHistory />
-      <Testimonials />
+      <AboutBookCTAs />
     </div>
   );
 }

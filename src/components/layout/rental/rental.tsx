@@ -29,9 +29,15 @@ export default async function PropertyPage({
 
   if (!property) {
     return (
-      <div className="w-full h-full bg-[#121212] flex items-center justify-center">
-        <div className="text-2xl text-red-500 font-bold">No property found</div>
-        );
+      <div className="flex min-h-[calc(100vh-6rem)] items-center justify-center px-4 pt-28 pb-16">
+        <div className="max-w-lg text-center">
+          <p className="text-2xl font-bold text-red-500">No property found</p>
+          <p className="mt-3 text-sm text-brand-muted">
+            Check that MongoDB is running and{" "}
+            <code className="text-brand-terracotta">DB_CONNECTION_STRING</code> is set,
+            then run <code className="text-brand-terracotta">pnpm run seed</code>.
+          </p>
+        </div>
       </div>
     );
   }
@@ -39,7 +45,7 @@ export default async function PropertyPage({
   const google = open_directions_on_google_maps(property.location);
 
   return (
-    <div className="container bg-slate-950 mx-auto px-4 py-32">
+    <div className="container mx-auto px-4 pt-28 pb-16">
       <PropertyHeader
         name={property.name}
         location_name={property.location_name}
@@ -59,10 +65,10 @@ export default async function PropertyPage({
           />
 
           <div className="mt-8">
-            <h2 className="text-2xl text-gray-200 font-bold mb-4">
+            <h2 className="text-2xl text-brand-ink font-bold mb-4">
               Description
             </h2>
-            <p className="text-gray-200">{property.description}</p>
+            <p className="text-brand-muted">{property.description}</p>
           </div>
           {/* TODO<> add reviews here</> */}
         </div>
@@ -80,7 +86,7 @@ export default async function PropertyPage({
         </div>
       </div>
       <div className="mt-12">
-        <p className=" font-bold mb-4 text-2xl text-gray-200">Get Directions</p>
+        <p className="font-bold mb-4 text-2xl text-brand-ink">Get Directions</p>
         <div>
           <div>
             <div className="inline-block">
@@ -94,7 +100,7 @@ export default async function PropertyPage({
                   className="hover:scale-105 transition-all ease-linear"
                   size={25}
                 />
-                <p className="hover:cursor-pointer hover:scale-105 text-lg hover:text-[#bbdaa4] ease-linear transition-all text-gray-200">
+                <p className="hover:cursor-pointer text-lg hover:text-brand-terracotta transition-colors text-brand-ink">
                   On Google Maps
                 </p>
               </Link>
@@ -111,7 +117,7 @@ export default async function PropertyPage({
                 className="hover:scale-105 transition-all ease-linear"
                 size={25}
               />
-              <p className="hover:cursor-pointer hover:scale-105 text-lg hover:text-[#05c8f7] ease-linear transition-all text-gray-200">
+              <p className="hover:cursor-pointer text-lg hover:text-[#05c8f7] transition-colors text-brand-ink">
                 On Waze
               </p>
             </Link>
@@ -125,8 +131,8 @@ export default async function PropertyPage({
           target={"_blank"}
         >
           <div className="inline-block">
-            <div className="py-8 hover:scale-105 active:scale-95 transition-all ease-linear">
-              <p className="hover:text-green-500  text-lg text-center text-gray-200 font-semibold">
+            <div className="py-8">
+              <p className="hover:text-brand-terracotta text-lg text-center text-brand-ink font-semibold transition-colors">
                 See on Google Maps
               </p>
             </div>

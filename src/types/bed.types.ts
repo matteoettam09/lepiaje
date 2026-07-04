@@ -1,24 +1,22 @@
-import { ObjectId } from "mongodb";
-
 export interface Occupant {
-    name: string,
-    check_in: Date
-    check_out: Date
-    gender: string
+    name: string;
+    check_in: Date;
+    check_out: Date;
+    gender: string;
 }
 
 export type BedType = {
-    uuid: string,
-    room_gender: string,
-    occupant: Occupant[],
-    submittedAt: Date
-}
+    uuid: string;
+    room_gender: string;
+    occupants: Occupant[];
+    submittedAt: Date;
+};
 
 export type Bed = {
-    _id: ObjectId;
+    _id: string;
     uuid: string;
     is_occupied: boolean;
-    occupants: Occupant[]
+    occupants: Occupant[];
     submittedAt: Date;
     room_gender: string;
     __v: number;

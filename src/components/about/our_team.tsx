@@ -1,73 +1,59 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
-import { getImages } from "@/utils/get_images_on_folder";
 import { motion } from "framer-motion";
 
 interface OurTeamImagesProps {
-  folderName: string;
+  imageUrls: string[];
 }
 
-export function OurTeam({ folderName }: OurTeamImagesProps) {
+export function OurTeam({ imageUrls }: OurTeamImagesProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [teamMembers, setTeamMembers] = useState<
-    {
-      name: string;
-      role: string;
-      image: string;
-      bio: string;
-    }[]
-  >([]);
-
-  useEffect(() => {
-    async function loadImages() {
-      const imageUrls = await getImages(folderName);
-      const teamMembers = [
-        {
-          name: "Name here",
-          role: "Role here",
-          image: imageUrls[0],
-          bio: "some words and descriptions of what they do or how contributed",
-        },
-        {
-          name: "Name here",
-          role: "Role here",
-          image: imageUrls[1],
-          bio: "some words and descriptions of what they do or how contributed",
-        },
-        {
-          name: "Name here",
-          role: "Role here",
-          image: imageUrls[2],
-          bio: "some words and descriptions of what they do or how contributed",
-        },
-        {
-          name: "Name here",
-          role: "Role here",
-          image: imageUrls[3],
-          bio: "some words and descriptions of what they do or how contributed",
-        },
-      ];
-      setTeamMembers(teamMembers);
-    }
-    loadImages();
-  }, [folderName]);
+  const teamMembers = useMemo(
+    () => [
+      {
+        name: "Name here",
+        role: "Role here",
+        image: imageUrls[0],
+        bio: "some words and descriptions of what they do or how contributed",
+      },
+      {
+        name: "Name here",
+        role: "Role here",
+        image: imageUrls[1],
+        bio: "some words and descriptions of what they do or how contributed",
+      },
+      {
+        name: "Name here",
+        role: "Role here",
+        image: imageUrls[2],
+        bio: "some words and descriptions of what they do or how contributed",
+      },
+      {
+        name: "Name here",
+        role: "Role here",
+        image: imageUrls[3],
+        bio: "some words and descriptions of what they do or how contributed",
+      },
+    ],
+    [imageUrls]
+  );
 
   return (
     <AnimateOnScroll
       index={2}
-      className="py-16 sm:py-24 bg-gradient-to-b  bg-gray-950"
+      className="py-16 sm:py-24 bg-brand-linen"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 text-center text-gray-100">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 text-center text-brand-ink">
           Meet Us
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
           {teamMembers.map((member, index) => (
             <motion.div
               key={index}
-              className="bg-slate-950 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105"
+              className="bg-brand-stone border border-brand-sand overflow-hidden"
               whileHover={{ y: -5 }}
               onHoverStart={() => setHoveredIndex(index)}
               onHoverEnd={() => setHoveredIndex(null)}
@@ -91,10 +77,10 @@ export function OurTeam({ folderName }: OurTeamImagesProps) {
                 )}
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-xl text-gray-100 mb-2">
+                <h3 className="font-bold text-xl text-brand-ink mb-2">
                   {member.name}
                 </h3>
-                <p className="text-amber-400 font-medium">{member.role}</p>
+                <p className="text-brand-terracotta font-medium">{member.role}</p>
               </div>
             </motion.div>
           ))}

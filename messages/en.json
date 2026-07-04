@@ -4,36 +4,184 @@
         "en": "English",
         "label": "Language"
     },
+    "nav": {
+        "villa_perlata": "La Villa Perlata",
+        "centesimo": "Al Centesimo Chilometro",
+        "about": "About Us",
+        "experiences": "Experiences",
+        "shop": "Farm Shop",
+        "reach_us": "How to Reach Us",
+        "contact": "Contact us"
+    },
+    "footer": {
+        "copyright": "© {year} Le Piaje. All rights reserved."
+    },
     "landing_page": {
         "hero": {
-            "title": "Le Piaje",
-            "sub_title": "A Welcome as Genuine as the Tastes of the Land",
-            "main_text": "We are a family of agricultural entrepreneurs with a deep commitment to hospitality and the enhancement of the natural and cultural heritage of our land. Whether you are curious travelers, families looking for relaxing times, gourmets or lovers of uncontaminated nature, Le Piaje will open its doors to you to make you live a unique experience. You will discover a world made of authentic flavors, routes and views telling the story of Tuscia."
+            "sub_title": "Where the welcome is as genuine as the land's flavors",
+            "main_text": "A family farm in Tuscia where warm hospitality, honest food, and unspoiled nature come together.",
+            "cta_villa": "Book La Villa Perlata",
+            "cta_hostel": "Book Pilgrim Hostel",
+            "cta_contact": "Contact us",
+            "cta_discover": "Discover"
         },
-        "contact_form":{
+        "book_ctas": {
+            "learn_more": "Learn more about us"
+        },
+        "highlights": {
+            "boat": "Lake Bolsena at your doorstep",
+            "friends": "Events and shared moments",
+            "ristoro": "Hospitality for Via Francigena pilgrims",
+            "farm": "Homemade products from our land"
+        },
+        "testimonials": {
+            "title": "What Our Guests Say",
+            "reviews": [
+                {
+                    "name": "Adriano",
+                    "country": "Italy",
+                    "countryCode": "IT",
+                    "headline": "The house is wonderful and the view is breathtaking.",
+                    "quote": "Just a few minutes from the lake, it guarantees incredible convenience. And at night, you can see the stars really well. The house is well maintained and beautiful. Giuliana was very kind. I highly recommend it for those who want to have a relaxing and peaceful vacation. I will be back."
+                },
+                {
+                    "name": "Alba",
+                    "country": "Spain",
+                    "countryCode": "ES",
+                    "headline": "Fantastic place!!!!",
+                    "quote": "The owner is suuuuuper friendly. There's free breakfast and some parking spots in the property. The table and chairs in the courtyard create a very cozy space."
+                },
+                {
+                    "name": "Aneliya",
+                    "country": "Bulgaria",
+                    "countryCode": "BG",
+                    "headline": "It was perfect",
+                    "quote": "Everything was perfect. The host was very friendly, welcoming, and helpful throughout our stay. The accommodation was clean, comfortable, and had everything we needed. The location was excellent, just a short walk from the city centre, making it easy to explore the area. We really enjoyed our stay."
+                },
+                {
+                    "name": "Tamuna",
+                    "country": "Georgia",
+                    "countryCode": "GE",
+                    "headline": "I would love to go back!",
+                    "quote": "Everything was perfect. First of all I arrived by train it was late no buses at station and the host came by car and took me at home for free, the place was really clean, comfortable with sweet family vibe. Cute garden, good breakfast… I booked for one night and I stayed 2 and I would love to stay there even for a whole week."
+                },
+                {
+                    "name": "Magnus",
+                    "country": "Norway",
+                    "countryCode": "NO",
+                    "headline": "This is it, you cant find a better deal in this area.",
+                    "quote": "A true find in this otherwise very expensive area. Close to town, about 10min walk or very short ride. Hosts are quite amazing and ammenities perfect. There is even a simple breakfast awailable, coffee and juice. With a car, its a great place to chill out after exploring the lake and areas around. And Bolena Lake and its lakeside towns is absolutely gorgeous, without being run over by the crowds. A true find."
+                },
+                {
+                    "name": "Albert",
+                    "country": "Kazakhstan",
+                    "countryCode": "KZ",
+                    "headline": "I really liked everything.",
+                    "quote": "A beautiful, cozy, huge house, a large property, you can walk among the vineyards and olive trees. Lake Bolsena is nearby, with wonderful free beaches and clear water. We recommend it without reservation."
+                },
+                {
+                    "name": "Darlene",
+                    "country": "USA",
+                    "countryCode": "US",
+                    "headline": "This house is a hidden gem.",
+                    "quote": "When looking at the pictures on the listing it doesn't do it justice. We enjoyed the beautiful views and the tranquility of the farm we were overlooking. The house is as described on the listing. We used the kitchen as it was fully stocked and enjoyed eating outside every day overlooking the tremendous view. The location of the property is midway between the lake and Montefiascone."
+                },
+                {
+                    "name": "Claire",
+                    "country": "France",
+                    "countryCode": "FR",
+                    "headline": "This is our favorite bnb we have ever stayed in!",
+                    "quote": "A beautiful spacious house in the country, huge garden, very private, and surrounded by olive groves. We gathered fruit and vegetables from the many plants in the garden and enjoyed relaxing on the portico in the shade. The kitchen was large and has everything you need to prepare meals, also a great coffee machine and coffee pods provided! The air-conditioning in every room was great as it's so hot this summer. The location was great too, 5 mins to Montefiascone which had many restaurants and shops, and also only a few minutes to the lake that has many little beaches for swimming. Just awesome thank you!!!"
+                }
+            ]
+        },
+        "contact_form": {
             "title": "Contact Us",
-            "main_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.",
+            "main_text": "Have a question about our farm, accommodations, or homemade products? Send us a message and we will get back to you as soon as possible.",
             "form_inputs": {
-                "full_name": "name",
-                "email": "email",
-                "phone": "phone",
-                "message": "message"
+                "full_name": "Full name",
+                "email": "Email",
+                "phone": "Phone",
+                "message": "Message"
             },
-             "submit_button": "submit"
+            "submit_button": "Send message"
         }
     },
-    "about_us_page":{
+    "about_us_page": {
         "hero": {
-            "title":"some nice catchy title in English",
-            "sub_title":"some nice subtitle or phrase, slogan in English"
+            "title": "Our Story in Tuscia",
+            "sub_title": "Farm, hospitality, and the flavors of Lake Bolsena"
         },
         "our_mission": {
-            "title":"Our Mission",
-            "main_text": "At Le Piaje, we are dedicated to providing unparalleled luxury experiences in our exquisite villa retreats. Our mission is to create unforgettable moments of relaxation, indulgence, and connection with nature for our esteemed guests.",
-              "bullet_point_one":"",
-              "bullet_point_two":"",
-              "bullet_point_three":"",
-              "bullet_point_four":""
+            "title": "Our Mission",
+            "main_text": "At Le Piaje we combine working agriculture with warm hospitality. We invite guests to experience our land through stays in the countryside, pilgrim hospitality on the Via Francigena, and the authentic tastes of our farm.",
+            "bullet_point_one": "Preserve and share the natural and cultural heritage of Montefiascone and Lake Bolsena",
+            "bullet_point_two": "Offer genuine agriturismo stays rooted in our family farm",
+            "bullet_point_three": "Welcome pilgrims and travelers with simple, honest hospitality",
+            "bullet_point_four": "Produce and share homemade food from our garden, vineyard, and olive groves"
+        },
+        "life_gallery": {
+            "title": "Life at Le Piaje",
+            "tabs": {
+                "meet_us": "Meet Us",
+                "farm": "Farm & Land",
+                "guests_events": "Guests & Events"
+            },
+            "captions": {
+                "meet_us": "The family and hands behind Le Piaje — welcoming you as one of our own.",
+                "farm": "Vineyards, olive groves, and kitchen gardens at the heart of everything we do.",
+                "guests_events": "Shared meals, lake days, celebrations, and stays that feel like coming home."
+            }
+        },
+        "book_ctas": {
+            "villa": "Book La Villa Perlata",
+            "hostel": "Book Pilgrim Hostel"
         }
+    },
+    "experiences_page": {
+        "hero_title": "Experiences at Le Piaje",
+        "hero_subtitle": "Discover the farm, the land, and the traditions of Tuscia",
+        "farm_tours_title": "Farm & Vineyard Walks",
+        "farm_tours_text": "Walk among our vineyards, olive groves, and pomegranate trees. When the season allows, pick organic produce from the garden and learn about life on a working farm in the Pearl Valley near Lake Bolsena.",
+        "pilgrim_title": "Pilgrim's Rest",
+        "pilgrim_text": "Al Centesimo Chilometro — Ristoro del Pellegrino — welcomes walkers on the Via Francigena with dormitory accommodation, a shared kitchen, and a peaceful chapel.",
+        "tasting_title": "Homemade Flavors",
+        "tasting_text": "Taste the authentic flavors of our land: seasonal produce, olive oil, wine, and farm products available from our shop or to enjoy during your stay.",
+        "tourism_title": "Explore Tuscia",
+        "tourism_text": "From Orvieto and Civita di Bagnoregio to Bomarzo and the shores of Lake Bolsena, Le Piaje is the perfect base for discovering central Italy's hidden countryside."
+    },
+    "booking": {
+        "per_night": "/ night",
+        "pick_dates": "Pick dates",
+        "availability": "Availability",
+        "male_beds": "Male beds available",
+        "female_beds": "Female beds available",
+        "max_occupancy": "Property available",
+        "checking_in": "Who is checking in?",
+        "your_name": "Your name",
+        "your_email": "Your email",
+        "phone_optional": "Phone (optional)",
+        "book_now": "Book now!",
+        "dates_unavailable": "Selected dates are not available",
+        "book_airbnb": "Book with Airbnb",
+        "book_booking_com": "Book with Booking.com",
+        "gender": "Gender",
+        "required": "required"
+    },
+    "payment": {
+        "success_title": "Payment Successful!",
+        "success_message": "Thank you for your payment. Your booking has been confirmed!",
+        "reference": "Booking reference",
+        "email_sent": "A confirmation email has been sent to your inbox.",
+        "go_home": "Go to Home",
+        "reach_us": "How to reach us"
+    },
+    "shop_page": {
+        "title": "Farm Shop",
+        "subtitle": "Homemade products from our land",
+        "add_to_cart": "Add to cart",
+        "checkout": "Checkout",
+        "empty_cart": "Your cart is empty",
+        "total": "Total"
     }
 }

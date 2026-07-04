@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import galleryBackground from "../../../public/assets/villa_perlata/13.jpg";
+import galleryBackground from "../../../public/assets/villa_perlata/esterni/12.jpg";
 
 export default function Gallery() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -14,7 +14,7 @@ export default function Gallery() {
 
   return (
     <div
-      className="relative z-40 bg-cover bg-center  w-full h-auto bg-[#121212]"
+      className="relative z-40 bg-cover bg-center w-full h-auto bg-brand-stone"
       style={{
         backgroundImage: `url(${galleryBackground})`,
       }}
@@ -34,7 +34,7 @@ export default function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-950 bg-opacity-75 z-40"
+            className="fixed inset-0 bg-brand-ink/75 z-40"
             onClick={handleOverlayClick}
           />
         )}

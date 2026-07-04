@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useRef } from "react";
-import Map, { MapRef } from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
+import Map, { MapRef } from "react-map-gl/maplibre";
+import "maplibre-gl/dist/maplibre-gl.css";
 import CustomMarker from "./_marker";
 import PlaceInfo from "./_place_info";
 import { la_villa_perlata_location } from "@/constants/la_villa_perlata_location";
 import { al_centesimo_chilometro_location } from "@/constants/centesimo_chilometro_location";
 import PlaceInfoSkeleton from "./_skeleton";
+import { DEFAULT_MAP_VIEW, MAP_STYLE_URL } from "@/lib/integrations/maps";
 
 interface Place {
   id: number;
@@ -61,15 +62,11 @@ const places: Place[] = [
 export default function ReachUsMap() {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
 
-  // Ref for the Map component
   const mapRef = useRef<MapRef | null>(null);
-
-  const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!;
 
   const handleMarkerClick = (place: Place) => {
     setSelectedPlace(place);
 
-    // Trigger flyTo animation
     mapRef.current?.flyTo({
       center: [place.longitude, place.latitude],
       zoom: 15,
@@ -84,15 +81,12 @@ export default function ReachUsMap() {
         <div className="w-full lg:w-2/3 h-1/2 lg:h-full">
           <Map
             ref={mapRef}
-            mapboxAccessToken={mapboxToken}
-            mapStyle="mapbox://styles/jdaniel96/cm0zjgcjt00g301nq6bxx1ffk"
+            mapStyle={MAP_STYLE_URL}
             initialViewState={{
-              latitude: 42.54536257675014,
-              longitude: 12.020030529169912,
-              zoom: 13,
+              ...DEFAULT_MAP_VIEW,
+              pitch: 70,
             }}
-            pitch={70}
-            style={{ borderRadius: "8px" }}
+            style={{ width: "100%", height: "100%", borderRadius: "8px" }}
             maxZoom={20}
             minZoom={3}
           >

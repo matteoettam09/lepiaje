@@ -4,15 +4,18 @@ import Link from "next/link";
 import { Mail } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import { useScrollToForm } from "@/hooks/use_scroll_to_section";
+import {
+    buildWhatsAppUrl,
+    getWhatsAppPhoneFromEnv,
+} from "@/lib/integrations/whatsapp";
 
-// import { useTranslations } from "next-intl";
 export default function WhatsAppAndEmail() {
-  // const t = useTranslations("hero");
-  const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER!;
-  const message = "Hello, I liked the Le Piaje website! Dec 30"; //CUSTOM
-  const encodedMessage = encodeURIComponent(message);
+  const phoneNumber = getWhatsAppPhoneFromEnv() ?? "";
+  const message = "Hello, I liked the Le Piaje website!";
   const { scrollToForm } = useScrollToForm();
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+  const whatsappUrl = phoneNumber
+    ? buildWhatsAppUrl(phoneNumber, message)
+    : "#";
 
   return (
     <div className="z-50 fixed bottom-0 right-0 pr-4 pb-4">
