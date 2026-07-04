@@ -174,6 +174,11 @@
         "places": {
             "villa_perlata": {
                 "description": "La struttura si trova a 2 km dalle rive del Lago di Bolsena, vicino a numerosi sentieri di campagna. La amerete per la vista, gli ampi spazi all'aperto, l'atmosfera e la privacy. Il mio alloggio è adatto a coppie e famiglie (con bambini).\n\nSituata nella cosiddetta \"Valle Perlata\", avrete la possibilità di immergervi nella natura, percorrendo numerosi sentieri e raggiungendo il lago a piedi senza essere disturbati dal rumore del traffico. La struttura è incorniciata dai campi dell'azienda agricola, dove si producono frutta, olive e soprattutto uva.\n\nOltre al giardino, potrete passeggiare tra i melograni e gli oliveti davanti alla casa e tra i filari dei due vigneti alla sua sinistra, da cui godere di una vista magnifica. Quando la stagione lo permette, potrete raccogliere i prodotti dell'orto e degli alberi da frutto coltivati con metodo biologico.\n\nLe camere si trovano al secondo piano. Troverete sia la biancheria da letto che gli asciugamani. Le utenze sono incluse nel prezzo."
+            },
+            "centesimo": {
+                "description": "Al Centesimo Chilometro — Ristoro del Pellegrino si trova a Montefiascone, una delle tappe storiche della Via Francigena, l'antica strada di pellegrinaggio da Canterbury a Roma. Per secoli, i viandanti hanno attraversato a piedi le colline della Tuscia in cerca di cibo, riposo e riparo prima dell'ultimo tratto verso la Città Eterna.\n\nQuella tradizione di accoglienza continua anche oggi. Offriamo un'ospitalità semplice e sincera a pellegrini e viaggiatori: letti in dormitorio separati per uomini e donne, un giardino dove fermarsi, parcheggio privato gratuito e una sala comune dove si scambiano storie di cammino davanti a un pasto o un bicchiere di vino.\n\nChe stiate percorrendo la Francigena o esplorando il Lago di Bolsena e i vigneti di Montefiascone, il nostro ostello è una base pratica e autentica nel cuore della Tuscia.",
+                "francigena_link_label": "Scopri di più sulla Via Francigena",
+                "francigena_url": "https://www.viefrancigene.org/it/news/introduzione"
             }
         }
     },
