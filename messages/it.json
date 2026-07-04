@@ -25,9 +25,14 @@
             "cta_contact": "Contattaci",
             "cta_discover": "Scopri"
         },
-        "guest_favorite": {
-            "badge": "Preferito dagli ospiti",
-            "subtitle": "Una delle case più amate su Airbnb, secondo gli ospiti"
+        "book_ctas": {
+            "learn_more": "Scopri di più su di noi"
+        },
+        "highlights": {
+            "boat": "Il Lago di Bolsena a portata di mano",
+            "friends": "Eventi e momenti di convivialità",
+            "ristoro": "Accoglienza per i pellegrini della Francigena",
+            "farm": "Prodotti artigianali dalla nostra terra"
         },
         "testimonials": {
             "title": "Cosa Dicono i Nostri Ospiti",
@@ -106,6 +111,23 @@
             "bullet_point_two": "Offrire soggiorni agriturismo autentici radicati nella nostra famiglia contadina",
             "bullet_point_three": "Accogliere pellegrini e viaggiatori con ospitalità semplice e sincera",
             "bullet_point_four": "Produrre e condividere cibo artigianale dal nostro orto, vigneto e oliveto"
+        },
+        "life_gallery": {
+            "title": "La Vita a Le Piaje",
+            "tabs": {
+                "meet_us": "Conoscici",
+                "farm": "Fattoria e Terra",
+                "guests_events": "Ospiti ed Eventi"
+            },
+            "captions": {
+                "meet_us": "La famiglia e le persone di Le Piaje — un'accoglienza come a casa.",
+                "farm": "Vigneti, oliveti e orto biologico al centro di tutto ciò che facciamo.",
+                "guests_events": "Convivialità, giornate al lago, eventi e soggiorni che sembrano casa."
+            }
+        },
+        "book_ctas": {
+            "villa": "Prenota La Villa Perlata",
+            "hostel": "Prenota l'Ostello del Pellegrino"
         }
     },
     "experiences_page": {

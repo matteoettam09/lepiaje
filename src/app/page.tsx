@@ -1,9 +1,9 @@
 import React from "react";
 import Hero from "@/components/hero/hero";
-import Carousel from "@/components/carousel/carousel";
 import ContactForm from "@/components/contact_form/contact_form";
 import { HeroCTAs } from "@/components/landing/hero_ctas";
-import { GuestFavoriteBadge } from "@/components/landing/guest_favorite_badge";
+import { LandingBookCTAs } from "@/components/landing/landing_book_ctas";
+import { LandingHighlights } from "@/components/landing/landing_highlights";
 import { TestimonialsCarousel } from "@/components/landing/testimonials_carousel";
 import { getTranslations } from "next-intl/server";
 
@@ -19,9 +19,11 @@ export default async function Home() {
       >
         <HeroCTAs />
       </Hero>
-      <GuestFavoriteBadge />
-      <Carousel />
-      <TestimonialsCarousel />
+      <section id="discover" className="scroll-mt-24 bg-brand-stone">
+        <LandingHighlights />
+        <TestimonialsCarousel />
+      </section>
+      <LandingBookCTAs />
       <section id="contact">
         <ContactForm />
       </section>

@@ -18,9 +18,9 @@ export function NavLinks({
     const links = [
         { href: "/property/villa-perlata", label: t("villa_perlata") },
         { href: "/property/centesimo-chilometro", label: t("centesimo") },
-        { href: "/about", label: t("about") },
         { href: "/experiences", label: t("experiences") },
         { href: "/shop", label: t("shop") },
+        { href: "/about", label: t("about") },
         { href: "/reach-us", label: t("reach_us") },
     ];
 

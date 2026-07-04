@@ -25,9 +25,14 @@
             "cta_contact": "Contact us",
             "cta_discover": "Discover"
         },
-        "guest_favorite": {
-            "badge": "Guest favorite",
-            "subtitle": "One of the most loved homes on Airbnb, according to guests"
+        "book_ctas": {
+            "learn_more": "Learn more about us"
+        },
+        "highlights": {
+            "boat": "Lake Bolsena at your doorstep",
+            "friends": "Events and shared moments",
+            "ristoro": "Hospitality for Via Francigena pilgrims",
+            "farm": "Homemade products from our land"
         },
         "testimonials": {
             "title": "What Our Clients Say",
@@ -106,6 +111,23 @@
             "bullet_point_two": "Offer genuine agriturismo stays rooted in our family farm",
             "bullet_point_three": "Welcome pilgrims and travelers with simple, honest hospitality",
             "bullet_point_four": "Produce and share homemade food from our garden, vineyard, and olive groves"
+        },
+        "life_gallery": {
+            "title": "Life at Le Piaje",
+            "tabs": {
+                "meet_us": "Meet Us",
+                "farm": "Farm & Land",
+                "guests_events": "Guests & Events"
+            },
+            "captions": {
+                "meet_us": "The family and hands behind Le Piaje — welcoming you as one of our own.",
+                "farm": "Vineyards, olive groves, and kitchen gardens at the heart of everything we do.",
+                "guests_events": "Shared meals, lake days, celebrations, and stays that feel like coming home."
+            }
+        },
+        "book_ctas": {
+            "villa": "Book La Villa Perlata",
+            "hostel": "Book Pilgrim Hostel"
         }
     },
     "experiences_page": {
