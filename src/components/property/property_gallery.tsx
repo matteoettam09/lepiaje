@@ -9,7 +9,7 @@ export function PropertyGallery({ images }: { images: string[] | undefined }) {
 
   if (galleryImages.length === 0) {
     return (
-      <div className="flex h-[400px] items-center justify-center rounded-lg border border-dashed border-gray-700 bg-slate-900 text-gray-400 md:h-[500px] lg:h-[600px]">
+      <div className="flex h-[400px] items-center justify-center border border-dashed border-brand-sand bg-brand-stone text-brand-muted md:h-[500px] lg:h-[600px]">
         No photos available
       </div>
     );
@@ -29,13 +29,13 @@ export function PropertyGallery({ images }: { images: string[] | undefined }) {
           className="rounded-lg"
         />
       </div>
-      <div className="mt-4 flex space-x-4 scrollbar-thin scrollbar-track-slate-800 scrollbar-thumb-brand-gold overflow-x-auto pb-2">
+      <div className="mt-4 flex space-x-4 scrollbar-thin scrollbar-track-brand-sand scrollbar-thumb-brand-terracotta overflow-x-auto pb-2">
         {galleryImages.map((image, index) => (
           <button
             key={image}
             onClick={() => setCurrentImage(index)}
             className={`flex-shrink-0 ${
-              index === activeIndex ? "ring-2 ring-blue-500" : ""
+              index === activeIndex ? "ring-2 ring-brand-terracotta" : ""
             }`}
           >
             <div className="relative h-[8em] w-[6em]">

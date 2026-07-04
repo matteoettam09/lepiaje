@@ -55,13 +55,13 @@ export function TestimonialsCarousel() {
     const review = reviews[currentIndex];
 
     return (
-        <section className="bg-brand-charcoal py-16 md:py-20">
+        <section className="bg-brand-stone py-16 md:py-20">
             <div className="mx-auto max-w-4xl px-6">
-                <h2 className="mb-10 text-center font-display text-3xl text-brand-cream md:text-4xl">
+                <h2 className="mb-10 text-center font-display text-3xl text-brand-ink md:text-4xl">
                     {t("title")}
                 </h2>
 
-                <div className="relative min-h-[280px] overflow-hidden rounded-xl border border-brand-gold/20 bg-brand-ink p-8 md:p-10">
+                <div className="relative min-h-[280px] overflow-hidden rounded-md border border-brand-sand bg-brand-linen p-8 shadow-soft md:p-10">
                     <AnimatePresence initial={false} custom={direction} mode="wait">
                         <motion.div
                             key={currentIndex}
@@ -80,13 +80,13 @@ export function TestimonialsCarousel() {
                             }}
                             className="flex flex-col gap-4"
                         >
-                            <p className="font-display text-xl text-brand-gold md:text-2xl">
+                            <p className="font-display text-xl text-brand-terracotta md:text-2xl">
                                 {review.headline}
                             </p>
-                            <p className="font-sans text-base leading-relaxed text-brand-cream/90 md:text-lg">
+                            <p className="font-sans text-base leading-relaxed text-brand-ink md:text-lg">
                                 &ldquo;{review.quote}&rdquo;
                             </p>
-                            <p className="mt-2 font-sans text-sm text-brand-cream/60">
+                            <p className="mt-2 font-sans text-sm text-brand-muted">
                                 — {review.name}, {review.country}
                             </p>
                         </motion.div>
@@ -96,7 +96,7 @@ export function TestimonialsCarousel() {
                         type="button"
                         onClick={prevSlide}
                         aria-label="Previous review"
-                        className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-brand-charcoal/80 p-2 text-brand-cream transition hover:bg-brand-gold hover:text-brand-charcoal md:left-4"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-brand-sand bg-brand-linen p-2 text-brand-ink transition hover:bg-brand-stone md:left-4"
                     >
                         <ChevronLeft size={24} />
                     </button>
@@ -104,7 +104,7 @@ export function TestimonialsCarousel() {
                         type="button"
                         onClick={nextSlide}
                         aria-label="Next review"
-                        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-brand-charcoal/80 p-2 text-brand-cream transition hover:bg-brand-gold hover:text-brand-charcoal md:right-4"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-brand-sand bg-brand-linen p-2 text-brand-ink transition hover:bg-brand-stone md:right-4"
                     >
                         <ChevronRight size={24} />
                     </button>
@@ -119,8 +119,8 @@ export function TestimonialsCarousel() {
                             onClick={() => goToSlide(index)}
                             className={`h-2 rounded-full transition-all ${
                                 index === currentIndex
-                                    ? "w-8 bg-brand-gold"
-                                    : "w-2 bg-brand-cream/30 hover:bg-brand-cream/50"
+                                    ? "w-8 bg-brand-terracotta"
+                                    : "w-2 bg-brand-sand hover:bg-brand-muted"
                             }`}
                         />
                     ))}

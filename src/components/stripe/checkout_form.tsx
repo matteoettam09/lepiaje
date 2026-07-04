@@ -157,9 +157,9 @@ function PaymentForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="text-center text-gray-200 text-lg font-semibold">
+      <div className="text-center text-brand-ink text-lg font-semibold">
         Amount to Pay:{" "}
-        <span className="text-green-400">€{displayAmount.toFixed(2)}</span>
+        <span className="text-brand-terracotta">€{displayAmount.toFixed(2)}</span>
       </div>
 
       <PaymentElement />
@@ -167,7 +167,7 @@ function PaymentForm({
       <button
         type="submit"
         disabled={!stripe || isProcessing}
-        className="w-full font-bold bg-green-500 text-gray-200 px-4 py-2 rounded mt-4"
+        className="w-full font-bold bg-brand-terracotta text-brand-linen hover:bg-brand-terracotta-dark px-4 py-2 rounded mt-4 disabled:opacity-50"
       >
         {isProcessing ? "Processing..." : `Pay €${displayAmount.toFixed(2)}`}
       </button>

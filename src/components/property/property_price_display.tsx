@@ -32,19 +32,19 @@ export default function PriceDisplay({
   }, [nights, pricePerNight, serviceFee, cleaningFee]);
 
   return (
-    <Card className="bg-slate-900 w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto">
       <CardHeader>
         <CardTitle className="flex justify-between ">
-          <span className="text-2xl font-bold text-gray-200">
+          <span className="text-2xl font-bold text-brand-ink">
             ${pricePerNight}
           </span>
-          <span className="text-base font-normal text-gray-200">
+          <span className="text-base font-normal text-brand-muted">
             price per night
           </span>
         </CardTitle>
         <CardTitle className="flex justify-between ">
-          <span className="text-2xl font-bold text-gray-200">{nights}</span>
-          <span className="text-base font-normal text-gray-200">nights</span>
+          <span className="text-2xl font-bold text-brand-ink">{nights}</span>
+          <span className="text-base font-normal text-brand-muted">nights</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -56,14 +56,14 @@ export default function PriceDisplay({
         )}
         {serviceFee > 0 && (
           <div className="flex justify-between">
-            <span className="text-gray-200">Service fee</span>
-            <span className="text-gray-200">${serviceFee}</span>
+            <span className="text-brand-ink">Service fee</span>
+            <span className="text-brand-ink">${serviceFee}</span>
           </div>
         )}
       </CardContent>
       <CardFooter className="flex justify-between items-center border-t pt-4">
-        <span className="text-gray-200 text-lg font-semibold">Total</span>
-        <span className="text-gray-200 text-2xl font-bold">${total}</span>
+        <span className="text-brand-ink text-lg font-semibold">Total</span>
+        <span className="text-brand-terracotta text-2xl font-bold">${total}</span>
       </CardFooter>
     </Card>
   );

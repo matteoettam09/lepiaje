@@ -55,11 +55,11 @@ function PaymentForm({
     };
 
     return (
-        <form onSubmit={handlePay} className="space-y-4 mt-4 border-t border-gray-700 pt-4">
-            <p className="text-green-400 font-bold">{t("total")}: €{amount.toFixed(2)}</p>
+        <form onSubmit={handlePay} className="space-y-4 mt-4 border-t border-brand-sand pt-4">
+            <p className="text-brand-terracotta font-bold">{t("total")}: €{amount.toFixed(2)}</p>
             <PaymentElement />
             <div className="flex gap-2">
-                <Button type="submit" disabled={processing} className="bg-green-600 flex-1">
+                <Button type="submit" disabled={processing} className="flex-1">
                     {processing ? "..." : t("checkout")}
                 </Button>
                 <Button type="button" variant="outline" onClick={onCancel}>
@@ -103,7 +103,7 @@ function ShopCheckoutWrapper({
     }, [cart, clientEmail]);
 
     if (error) return <p className="text-red-400">{error}</p>;
-    if (!clientSecret) return <p className="text-gray-400">Loading payment...</p>;
+    if (!clientSecret) return <p className="text-brand-muted">Loading payment...</p>;
 
     const stripe = getStripePromise();
     if (!stripe) return <p className="text-red-400">Payment is not configured.</p>;
@@ -160,11 +160,11 @@ export default function ShopPage() {
         locale === "it" && p.unitIt ? p.unitIt : p.unit;
 
     return (
-        <div className="min-h-screen bg-slate-950 text-gray-200 pt-28 pb-16 px-4">
+        <div className="min-h-screen bg-brand-linen text-brand-ink pt-28 pb-16 px-4">
             <div className="max-w-5xl mx-auto">
                 <header className="text-center mb-12">
-                    <h1 className="text-4xl font-bold text-green-400 mb-2">{t("title")}</h1>
-                    <p className="text-gray-400">{t("subtitle")}</p>
+                    <h1 className="text-4xl font-bold text-brand-ink mb-2">{t("title")}</h1>
+                    <p className="text-brand-muted">{t("subtitle")}</p>
                 </header>
 
                 {loading && <p className="text-center">Loading...</p>}
@@ -173,18 +173,18 @@ export default function ShopPage() {
                     {products.map((product) => (
                         <div
                             key={product.productId}
-                            className="border border-gray-800 rounded-xl p-6 bg-slate-900"
+                            className="border border-brand-sand p-6 bg-brand-stone shadow-soft"
                         >
-                            <h3 className="text-xl font-semibold text-green-300 mb-2">
+                            <h3 className="text-xl font-semibold text-brand-ink mb-2">
                                 {getProductName(product)}
                             </h3>
-                            <p className="text-gray-400 text-sm mb-4">{getProductDesc(product)}</p>
-                            <p className="text-lg font-bold mb-4">
+                            <p className="text-brand-muted text-sm mb-4">{getProductDesc(product)}</p>
+                            <p className="text-lg font-bold mb-4 text-brand-ink">
                                 €{product.price.toFixed(2)} / {getProductUnit(product)}
                             </p>
                             <Button
                                 onClick={() => addToCart(product)}
-                                className="w-full bg-green-700 hover:bg-green-600"
+                                className="w-full"
                             >
                                 {t("add_to_cart")}
                             </Button>
@@ -192,10 +192,10 @@ export default function ShopPage() {
                     ))}
                 </div>
 
-                <div className="border border-gray-700 rounded-xl p-6 bg-slate-900 max-w-lg mx-auto">
-                    <h2 className="text-xl font-bold mb-4">Cart</h2>
+                <div className="border border-brand-sand p-6 bg-brand-stone shadow-soft max-w-lg mx-auto">
+                    <h2 className="text-xl font-bold mb-4 text-brand-ink">Cart</h2>
                     {cart.length === 0 ? (
-                        <p className="text-gray-500">{t("empty_cart")}</p>
+                        <p className="text-brand-muted">{t("empty_cart")}</p>
                     ) : (
                         <>
                             <ul className="space-y-2 mb-4">
@@ -208,7 +208,7 @@ export default function ShopPage() {
                                     </li>
                                 ))}
                             </ul>
-                            <p className="font-bold text-green-400 mb-4">
+                            <p className="font-bold text-brand-terracotta mb-4">
                                 {t("total")}: €{cartTotal.toFixed(2)}
                             </p>
                             {!checkout ? (
@@ -222,7 +222,7 @@ export default function ShopPage() {
                                         required
                                     />
                                     <Button
-                                        className="w-full bg-green-600"
+                                        className="w-full"
                                         disabled={!email || cart.length === 0}
                                         onClick={() => setCheckout(true)}
                                     >

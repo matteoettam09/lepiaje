@@ -66,7 +66,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
       </div>
       <div className="max-w-4xl mx-auto relative z-10 p-4">
         <React.Fragment>
-          <h1 className="text-brand-cream font-thin text-4xl text-center pb-8">
+          <h1 className="text-brand-linen font-thin text-4xl text-center pb-8">
             A peak into our world
           </h1>
           <div className="relative  h-[30em]  mb-4 overflow-hidden rounded-lg">
@@ -95,20 +95,20 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
             </AnimatePresence>
             <button
               onClick={prevSlide}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-slate-950 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all z-10"
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-brand-ink/50 text-brand-linen p-2 rounded-full hover:bg-brand-ink/70 transition-all z-10"
             >
               <ChevronLeft size={24} />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-slate-950 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all z-10"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-brand-ink/50 text-brand-linen p-2 rounded-full hover:bg-brand-ink/70 transition-all z-10"
             >
               <ChevronRight size={24} />
             </button>
           </div>
         </React.Fragment>
       </div>
-      <div className="relative z-40 scrollbar-thin scrollbar-track-brand-charcoal scrollbar-thumb-brand-gold flex w-full justify-center space-x-2 px-4 overflow-x-scroll pb-2">
+      <div className="relative z-40 scrollbar-thin scrollbar-track-brand-sand scrollbar-thumb-brand-terracotta flex w-full justify-center space-x-2 px-4 overflow-x-scroll pb-2">
         {images.map((image, index) => (
           <motion.div
             key={index}
@@ -116,7 +116,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
             whileTap={{ scale: 0.9 }}
             onClick={() => setCurrentIndex(index)}
             className={`cursor-pointer flex-shrink-0 ${
-              index === currentIndex ? "ring-2 ring-blue-500" : ""
+              index === currentIndex ? "ring-2 ring-brand-terracotta" : ""
             }`}
           >
             <div className="relative h-[7em] w-[6em]">

@@ -24,12 +24,12 @@ export default function PlaceInfo({
   website,
 }: PlaceInfoProps) {
   return (
-    <Card className="w-full bg-slate-900 h-full overflow-auto">
+    <Card className="w-full h-full overflow-auto">
       <CardHeader>
-        <CardTitle className="text-gray-300">{name}</CardTitle>
+        <CardTitle className="text-brand-ink">{name}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      <CardContent className="text-gray-400">
+      <CardContent className="text-brand-muted">
         <p className="mb-2">
           <strong>Address:</strong> {address}
         </p>
@@ -50,7 +50,7 @@ export default function PlaceInfo({
               href={website}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary text-gray-300 hover:underline"
+              className="text-brand-terracotta hover:underline"
             >
               {website}
             </a>

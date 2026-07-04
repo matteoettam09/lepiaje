@@ -4,6 +4,6 @@ export default function PropertyLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-slate-950 text-brand-cream">{children}</div>
+    <div className="min-h-screen bg-brand-linen text-brand-ink">{children}</div>
   );
 }

@@ -19,7 +19,7 @@ export function Hero() {
       index={0}
       className="relative w-full h-screen md:max-2xl:min-h-[600px] flex items-center justify-center overflow-hidden "
     >
-      <div className="absolute inset-0 w-full h-full  bg-gray-950">
+      <div className="absolute inset-0 w-full h-full bg-brand-ink">
         <Image
           src={villaPerlata6}
           alt="Le Piaje About Us Hero Background Image"

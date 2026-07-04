@@ -18,7 +18,7 @@ export function OurMission() {
   return (
     <AnimateOnScroll
       index={1}
-      className="py-12 sm:py-16 md:py-20 lg:py-24 bg-slate-950"
+      className="py-12 sm:py-16 md:py-20 lg:py-24 bg-brand-stone"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
@@ -33,12 +33,12 @@ export function OurMission() {
             />
           </div>
           <div className="w-full lg:w-1/2 space-y-6">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-gray-200 font-bold">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-brand-ink font-bold">
               {t("title")}
             </h2>
-            <p className="text-base sm:text-lg text-gray-300">{t("main_text")}</p>
+            <p className="text-base sm:text-lg text-brand-muted">{t("main_text")}</p>
             {bullets.length > 0 && (
-              <ul className="list-disc list-inside text-gray-300 space-y-2">
+              <ul className="list-disc list-inside text-brand-muted space-y-2">
                 {bullets.map((bullet) => (
                   <li key={bullet}>{bullet}</li>
                 ))}

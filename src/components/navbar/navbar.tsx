@@ -12,14 +12,14 @@ import Link from "next/link";
 import { NavLinks } from "./nav_links";
 
 const mobileLinkClass =
-  "text-center text-brand-cream justify-center flex w-full items-center py-2 text-lg font-semibold";
+  "text-center text-brand-ink justify-center flex w-full items-center py-2 text-lg font-semibold hover:text-brand-terracotta transition-colors";
 
 const desktopLinkClass =
-  "whitespace-nowrap text-brand-cream group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-brand-gold hover:scale-105 duration-150 transition-all hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none";
+  "whitespace-nowrap text-brand-ink group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:text-brand-terracotta transition-colors focus:outline-none";
 
 export function Navbar() {
   return (
-    <header className=" top-0 fixed z-50 bg-brand-gold flex h-24 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
+    <header className="top-0 fixed z-50 flex h-24 w-full shrink-0 items-center border-b border-brand-sand bg-brand-linen/95 px-4 backdrop-blur-sm md:px-6">
       <Sheet>
         <SheetTitle>
           <Link href={"/"} prefetch={false}>
@@ -27,39 +27,39 @@ export function Navbar() {
           </Link>
         </SheetTitle>
         <SheetTrigger asChild>
-          <div className="text-brand-cream flex w-full items-center justify-end lg:justify-end md:justify-end sm:justify-end">
+          <div className="text-brand-ink flex w-full items-center justify-end lg:justify-end md:justify-end sm:justify-end">
             <Button
               variant="outline"
               size="icon"
-              className="lg:hidden flex bg-[rgba(0,0,0,0.3)] m-1"
+              className="lg:hidden flex border-brand-sand m-1"
             >
               <MenuIcon />
-              <span className="sr-only text-white">Toggle navigation menu</span>
+              <span className="sr-only">Toggle navigation menu</span>
             </Button>
           </div>
         </SheetTrigger>
 
         <SheetContent
-          className="bg-opacity-10 bg-brand-charcoal backdrop-filter backdrop-blur-md "
+          className="border-brand-sand bg-brand-linen"
           side="right"
         >
-          <div className="text-brand-cream place-content-center grid gap-2 py-6">
+          <div className="text-brand-ink place-content-center grid gap-2 py-6">
             <NavLinks className={mobileLinkClass} />
             <div className="flex justify-center items-center my-16 space-x-6">
-              <Link href="mailto:giulianaclementini.ad@gmail.com" className="hover:text-gray-900 transition-colors">
-                <Mail color="#f1f1f1" size={21} />
+              <Link href="mailto:giulianaclementini.ad@gmail.com" className="text-brand-muted hover:text-brand-terracotta transition-colors">
+                <Mail size={21} />
                 <span className="sr-only">Email</span>
               </Link>
-              <Link href="tel:+393383032673" className="hover:text-gray-900 transition-colors">
-                <Phone color="#f1f1f1" size={20} />
+              <Link href="tel:+393383032673" className="text-brand-muted hover:text-brand-terracotta transition-colors">
+                <Phone size={20} />
                 <span className="sr-only">Phone</span>
               </Link>
-              <Link href="https://instagram.com/lepiaje" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">
-                <FaInstagram color="#fd1d1d" size={20} />
+              <Link href="https://instagram.com/lepiaje" target="_blank" rel="noopener noreferrer" className="text-brand-muted hover:text-brand-terracotta transition-colors">
+                <FaInstagram size={20} />
                 <span className="sr-only">Instagram</span>
               </Link>
-              <Link href="https://facebook.com/lepiaje" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">
-                <FaFacebookF color="#1877F2" size={20} />
+              <Link href="https://facebook.com/lepiaje" target="_blank" rel="noopener noreferrer" className="text-brand-muted hover:text-brand-terracotta transition-colors">
+                <FaFacebookF size={20} />
                 <span className="sr-only">Facebook</span>
               </Link>
             </div>
@@ -77,7 +77,7 @@ export function Navbar() {
 
 function MenuIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#fff" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <line x1="4" x2="20" y1="12" y2="12" />
       <line x1="4" x2="20" y1="6" y2="6" />
       <line x1="4" x2="20" y1="18" y2="18" />

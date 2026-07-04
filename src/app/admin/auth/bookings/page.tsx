@@ -25,7 +25,7 @@ export default function AdminBookingsPage() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-slate-950 text-gray-200 p-8 mt-24">
+        <div className="min-h-screen bg-brand-stone text-brand-ink p-8 mt-24">
             <div className="max-w-5xl mx-auto">
                 <div className="flex items-center justify-between mb-8">
                     <h1 className="text-3xl font-bold">Bookings</h1>

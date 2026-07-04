@@ -47,7 +47,7 @@ function Calendar({
           months:
             "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
           ...classNames,
-          today: "font-bold text-lg text-brand-gold",
+          today: "font-bold text-lg text-brand-terracotta",
         }}
         {...props}
       />

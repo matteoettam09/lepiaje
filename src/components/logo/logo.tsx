@@ -13,7 +13,7 @@ const Logo = ({
   <div className="relative justify-center flex items-center ">
     <div className={`relative  ${height} ${width}`}>
       <div
-        className={`${width} ${height} absolute inset-0 bg-slate-300 rounded-full ${blur}`}
+        className={`${width} ${height} absolute inset-0 bg-brand-sand rounded-full ${blur}`}
       ></div>
       <Image
         src={logoPath}

@@ -57,50 +57,50 @@ export default function BookingSummaryModal({
           <DialogDescription hidden>
             Booking summary and payment form
           </DialogDescription>
-          <DialogContent className="my-4 max-h-[90vh] w-[90%] overflow-y-auto bg-slate-950 py-8">
+          <DialogContent className="my-4 max-h-[90vh] w-[90%] overflow-y-auto bg-brand-linen py-8">
         <DialogHeader>
-          <DialogTitle className="text-gray-400 text-center">
+          <DialogTitle className="text-brand-muted text-center">
             Booking Confirmation
           </DialogTitle>
         </DialogHeader>
 
-        <Card className="w-full bg-slate-950">
+        <Card className="w-full">
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 gap-4">
               <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
 
               <div>
-                <h3 className="text-gray-200 text-center font-semibold text-lg mb-2">
+                <h3 className="text-brand-ink text-center font-semibold text-lg mb-2">
                   {bookingData.propertyName}
                 </h3>
                 <div>
-                  <label className="text-gray-200 font-bold text-xl">
+                  <label className="text-brand-ink font-bold text-xl">
                     Booker:
                   </label>
-                  <h3 className="text-gray-200 font-semibold text-lg mb-2">
+                  <h3 className="text-brand-ink font-semibold text-lg mb-2">
                     {bookingData.bookerName}
                   </h3>
                 </div>
                 <div>
-                  <h3 className="text-gray-200 font-semibold text-lg mb-2">
+                  <h3 className="text-brand-ink font-semibold text-lg mb-2">
                     Dates
                   </h3>
-                  <p className="text-gray-200">
+                  <p className="text-brand-ink">
                     Check-in:{" "}
                     {bookingData.checkIn &&
                       format(new Date(bookingData.checkIn), "MMMM d, yyyy")}
                   </p>
-                  <p className="text-gray-200">
+                  <p className="text-brand-ink">
                     Check-out:{" "}
                     {bookingData.checkOut &&
                       format(new Date(bookingData.checkOut), "MMMM d, yyyy")}
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-gray-200 font-semibold text-lg mb-2">
+                  <h3 className="text-brand-ink font-semibold text-lg mb-2">
                     Guests
                   </h3>
-                  <p className="text-gray-200 font-thin text-md">
+                  <p className="text-brand-ink font-thin text-md">
                     {bookingData.guests.length} Guests
                   </p>
                   {bookingData.guests.map((guest, index) => (
@@ -108,8 +108,8 @@ export default function BookingSummaryModal({
                       key={index}
                       className="flex items-center justify-start"
                     >
-                      <Badge className="mr-2 text-green-600"></Badge>
-                      <p className="text-gray-200">{guest.name}</p>
+                      <Badge className="mr-2 text-brand-terracotta"></Badge>
+                      <p className="text-brand-ink">{guest.name}</p>
                     </div>
                   ))}
                 </div>
@@ -117,7 +117,7 @@ export default function BookingSummaryModal({
 
               {isOpen && (
                 <div>
-                  <h3 className="text-gray-200 text-center font-semibold text-lg mb-4">
+                  <h3 className="text-brand-ink text-center font-semibold text-lg mb-4">
                     Complete Your Payment
                   </h3>
                   <PaymentWrapper

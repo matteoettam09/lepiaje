@@ -11,7 +11,7 @@ export default async function Home() {
   const t = await getTranslations("landing_page.hero");
 
   return (
-    <div className="bg-brand-charcoal w-full h-full">
+    <div className="bg-brand-linen w-full h-full">
       <Hero
         title={t("title")}
         subtitle={t("sub_title")}

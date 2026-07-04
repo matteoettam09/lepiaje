@@ -1,8 +1,6 @@
 import type { Config } from "tailwindcss";
 import { brandColors } from "./src/lib/brand/tokens";
 
-const { colors } = require("tailwindcss/colors");
-
 export default {
   darkMode: ["class"],
   content: [
@@ -18,19 +16,19 @@ export default {
         sans: ["var(--font-body)", "sans-serif"],
       },
       boxShadow: {
-        blur: "0 0 20px 10px rgba(0, 0, 0, 0.2)",
+        soft: "0 1px 3px rgba(42, 38, 34, 0.08)",
       },
       colors: {
-        ...colors,
         brand: {
-          gold: {
-            DEFAULT: brandColors.gold.DEFAULT,
-            dark: brandColors.gold.dark,
-          },
-          olive: brandColors.olive,
-          cream: brandColors.cream,
-          charcoal: brandColors.charcoal,
+          linen: brandColors.linen,
+          stone: brandColors.stone,
+          sand: brandColors.sand,
           ink: brandColors.ink,
+          muted: brandColors.muted,
+          terracotta: {
+            DEFAULT: brandColors.terracotta.DEFAULT,
+            dark: brandColors.terracotta.dark,
+          },
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

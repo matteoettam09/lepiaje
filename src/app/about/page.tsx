@@ -9,7 +9,7 @@ export default async function AboutPage() {
   const teamImages = await getImages("who_we_are");
 
   return (
-    <div className="min-h-screen h-full w-full bg-slate-950">
+    <div className="min-h-screen h-full w-full bg-brand-linen">
       <Hero />
       <OurMission />
       <OurTeam imageUrls={teamImages} />

@@ -20,7 +20,7 @@ export default function AdminPanel() {
       <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl">
         <Link
           href="/admin/auth/bookings"
-          className="w-full max-w-2xl mb-4 bg-green-700 text-white shadow-lg rounded-lg p-4 text-center hover:bg-green-600 transition-colors"
+          className="w-full max-w-2xl mb-4 bg-brand-terracotta text-brand-linen shadow-soft p-4 text-center hover:bg-brand-terracotta-dark transition-colors"
         >
           View all bookings
         </Link>

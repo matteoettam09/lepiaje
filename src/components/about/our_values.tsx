@@ -30,10 +30,10 @@ const values = [
 
 export function OurValues() {
   return (
-    <AnimateOnScroll index={3} className="py-16 bg-gray-950">
+    <AnimateOnScroll index={3} className="py-16 bg-brand-stone">
       <div className="container mx-auto px-4">
         <motion.h2
-          className="text-4xl font-bold mb-12 text-center text-gray-200"
+          className="text-4xl font-bold mb-12 text-center text-brand-ink"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -61,7 +61,7 @@ function ValueCard({
 
   return (
     <motion.div
-      className="bg-white rounded-lg shadow-lg p-6 transition-all duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-xl"
+      className="bg-brand-linen border border-brand-sand shadow-soft p-6 transition-colors duration-300 hover:bg-brand-stone"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -72,10 +72,10 @@ function ValueCard({
         animate={{ scale: isHovered ? 1.1 : 1 }}
         transition={{ duration: 0.3 }}
       >
-        <value.icon className="w-16 h-16 mx-auto mb-4 text-primary" />
+        <value.icon className="w-16 h-16 mx-auto mb-4 text-brand-terracotta" />
       </motion.div>
-      <h3 className="font-bold text-xl mb-2 text-gray-800">{value.title}</h3>
-      <p className="text-gray-600">{value.description}</p>
+      <h3 className="font-bold text-xl mb-2 text-brand-ink">{value.title}</h3>
+      <p className="text-brand-muted">{value.description}</p>
     </motion.div>
   );
 }

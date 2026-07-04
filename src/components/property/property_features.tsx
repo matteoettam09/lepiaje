@@ -7,13 +7,13 @@ export function PropertyFeatures({
 }) {
   return (
     <div className="py-8">
-      <h2 className="text-2xl font-bold mb-4 text-gray-200">{title || ""}</h2>
-      <div className="h-[20em] overflow-scroll overflow-x-hidden scrollbar-thin scrollbar-track-slate-800 scrollbar-thumb-brand-gold">
+      <h2 className="text-2xl font-bold mb-4 text-brand-ink">{title || ""}</h2>
+      <div className="h-[20em] overflow-scroll overflow-x-hidden scrollbar-thin scrollbar-track-brand-sand scrollbar-thumb-brand-terracotta">
         <ul className="grid grid-cols-2 gap-4">
           {features.map((feature, index) => (
-            <li key={index} className="flex text-gray-200 items-center">
+            <li key={index} className="flex text-brand-ink items-center">
               <svg
-                className="h-5 w-5 text-green-500 mr-2"
+                className="h-5 w-5 text-brand-terracotta mr-2"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"

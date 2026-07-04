@@ -183,7 +183,7 @@ export function PropertyBooking({
 
   return (
     <div className="border rounded-lg p-6">
-      <h2 className="text-2xl text-gray-200 font-bold mb-4">
+      <h2 className="text-2xl text-brand-ink font-bold mb-4">
         €{price} {t("per_night")}
       </h2>
       <div className="space-y-4">
@@ -254,7 +254,7 @@ export function PropertyBooking({
                 <Form>
                   <div>
                     <div>
-                      <p className="text-lg font-bold text-gray-400">
+                      <p className="text-lg font-bold text-brand-muted">
                         {t("availability")}
                       </p>
                       {!isLaVillaPerlata ? (
@@ -267,16 +267,16 @@ export function PropertyBooking({
                           </p>
                         </>
                       ) : (
-                        <p className="text-gray-300 text-md">
+                        <p className="text-brand-muted text-md">
                           {t("max_occupancy")}: {availableMixedBeds > 0 ? "Yes" : "No"}
                         </p>
                       )}
                     </div>
-                    <p className="text-gray-300 my-2 text-2xl font-semibold">
+                    <p className="text-brand-muted my-2 text-2xl font-semibold">
                       {t("checking_in")}
                     </p>
 
-                    <label className="block text-gray-400 text-sm font-medium">
+                    <label className="block text-brand-muted text-sm font-medium">
                       {t("your_name")}:
                     </label>
                     <div className="flex  gap-x-2">
@@ -320,7 +320,7 @@ export function PropertyBooking({
 
                   <div>
                     <div className="my-2 flex items-center justify-between gap-x-2">
-                      <label className="block text-gray-400 text-sm font-medium">
+                      <label className="block text-brand-muted text-sm font-medium">
                         {t("your_email")}:
                       </label>
                       <label className="text-sm text-red-500">*{t("required")}</label>
@@ -341,7 +341,7 @@ export function PropertyBooking({
                   </div>
 
                   <div>
-                    <label className="block text-gray-400 text-sm font-medium">
+                    <label className="block text-brand-muted text-sm font-medium">
                       {t("phone_optional")}:
                     </label>
                     <Field
@@ -394,7 +394,7 @@ export function PropertyBooking({
           className={`w-full ${
             hasOverlap || error
               ? "text-white bg-red-500"
-              : "hover:text-slate-950 bg-green-600 hover:bg-green-300"
+              : "bg-brand-terracotta text-brand-linen hover:bg-brand-terracotta-dark"
           }`}
         >
           {hasOverlap || error
@@ -411,14 +411,14 @@ export function PropertyBooking({
         <div>
           {airbnb && (
             <Link target={"_blank"} href={airbnb}>
-              <p className="text-sm text-gray-600 hover:text-[#FF5A5F]">
+              <p className="text-sm text-brand-muted hover:text-[#FF5A5F]">
                 {t("book_airbnb")}
               </p>
             </Link>
           )}
           {booking && (
             <Link target={"_blank"} href={booking}>
-              <p className="text-sm text-gray-600 hover:text-blue-500">
+              <p className="text-sm text-brand-muted hover:text-blue-500">
                 {t("book_booking_com")}
               </p>
             </Link>

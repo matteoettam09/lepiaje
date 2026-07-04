@@ -50,7 +50,7 @@ export default function GuestList({
 
   return (
     <div className="w-full max-w-md mx-auto py-6 space-y-4">
-      <h2 className="md:max-2xl:text-start text-center text-2xl font-bold text-gray-200 mb-6">
+      <h2 className="md:max-2xl:text-start text-center text-2xl font-bold text-brand-ink mb-6">
         Would like to add any guests?
       </h2>
       <AnimatePresence>

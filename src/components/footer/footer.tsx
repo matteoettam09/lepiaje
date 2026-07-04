@@ -10,7 +10,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-950 text-gray-600 py-8">
+    <footer className="border-t border-brand-sand bg-brand-stone text-brand-muted py-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="flex flex-col items-center justify-center w-[5em] space-x-4">
@@ -18,19 +18,19 @@ export default function Footer() {
           </div>
 
           <div className="flex space-x-6">
-            <Link href="mailto:giulianaclementini.ad@gmail.com" className="hover:text-gray-900 transition-colors">
-              <Mail color="#f1f1f1" size={21} />
+            <Link href="mailto:giulianaclementini.ad@gmail.com" className="text-brand-muted hover:text-brand-terracotta transition-colors">
+              <Mail size={21} />
               <span className="sr-only">Email</span>
             </Link>
-            <Link href="tel:+393383032673" className="hover:text-gray-900 transition-colors">
-              <Phone color="#f1f1f1" size={20} />
+            <Link href="tel:+393383032673" className="text-brand-muted hover:text-brand-terracotta transition-colors">
+              <Phone size={20} />
               <span className="sr-only">Phone</span>
             </Link>
           </div>
         </div>
       </div>
       <div className="w-full flex py-4 justify-center items-center">
-        <span className="text-sm text-brand-gold">
+        <span className="text-sm text-brand-muted">
           {t("copyright", { year })}
         </span>
       </div>

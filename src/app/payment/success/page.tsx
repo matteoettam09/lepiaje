@@ -11,12 +11,12 @@ function PaymentSuccessContent() {
     const t = useTranslations("payment");
 
     return (
-        <div className="min-h-screen pt-24 flex flex-col items-center justify-center bg-gradient-to-br from-green-900 via-green-800 to-green-700 text-white px-4">
-            <div className="text-center space-y-4 max-w-lg">
-                <div className="p-4 bg-green-600 rounded-full inline-block">
+        <div className="min-h-screen pt-24 flex flex-col items-center justify-center bg-brand-linen text-brand-ink px-4">
+            <div className="text-center space-y-4 max-w-lg border border-brand-sand bg-brand-stone p-10 shadow-soft">
+                <div className="p-4 bg-brand-terracotta/10 rounded-full inline-block">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-12 w-12 text-white"
+                        className="h-12 w-12 text-brand-terracotta"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -29,27 +29,27 @@ function PaymentSuccessContent() {
                         />
                     </svg>
                 </div>
-                <h1 className="text-3xl font-bold">{t("success_title")}</h1>
-                <p className="text-lg">{t("success_message")}</p>
+                <h1 className="text-3xl font-display font-bold">{t("success_title")}</h1>
+                <p className="text-lg text-brand-muted">{t("success_message")}</p>
                 {bookingReference && (
-                    <p className="text-xl font-semibold bg-green-800/50 rounded-lg py-3 px-4">
+                    <p className="text-xl font-semibold bg-brand-linen border border-brand-sand py-3 px-4">
                         {t("reference")}:{" "}
-                        <span className="text-green-200">{bookingReference}</span>
+                        <span className="text-brand-terracotta">{bookingReference}</span>
                     </p>
                 )}
-                <p className="text-sm text-green-100">{t("email_sent")}</p>
+                <p className="text-sm text-brand-muted">{t("email_sent")}</p>
             </div>
 
             <div className="mt-8 flex gap-4">
                 <Link
                     href="/"
-                    className="px-6 py-2 bg-green-500 hover:bg-green-600 rounded-md text-white font-medium"
+                    className="px-6 py-2 bg-brand-terracotta hover:bg-brand-terracotta-dark text-brand-linen font-medium transition-colors"
                 >
                     {t("go_home")}
                 </Link>
                 <Link
                     href="/reach-us"
-                    className="px-6 py-2 border border-green-300 hover:bg-green-800 rounded-md text-white font-medium"
+                    className="px-6 py-2 border border-brand-sand text-brand-ink hover:bg-brand-stone font-medium transition-colors"
                 >
                     {t("reach_us")}
                 </Link>
@@ -60,7 +60,7 @@ function PaymentSuccessContent() {
 
 export default function PaymentSuccess() {
     return (
-        <Suspense fallback={<div className="min-h-screen bg-green-900" />}>
+        <Suspense fallback={<div className="min-h-screen bg-brand-linen" />}>
             <PaymentSuccessContent />
         </Suspense>
     );

@@ -30,7 +30,7 @@ const validationSchema = Yup.object({
     ),
   message: Yup.string()
     .max(500, "The message cannot exceed 500 characters")
-    .required("A message is required"), //Adjust the characters according to your liking
+    .required("A message is required"),
 });
 
 export default function ContactForm() {
@@ -52,7 +52,7 @@ export default function ContactForm() {
       if (!submission) {
         formik.resetForm();
         setHasSuceeded(false);
-        showAlert("Something has gone wrong with submitting the form"); //TODO use translations
+        showAlert("Something has gone wrong with submitting the form");
         setIsLoading(false);
         return;
       }
@@ -60,14 +60,14 @@ export default function ContactForm() {
       formik.resetForm();
       setIsLoading(false);
       setHasSuceeded(true);
-      showAlert("The form has been submitted successfully!"); //TODO Use translations
+      showAlert("The form has been submitted successfully!");
     },
   });
 
   return (
     <div
       id="lePiajeForm"
-      className="w-full py-20 h-full max-h-[65em] bg-slate-950 flex  items-center justify-center p-4"
+      className="w-full py-20 h-full max-h-[65em] bg-brand-stone flex items-center justify-center p-4"
     >
       <Alert
         message={message}
@@ -76,41 +76,34 @@ export default function ContactForm() {
         success={hasSuceeded}
       />
 
-      <div className="w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-slate-950 rounded-xl shadow-brand-gold/40 shadow-2xl drop-shadow-2xl overflow-hidden">
-        <div className="md:max-2xl:w-1/2 w-full relative ">
+      <div className="w-full flex md:max-2xl:flex-row flex-col max-w-4xl h-full bg-brand-linen border border-brand-sand shadow-soft overflow-hidden">
+        <div className="md:max-2xl:w-1/2 w-full relative min-h-[280px]">
           <Image
             src={formImageBackground}
             alt="Hero background"
             fill
             sizes="100%"
             style={{ objectFit: "cover" }}
-            className="blur-md"
           />
-          <div
-            className="absolute inset-0 bg-cover bg-center filter blur-sm"
-            style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
-          ></div>
+          <div className="absolute inset-0 bg-brand-ink/40"></div>
 
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-          <div className="relative z-10 p-8 gap-y-8 text-white h-full flex w-full flex-col justify-center">
+          <div className="relative z-10 p-8 gap-y-8 text-brand-linen h-full flex w-full flex-col justify-center">
             <div className="flex flex-col gap-y-2">
               <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
             </div>
             <div>
-              <h2 className="text-xl font-light mb-4 text-brand-gold">
+              <h2 className="text-xl font-light mb-4">
                 {t("title")}
               </h2>
-              <p className="text-sm text-brand-cream">{t("main_text")}</p>
+              <p className="text-sm text-brand-linen/90">{t("main_text")}</p>
             </div>
           </div>
         </div>
 
-        {/* Right side - Form */}
-
-        <div className="md:max-2xl:w-1/2 bg-gradient-to-r from-brand-charcoal to-brand-gold-dark w-full p-8">
+        <div className="md:max-2xl:w-1/2 bg-brand-linen w-full p-8">
           <form onSubmit={formik.handleSubmit} className="space-y-4 my-4">
             <div>
-              <Label className="text-brand-cream" htmlFor="name">
+              <Label className="text-brand-ink" htmlFor="name">
                 {t("form_inputs.full_name")}
               </Label>
               <Input
@@ -129,7 +122,7 @@ export default function ContactForm() {
             </div>
 
             <div>
-              <Label className="text-brand-cream" htmlFor="email">
+              <Label className="text-brand-ink" htmlFor="email">
                 Email
               </Label>
               <Input
@@ -150,7 +143,7 @@ export default function ContactForm() {
             </div>
 
             <div>
-              <Label className="text-brand-cream" htmlFor="phone">
+              <Label className="text-brand-ink" htmlFor="phone">
                 Phone
               </Label>
               <Input
@@ -171,7 +164,7 @@ export default function ContactForm() {
             </div>
 
             <div>
-              <Label className="text-brand-cream" htmlFor="message">
+              <Label className="text-brand-ink" htmlFor="message">
                 Message
               </Label>
               <Textarea
@@ -191,9 +184,9 @@ export default function ContactForm() {
               )}
             </div>
 
-            <Button type="submit" className="w-full bg-brand-gold">
+            <Button type="submit" className="w-full">
               {isLoading ? (
-                <PulsingDotSpinner color="bg-green-400" />
+                <PulsingDotSpinner color="bg-brand-terracotta" />
               ) : (
                 t("submit_button")
               )}

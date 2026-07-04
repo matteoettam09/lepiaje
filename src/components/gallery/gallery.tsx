@@ -14,7 +14,7 @@ export default function Gallery() {
 
   return (
     <div
-      className="relative z-40 bg-cover bg-center  w-full h-auto bg-brand-charcoal"
+      className="relative z-40 bg-cover bg-center w-full h-auto bg-brand-stone"
       style={{
         backgroundImage: `url(${galleryBackground})`,
       }}
@@ -34,7 +34,7 @@ export default function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-950 bg-opacity-75 z-40"
+            className="fixed inset-0 bg-brand-ink/75 z-40"
             onClick={handleOverlayClick}
           />
         )}
