@@ -4,6 +4,7 @@ import { connection } from "@/config/db";
 import Log from "@/models/Log";
 import { BookingType } from "@/types";
 import { createPendingBooking } from "@/lib/booking/bookingService";
+import { sendBookingRequestEmails } from "@/lib/email/sendBookingRequestEmails";
 import { computeBookingPrice } from "@/lib/payments/pricing";
 import { getStripeClient } from "@/lib/payments/stripeClient";
 import { createBookingPaymentIntent } from "@/lib/payments/createBookingPaymentIntent";
@@ -74,6 +75,19 @@ export async function POST(req: Request) {
                 errorDetails: bookingError ?? "Booking creation failed",
                 message: bookingError ?? "Dates not available",
             });
+        }
+
+        try {
+            await sendBookingRequestEmails(booking, totalPrice);
+        } catch (emailError) {
+            console.error("Failed to send booking request emails", emailError);
+            await new Log({
+                endpoint: "api/payment",
+                message: "failed to send booking request emails",
+                requestData: JSON.stringify(emailError),
+                occurredAt: new Date(),
+                method: "POST",
+            }).save();
         }
 
         const paymentResult = await createBookingPaymentIntent(

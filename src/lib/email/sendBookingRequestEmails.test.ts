@@ -10,7 +10,7 @@ const { mockResend } = vi.hoisted(() => ({
     },
 }));
 
-describe("sendBookingEmails", () => {
+describe("sendBookingRequestEmails", () => {
     const booking: BookingType = {
         uuid: "booking-uuid-1",
         bookerName: "Guest",
@@ -25,6 +25,7 @@ describe("sendBookingEmails", () => {
         numberOfGuests: 1,
         guests: [],
         bookingReference: "LP-TEST123",
+        status: "pending",
     };
 
     beforeEach(() => {
@@ -34,32 +35,49 @@ describe("sendBookingEmails", () => {
         process.env.ADMIN_EMAIL_ONE_RECEIVER = "admin@example.com";
     });
 
-    it("sends admin and guest confirmation emails", async () => {
+    it("sends admin and guest booking request emails", async () => {
         vi.doMock("@/lib/email/resendClient", () => ({
             getResendClient: () => mockResend,
         }));
-        vi.doMock("@/components/email_templates/new_booking", () => ({
+        vi.doMock("@/components/email_templates/booking_request_admin", () => ({
             default: () => null,
         }));
-        vi.doMock("@/components/email_templates/guest_booking_confirmation", () => ({
+        vi.doMock("@/components/email_templates/booking_request_guest", () => ({
             default: () => null,
         }));
 
-        const { sendBookingEmails } = await import("@/lib/email/sendBookingEmails");
-        await sendBookingEmails(booking);
+        const { sendBookingRequestEmails } = await import(
+            "@/lib/email/sendBookingRequestEmails"
+        );
+        await sendBookingRequestEmails(booking, 350);
 
         expect(mockResend.emails.send).toHaveBeenCalledTimes(2);
         expect(mockResend.emails.send).toHaveBeenCalledWith(
             expect.objectContaining({
                 to: ["admin@example.com"],
-                subject: "Booking confirmed (paid): LP-TEST123",
+                subject: "Booking request (pending): LP-TEST123",
             })
         );
         expect(mockResend.emails.send).toHaveBeenCalledWith(
             expect.objectContaining({
                 to: ["guest@example.com"],
-                subject: "Booking confirmed - LP-TEST123",
+                subject: "We received your booking request - LP-TEST123",
             })
         );
+    });
+
+    it("skips sending when admin email is not configured", async () => {
+        process.env.ADMIN_EMAIL_ONE_RECEIVER = "";
+
+        vi.doMock("@/lib/email/resendClient", () => ({
+            getResendClient: () => mockResend,
+        }));
+
+        const { sendBookingRequestEmails } = await import(
+            "@/lib/email/sendBookingRequestEmails"
+        );
+        await sendBookingRequestEmails(booking, 350);
+
+        expect(mockResend.emails.send).not.toHaveBeenCalled();
     });
 });

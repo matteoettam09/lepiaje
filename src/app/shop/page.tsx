@@ -236,7 +236,7 @@ export default function ShopPage() {
                 </div>
 
                 <div className="border border-brand-sand p-6 bg-brand-stone shadow-soft max-w-lg mx-auto">
-                    <h2 className="text-xl font-bold mb-4 text-brand-ink">Cart</h2>
+                    <h2 className="text-xl font-bold mb-4 text-brand-ink">{t("cart")}</h2>
                     {cart.length === 0 ? (
                         <p className="text-brand-muted">{t("empty_cart")}</p>
                     ) : (

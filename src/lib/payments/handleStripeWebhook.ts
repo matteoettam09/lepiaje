@@ -2,6 +2,7 @@ import Stripe from "stripe";
 import Payment from "@/models/Payment";
 import Purchase from "@/models/Purchase";
 import Booking from "@/models/Booking";
+import { BookingStatus } from "@/enums";
 import { confirmBookingByUuid } from "@/lib/booking/bookingService";
 import { sendBookingEmails } from "@/lib/email/sendBookingEmails";
 import { sendPurchaseNotification } from "@/lib/email/sendPurchaseEmails";
@@ -57,6 +58,10 @@ async function handleBookingPaymentIntent(
         return;
     }
 
+    const existingBooking = await Booking.findOne({ uuid: bookingUuid });
+    const wasAlreadyConfirmed =
+        existingBooking?.status === BookingStatus.CONFIRMED;
+
     const { booking, error } = await confirmBookingByUuid(
         bookingUuid,
         paymentIntent.id,
@@ -76,7 +81,9 @@ async function handleBookingPaymentIntent(
         transactionId: paymentIntent.id,
     }).save();
 
-    await sendBookingEmails(booking);
+    if (!wasAlreadyConfirmed) {
+        await sendBookingEmails(booking);
+    }
 }
 
 export async function handleStripeWebhookEvent(

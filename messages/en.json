@@ -203,6 +203,7 @@
         "title": "Farm Shop",
         "subtitle": "Homemade products from our land",
         "add_to_cart": "Add to cart",
+        "cart": "Cart",
         "checkout": "Checkout",
         "empty_cart": "Your cart is empty",
         "total": "Total"

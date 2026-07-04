@@ -13,7 +13,7 @@ export async function sendBookingEmails(booking: BookingType): Promise<void> {
     await resend.emails.send({
         from: emailFrom,
         to: [adminEmail],
-        subject: `New booking: ${booking.bookingReference}`,
+        subject: `Booking confirmed (paid): ${booking.bookingReference}`,
         react: BookingNotificationTemplate({ bookingData: booking }),
     });
 
