@@ -40,7 +40,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  serverExternalPackages: ["mongoose"],
+  serverExternalPackages: ["mongoose", "mongodb", "bson", "node-ical", "ical-generator"],
   webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,

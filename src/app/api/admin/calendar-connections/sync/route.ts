@@ -2,7 +2,9 @@ import { connection } from "@/config/db";
 import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { requireAdminSession } from "@/lib/auth/requireAdmin";
-import { syncExternalCalendars } from "@/lib/calendar/calendarConnections";
+import { syncExternalCalendars } from "@/lib/calendar/syncExternalCalendars";
+
+export const dynamic = "force-dynamic";
 
 const responseHandler = new ResponseHandler();
 

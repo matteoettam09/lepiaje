@@ -9,6 +9,8 @@ import {
 } from "@/lib/calendar/calendarConnections";
 import { CalendarPlatform } from "@/types/calendar.types";
 
+export const dynamic = "force-dynamic";
+
 const responseHandler = new ResponseHandler();
 
 export async function GET(req: Request) {

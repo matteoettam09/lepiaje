@@ -1,4 +1,3 @@
-import ical from "node-ical";
 import { ExternalCalendarEvent } from "@/types/calendar.types";
 
 function toDateOnly(value: Date): Date {
@@ -19,7 +18,10 @@ function normalizeEndDate(start: Date, end: Date): Date {
     return endDay;
 }
 
-export function parseIcsContent(content: string): ExternalCalendarEvent[] {
+export async function parseIcsContent(
+    content: string
+): Promise<ExternalCalendarEvent[]> {
+    const ical = await import("node-ical");
     const parsed = ical.sync.parseICS(content);
     const events: ExternalCalendarEvent[] = [];
 

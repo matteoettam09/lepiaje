@@ -13,8 +13,8 @@ END:VEVENT
 END:VCALENDAR`;
 
 describe("parseIcsContent", () => {
-    it("parses VEVENT blocks into check-in and check-out dates", () => {
-        const events = parseIcsContent(SAMPLE_ICS);
+    it("parses VEVENT blocks into check-in and check-out dates", async () => {
+        const events = await parseIcsContent(SAMPLE_ICS);
 
         expect(events).toHaveLength(1);
         expect(events[0].uid).toBe("airbnb-test-1");

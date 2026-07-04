@@ -5,7 +5,7 @@ vi.mock("@/config/db", () => ({
     connection: vi.fn().mockResolvedValue(true),
 }));
 
-vi.mock("@/lib/calendar/calendarConnections", () => ({
+vi.mock("@/lib/calendar/syncExternalCalendars", () => ({
     syncExternalCalendars: vi.fn().mockResolvedValue([]),
 }));
 

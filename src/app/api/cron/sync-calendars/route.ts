@@ -1,5 +1,5 @@
 import { connection } from "@/config/db";
-import { syncExternalCalendars } from "@/lib/calendar/calendarConnections";
+import { syncExternalCalendars } from "@/lib/calendar/syncExternalCalendars";
 
 export async function GET(req: Request) {
     const authHeader = req.headers.get("authorization");
