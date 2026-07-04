@@ -19,6 +19,16 @@ const occupantSchema = new Schema<Occupant>({
         type: String,
         required: true,
         trim: true
+    },
+    source: {
+        type: String,
+        required: false,
+        trim: true,
+    },
+    externalUid: {
+        type: String,
+        required: false,
+        trim: true,
     }
 });
 

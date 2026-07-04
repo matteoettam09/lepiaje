@@ -23,9 +23,6 @@ function Calendar({
 
   ...props
 }: CalendarPropsCustomized) {
-  //TODO stripe -> ()
-  //TODO small webApp to manually block dates (domingo)
-
   return (
     <div className={cn(loading && "opacity-60")}>
       <DayPicker

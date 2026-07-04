@@ -194,10 +194,13 @@
     "payment": {
         "success_title": "Payment Successful!",
         "success_message": "Thank you for your payment. Your booking has been confirmed!",
+        "success_message_shop": "Thank you for your payment. Your farm shop order has been received!",
         "reference": "Booking reference",
         "email_sent": "A confirmation email has been sent to your inbox.",
+        "email_sent_shop": "A confirmation email with your order details has been sent to your inbox.",
         "go_home": "Go to Home",
-        "tuscia": "Discover Tuscia"
+        "tuscia": "Discover Tuscia",
+        "back_to_shop": "Back to Farm Shop"
     },
     "shop_page": {
         "title": "Farm Shop",

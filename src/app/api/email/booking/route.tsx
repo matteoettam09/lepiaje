@@ -3,10 +3,21 @@ import { ResponseHandler } from "@/helpers/response_handler";
 import { BookingType } from "@/types";
 import { getResendClient } from "@/lib/email/resendClient";
 import BookingNotificationTemplate from "@/components/email_templates/new_booking";
+import Log from "@/models/Log";
 
 const responseHandler = new ResponseHandler();
 const emailFrom = process.env.NEXT_PUBLIC_SENDER_EMAIL || "delivered@resend.dev";
 const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
+
+async function logEmailFailure(details: unknown) {
+  await new Log({
+    endpoint: "api/email/booking",
+    message: "failed to send booking notification email",
+    requestData: JSON.stringify(details),
+    occurredAt: new Date(),
+    method: "POST",
+  }).save();
+}
 
 export async function POST(request: Request) {
   try {
@@ -72,16 +83,16 @@ export async function POST(request: Request) {
         status: HttpStatusCode.BAD_REQUEST,
       });
     }
-    //TODO account for totalPaid via stripe
 
     const { data: adminData, error: adminError } = await resend.emails.send({
       from: emailFrom,
-      to: [adminEmail], //Only supports sending to one email until domain email is provided
+      to: [adminEmail],
       subject: "There is a new booking!",
       react: <BookingNotificationTemplate bookingData={emailData} />,
-    }); //TODO better add a log to the database if case it fails
+    });
 
     if (!adminData) {
+      await logEmailFailure(adminError);
       return responseHandler.respond({
         message: "something has failed while sending the email 2",
         error: true,
@@ -91,6 +102,7 @@ export async function POST(request: Request) {
     }
 
     if (adminError) {
+      await logEmailFailure(adminError);
       return responseHandler.respond({
         message: "something has failed while sending the email 3",
         error: true,
@@ -111,7 +123,8 @@ export async function POST(request: Request) {
       JSON.stringify(err),
       err
     );
-    responseHandler.respond({
+    await logEmailFailure(err);
+    return responseHandler.respond({
       error: true,
       message: "something went wrong while sending booking email",
       errorDetails: `please check the logs ${JSON.stringify(err)}`,

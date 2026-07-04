@@ -58,6 +58,8 @@ export async function assignBedsForBooking(
             gender: "mixed",
             check_in: booking.checkIn!,
             check_out: booking.checkOut!,
+            source:
+                booking.bookerEmail === "blocked@lepiaje.com" ? "admin" : "internal",
         });
         await firstAvailableBed.save();
         return { success: true };
@@ -92,6 +94,10 @@ export async function assignBedsForBooking(
                         gender: guest.gender,
                         check_in: guest.check_in!,
                         check_out: guest.check_out!,
+                        source:
+                            booking.bookerEmail === "blocked@lepiaje.com"
+                                ? "admin"
+                                : "internal",
                     });
                     await bed.save();
                     remainingGuests = remainingGuests.slice(1);

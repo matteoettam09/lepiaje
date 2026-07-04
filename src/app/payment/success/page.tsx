@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 function PaymentSuccessContent() {
     const searchParams = useSearchParams();
     const bookingReference = searchParams.get("ref");
+    const isShop = searchParams.get("type") === "shop";
     const t = useTranslations("payment");
 
     return (
@@ -30,14 +31,18 @@ function PaymentSuccessContent() {
                     </svg>
                 </div>
                 <h1 className="text-3xl font-display font-bold">{t("success_title")}</h1>
-                <p className="text-lg text-brand-muted">{t("success_message")}</p>
+                <p className="text-lg text-brand-muted">
+                    {isShop ? t("success_message_shop") : t("success_message")}
+                </p>
                 {bookingReference && (
                     <p className="text-xl font-semibold bg-brand-linen border border-brand-sand py-3 px-4">
                         {t("reference")}:{" "}
                         <span className="text-brand-terracotta">{bookingReference}</span>
                     </p>
                 )}
-                <p className="text-sm text-brand-muted">{t("email_sent")}</p>
+                <p className="text-sm text-brand-muted">
+                    {isShop ? t("email_sent_shop") : t("email_sent")}
+                </p>
             </div>
 
             <div className="mt-8 flex gap-4">
@@ -48,10 +53,10 @@ function PaymentSuccessContent() {
                     {t("go_home")}
                 </Link>
                 <Link
-                    href="/tuscia"
+                    href={isShop ? "/shop" : "/tuscia"}
                     className="px-6 py-2 border border-brand-sand text-brand-ink hover:bg-brand-stone font-medium transition-colors"
                 >
-                    {t("tuscia")}
+                    {isShop ? t("back_to_shop") : t("tuscia")}
                 </Link>
             </div>
         </div>
