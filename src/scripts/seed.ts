@@ -71,14 +71,26 @@ const seedDb = async () => {
             }
         }
 
-        // Seed products
-        const existingProducts = await Product.findOne();
-        if (!existingProducts) {
-            console.log("No product data found, seeding products...");
-            await Product.insertMany(productSeedData);
-        } else {
-            console.log("Product data already exists, no seeding necessary.");
+        // Sync products with seed data
+        const seedProductIds = productSeedData.map((product) => product.productId);
+
+        for (const product of productSeedData) {
+            await Product.findOneAndUpdate(
+                { productId: product.productId },
+                { $set: product },
+                { upsert: true }
+            );
         }
+
+        const deleteResult = await Product.deleteMany({
+            productId: { $nin: seedProductIds },
+        });
+
+        if (deleteResult.deletedCount > 0) {
+            console.log(`Removed ${deleteResult.deletedCount} stale product(s).`);
+        }
+
+        console.log(`Synced ${productSeedData.length} product(s).`);
 
         process.exit();
     } catch (err) {

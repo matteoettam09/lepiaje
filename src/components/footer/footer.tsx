@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Logo from "../logo/logo";
 
 export default function Footer() {
   const t = useTranslations("footer");
@@ -10,16 +9,11 @@ export default function Footer() {
   return (
     <footer className="border-t border-brand-sand bg-brand-stone text-brand-muted py-8">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="flex flex-col items-center justify-center w-[5em] space-x-4">
-            <Logo height="h-[6em]" width="w-[6em]" blur="blur-lg" />
-          </div>
+        <div className="flex justify-center items-center py-4">
+          <span className="text-sm text-brand-muted">
+            {t("copyright", { year })}
+          </span>
         </div>
-      </div>
-      <div className="w-full flex py-4 justify-center items-center">
-        <span className="text-sm text-brand-muted">
-          {t("copyright", { year })}
-        </span>
       </div>
     </footer>
   );

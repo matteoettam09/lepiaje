@@ -119,22 +119,56 @@
             "bullet_point_three": "Welcome pilgrims and travelers with simple, honest hospitality",
             "bullet_point_four": "Produce and share homemade food from our garden, vineyard, and olive groves"
         },
-        "book_ctas": {
-            "villa": "Book La Villa Perlata",
-            "hostel": "Book Pilgrim Hostel"
+        "our_values": {
+            "title": "Our Values",
+            "trust_title": "Trust",
+            "trust_description": "We keep our promises to guests, pilgrims, and the land — clear prices, honest communication, and a welcome you can count on throughout your stay.",
+            "collaboration_title": "Collaboration",
+            "collaboration_description": "We work together as a family and with our guests, neighbours, and local community — sharing the table, the garden, and the traditions of Tuscia.",
+            "innovation_title": "Innovation",
+            "innovation_description": "We honour tradition while finding practical ways to improve — from sustainable farming to welcoming Via Francigena walkers with comfort and care.",
+            "passion_title": "Passion",
+            "passion_description": "Our love for this land, our farm, and the people who visit us shapes everything we do — from tending the vines to a warm bed after a long day's walk."
+        },
+        "our_history": {
+            "title": "Our History",
+            "image_alt": "Le Piaje entrance",
+            "milestones": [
+                {
+                    "year": "1953",
+                    "event": "The family's first vineyard is planted on the hills above Lake Bolsena."
+                },
+                {
+                    "year": "1965",
+                    "event": "The family's first olive grove takes root in Valle Perlata."
+                },
+                {
+                    "year": "1990",
+                    "event": "Le Piaje begins producing fruit from the farm — the start of a tradition we still share with our guests today."
+                },
+                {
+                    "year": "2013",
+                    "event": "La Villa Perlata opens, offering agriturismo stays surrounded by vineyards and olive groves."
+                },
+                {
+                    "year": "2021",
+                    "event": "Ristoro del Pellegrino opens at Al Centesimo Chilometro, welcoming Via Francigena walkers in Montefiascone."
+                }
+            ]
         }
     },
     "experiences_page": {
         "hero_title": "Experiences at Le Piaje",
         "hero_subtitle": "Discover the farm, the land, and the traditions of Tuscia",
         "farm_tours_title": "Farm & Vineyard Walks",
-        "farm_tours_text": "Walk among our vineyards, olive groves, and pomegranate trees. When the season allows, pick organic produce from the garden and learn about life on a working farm in the Pearl Valley near Lake Bolsena.",
-        "pilgrim_title": "Pilgrim's Rest",
-        "pilgrim_text": "Al Centesimo Chilometro — Ristoro del Pellegrino — welcomes walkers on the Via Francigena with dormitory accommodation, a shared kitchen, and a peaceful chapel.",
-        "tasting_title": "Homemade Flavors",
-        "tasting_text": "Taste the authentic flavors of our land: seasonal produce, olive oil, wine, and farm products available from our shop or to enjoy during your stay.",
+        "farm_tours_text": "Walk among our vineyards, olive groves, and pomegranate trees. When the season allows, pick organic produce from the garden and learn about life on a working farm in Valle Perlata, near Lake Bolsena.",
+        "farm_tours_image_alt": "Farm life at Le Piaje",
+        "boat_trips_title": "Lake Bolsena by Boat",
+        "boat_trips_text": "Set out from the shores near Le Piaje and cross the clear waters of Lake Bolsena to its islands — a timeless way to see the lake, swim in hidden coves, and enjoy a day on the water in the heart of Tuscia.",
+        "boat_trips_image_alt": "Boat on Lake Bolsena",
         "tourism_title": "Explore Tuscia",
-        "tourism_text": "From Orvieto and Civita di Bagnoregio to Bomarzo and the shores of Lake Bolsena, Le Piaje is the perfect base for discovering central Italy's hidden countryside."
+        "tourism_text": "From Orvieto and Civita di Bagnoregio to Bomarzo and the shores of Lake Bolsena, Le Piaje is the perfect base for discovering central Italy's hidden countryside.",
+        "tourism_cta": "Discover Tuscia"
     },
     "booking": {
         "per_night": "/ night",
@@ -169,6 +203,7 @@
         "title": "Farm Shop",
         "subtitle": "Homemade products from our land",
         "add_to_cart": "Add to cart",
+        "cart": "Cart",
         "checkout": "Checkout",
         "empty_cart": "Your cart is empty",
         "total": "Total"
@@ -183,14 +218,18 @@
                 "francigena_link_label": "Learn more about the Via Francigena",
                 "francigena_url": "https://www.viefrancigene.org/en/news/introduction"
             }
-        }
+        },
+        "show_all_photos": "Show all photos",
+        "photo_count": "{current} / {total}",
+        "more_photos": "+{count} photos",
+        "no_photos": "No photos available"
     },
     "tuscia_page": {
         "link": "Learn more",
         "places": {
             "villa_perlata": {
                 "name": "La Villa Perlata",
-                "about": "In the Pearl Valley, 2 km from Lake Bolsena. A farm stay surrounded by vineyards and olive groves — views, privacy, and country paths to the lake."
+                "about": "In Valle Perlata, 2 km from Lake Bolsena. A farm stay surrounded by vineyards and olive groves — views, privacy, and country paths to the lake."
             },
             "centesimo": {
                 "name": "Al Centesimo Chilometro",

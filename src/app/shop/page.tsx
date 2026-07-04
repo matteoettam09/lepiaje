@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useTranslations, useLocale } from "next-intl";
 import { ProductType, CartItem } from "@/types";
 import { Button } from "@/components/ui/button";
+import { PRODUCT_IMAGES } from "@/constants/product_images";
+import shopHero from "../../../public/assets/barbecue.jpg";
 
 let stripePromise: ReturnType<typeof loadStripe> | null = null;
 
@@ -115,6 +118,29 @@ function ShopCheckoutWrapper({
     );
 }
 
+function ProductCardImage({
+    productId,
+    alt,
+}: {
+    productId: string;
+    alt: string;
+}) {
+    const image = PRODUCT_IMAGES[productId];
+    if (!image) return null;
+
+    return (
+        <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-md">
+            <Image
+                src={image}
+                alt={alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover"
+            />
+        </div>
+    );
+}
+
 export default function ShopPage() {
     const t = useTranslations("shop_page");
     const locale = useLocale();
@@ -162,9 +188,22 @@ export default function ShopPage() {
     return (
         <div className="min-h-screen bg-brand-linen text-brand-ink pt-28 pb-16 px-4">
             <div className="max-w-5xl mx-auto">
-                <header className="text-center mb-12">
-                    <h1 className="text-4xl font-bold text-brand-ink mb-2">{t("title")}</h1>
-                    <p className="text-brand-muted">{t("subtitle")}</p>
+                <header className="relative mb-12 h-[240px] overflow-hidden rounded-xl md:h-[320px]">
+                    <Image
+                        src={shopHero}
+                        alt=""
+                        fill
+                        priority
+                        sizes="(max-width: 768px) 100vw, 1024px"
+                        className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-brand-ink/50" />
+                    <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
+                        <h1 className="text-4xl font-bold text-brand-linen mb-2">
+                            {t("title")}
+                        </h1>
+                        <p className="text-brand-linen/90">{t("subtitle")}</p>
+                    </div>
                 </header>
 
                 {loading && <p className="text-center">Loading...</p>}
@@ -175,6 +214,10 @@ export default function ShopPage() {
                             key={product.productId}
                             className="border border-brand-sand p-6 bg-brand-stone shadow-soft"
                         >
+                            <ProductCardImage
+                                productId={product.productId}
+                                alt={getProductName(product)}
+                            />
                             <h3 className="text-xl font-semibold text-brand-ink mb-2">
                                 {getProductName(product)}
                             </h3>
@@ -193,7 +236,7 @@ export default function ShopPage() {
                 </div>
 
                 <div className="border border-brand-sand p-6 bg-brand-stone shadow-soft max-w-lg mx-auto">
-                    <h2 className="text-xl font-bold mb-4 text-brand-ink">Cart</h2>
+                    <h2 className="text-xl font-bold mb-4 text-brand-ink">{t("cart")}</h2>
                     {cart.length === 0 ? (
                         <p className="text-brand-muted">{t("empty_cart")}</p>
                     ) : (

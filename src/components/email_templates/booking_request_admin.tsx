@@ -14,38 +14,29 @@ import { Tailwind } from "@react-email/tailwind";
 import { BookingType } from "@/types";
 import { format } from "date-fns";
 
-function BookingNotificationTemplate({
+function BookingRequestAdminTemplate({
   bookingData,
+  quotedTotal,
 }: {
   bookingData: BookingType;
+  quotedTotal: number;
 }): React.ReactNode {
   return (
     <Html>
       <Head />
       <Preview>
-        New booking received at{" "}
-        {bookingData.propertyName || "N/A property name"}
+        Booking request (pending payment) at {bookingData.propertyName}
       </Preview>
       <Tailwind>
         <Body className="bg-gray-100 font-sans">
           <Container className="bg-white border border-gray-200 rounded-lg p-8 mx-auto my-8 max-w-2xl">
-            <Heading className="text-2xl font-bold text-blue-600 mb-4">
-              New booking confirmed
+            <Heading className="text-2xl font-bold text-amber-600 mb-4">
+              New booking request
             </Heading>
             <Text className="text-gray-700 mb-4">
-              A booking has been confirmed at{" "}
-              <span className="font-semibold">{bookingData.propertyName}</span>
-              {bookingData.dateOfBooking ? (
-                <>
-                  {" "}
-                  on{" "}
-                  {format(
-                    new Date(bookingData.dateOfBooking),
-                    "MMMM dd, yyyy"
-                  )}
-                </>
-              ) : null}
-              . Here are the details:
+              A guest has started checkout for{" "}
+              <span className="font-semibold">{bookingData.propertyName}</span>.
+              Payment is still pending.
             </Text>
             <Section className="bg-gray-50 rounded-lg p-6 mb-4">
               {bookingData.bookingReference && (
@@ -63,24 +54,15 @@ function BookingNotificationTemplate({
                   </Text>
                 </div>
                 <div>
-                  <Text className="text-gray-700 font-semibold">
-                    Guest/s Name/s:
+                  <Text className="text-gray-700 font-semibold">Booker:</Text>
+                  <Text className="text-gray-900">
+                    {bookingData.bookerName || "N/A"}
                   </Text>
-                  <ul className="list-disc pl-5">
-                    {bookingData.guests.map(
-                      (guest: { name: string | undefined }, index: number) => (
-                        <li key={index} className="text-gray-900">
-                          {guest?.name || ""}
-                        </li>
-                      )
-                    )}
-                  </ul>
                 </div>
                 <div>
                   <Text className="text-gray-700 font-semibold">Check-in:</Text>
                   <Text className="text-gray-900">
-                    {format(new Date(bookingData.checkIn!), "MMMM dd, yyyy") ||
-                      "N/A"}
+                    {format(new Date(bookingData.checkIn!), "MMMM dd, yyyy")}
                   </Text>
                 </div>
                 <div>
@@ -88,8 +70,7 @@ function BookingNotificationTemplate({
                     Check-out:
                   </Text>
                   <Text className="text-gray-900">
-                    {format(new Date(bookingData.checkOut!), "MMMM dd, yyyy") ||
-                      "N/A"}
+                    {format(new Date(bookingData.checkOut!), "MMMM dd, yyyy")}
                   </Text>
                 </div>
                 <div>
@@ -108,21 +89,20 @@ function BookingNotificationTemplate({
                 )}
               </div>
               <Hr className="border-gray-300 my-4" />
-              {bookingData.totalPaid != null && bookingData.totalPaid > 0 ? (
-                <div className="text-center">
-                  <Text className="text-gray-700 font-semibold">Total Paid:</Text>
-                  <Text className="text-2xl font-bold text-green-600">
-                    {new Intl.NumberFormat("de-DE", {
-                      style: "currency",
-                      currency: "EUR",
-                    }).format(Number(bookingData.totalPaid))}
-                  </Text>
-                </div>
-              ) : null}
+              <div className="text-center">
+                <Text className="text-gray-700 font-semibold">
+                  Quoted total (not yet paid):
+                </Text>
+                <Text className="text-2xl font-bold text-amber-600">
+                  {new Intl.NumberFormat("de-DE", {
+                    style: "currency",
+                    currency: "EUR",
+                  }).format(quotedTotal)}
+                </Text>
+              </div>
             </Section>
             <Text className="text-sm text-gray-500 text-center">
-              This is an automated notification. Please do not reply to this
-              email.
+              You will receive a confirmation email once payment succeeds.
             </Text>
           </Container>
         </Body>
@@ -131,4 +111,4 @@ function BookingNotificationTemplate({
   );
 }
 
-export default BookingNotificationTemplate;
+export default BookingRequestAdminTemplate;

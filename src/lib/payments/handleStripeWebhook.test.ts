@@ -44,6 +44,7 @@ vi.mock("@/models/Purchase", () => {
 
 vi.mock("@/models/Booking", () => ({
     default: {
+        findOne: vi.fn().mockResolvedValue(null),
         findOneAndUpdate: vi.fn().mockResolvedValue(null),
     },
 }));
@@ -71,6 +72,9 @@ describe("handleStripeWebhookEvent", () => {
     });
 
     it("confirms booking and sends emails on booking payment success", async () => {
+        vi.mocked(Booking.findOne).mockResolvedValue({
+            status: "pending",
+        } as never);
         vi.mocked(confirmBookingByUuid).mockResolvedValue({
             booking: confirmedBooking,
         });
@@ -94,6 +98,30 @@ describe("handleStripeWebhookEvent", () => {
         );
         expect(paymentSave).toHaveBeenCalled();
         expect(sendBookingEmails).toHaveBeenCalledWith(confirmedBooking);
+    });
+
+    it("does not resend confirmation emails when booking was already confirmed", async () => {
+        vi.mocked(Booking.findOne).mockResolvedValue({
+            status: "confirmed",
+        } as never);
+        vi.mocked(confirmBookingByUuid).mockResolvedValue({
+            booking: confirmedBooking,
+        });
+
+        const event = createPaymentIntentEvent({
+            id: "pi_booking_1",
+            amount: 4000,
+            status: "succeeded",
+            metadata: {
+                bookingUuid: "booking-uuid-1",
+                bookerEmail: "guest@example.com",
+            },
+        });
+
+        await handleStripeWebhookEvent(event);
+
+        expect(confirmBookingByUuid).toHaveBeenCalled();
+        expect(sendBookingEmails).not.toHaveBeenCalled();
     });
 
     it("handles farm shop purchase payment success", async () => {
