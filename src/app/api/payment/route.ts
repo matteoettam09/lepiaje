@@ -2,11 +2,11 @@ import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { connection } from "@/config/db";
 import Log from "@/models/Log";
-import Booking from "@/models/Booking";
 import { BookingType } from "@/types";
 import { createPendingBooking } from "@/lib/booking/bookingService";
 import { computeBookingPrice } from "@/lib/payments/pricing";
 import { getStripeClient } from "@/lib/payments/stripeClient";
+import { createBookingPaymentIntent } from "@/lib/payments/createBookingPaymentIntent";
 
 const responseHandler = new ResponseHandler();
 
@@ -59,21 +59,10 @@ export async function POST(req: Request) {
             });
         }
 
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: Math.round(totalPrice * 100),
-            currency: "eur",
-            description: `Booking ${booking.bookingReference} - ${booking.propertyName}`,
-            metadata: {
-                bookingUuid: booking.uuid,
-                bookingReference: booking.bookingReference ?? "",
-                bookerEmail: bookingData.bookerEmail,
-            },
-            receipt_email: bookingData.bookerEmail,
-        });
-
-        await Booking.findOneAndUpdate(
-            { uuid: booking.uuid },
-            { stripePaymentIntentId: paymentIntent.id }
+        const paymentResult = await createBookingPaymentIntent(
+            stripe,
+            booking,
+            totalPrice
         );
 
         return responseHandler.respond({
@@ -81,9 +70,9 @@ export async function POST(req: Request) {
             error: false,
             errorDetails: "n/a",
             message: {
-                clientSecret: paymentIntent.client_secret,
-                bookingReference: booking.bookingReference,
-                amount: totalPrice,
+                clientSecret: paymentResult.clientSecret,
+                bookingReference: paymentResult.bookingReference,
+                amount: paymentResult.amount,
             },
         });
     } catch (error) {

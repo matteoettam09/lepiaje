@@ -1,6 +1,7 @@
 "use client";
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { getMapboxAccessToken } from "@/lib/integrations/mapbox";
 
 interface MapProps {
   latitude: number;
@@ -8,7 +9,11 @@ interface MapProps {
 }
 
 export default function ReusableMap({ latitude, longitude }: MapProps) {
-  const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!;
+  const mapboxToken = getMapboxAccessToken() ?? undefined;
+
+  if (!mapboxToken) {
+    return null;
+  }
 
   return (
     <main className="w-full h-[30em]">

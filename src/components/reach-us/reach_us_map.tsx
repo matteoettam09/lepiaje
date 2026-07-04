@@ -8,6 +8,7 @@ import PlaceInfo from "./_place_info";
 import { la_villa_perlata_location } from "@/constants/la_villa_perlata_location";
 import { al_centesimo_chilometro_location } from "@/constants/centesimo_chilometro_location";
 import PlaceInfoSkeleton from "./_skeleton";
+import { getMapboxAccessToken } from "@/lib/integrations/mapbox";
 
 interface Place {
   id: number;
@@ -64,7 +65,7 @@ export default function ReachUsMap() {
   // Ref for the Map component
   const mapRef = useRef<MapRef | null>(null);
 
-  const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!;
+  const mapboxToken = getMapboxAccessToken() ?? "";
 
   const handleMarkerClick = (place: Place) => {
     setSelectedPlace(place);

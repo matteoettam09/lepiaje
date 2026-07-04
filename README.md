@@ -10,13 +10,13 @@ Le Piaje is an Italian agriturismo website for Montefiascone / Lake Bolsena (Tus
 - **Resend** (transactional email)
 - **next-intl** (English / Italian)
 - **Tailwind CSS** + shadcn/ui
-- **Mapbox** (reach-us map)
+- **Mapbox** (reach-us and property maps)
 
 ## Getting Started
 
 ```bash
 npm install
-cp .env.example .env.local  # create and fill in env vars
+cp .env.example .env.local
 npm run seed                # seed MongoDB (dev only)
 npm run dev
 ```
@@ -32,26 +32,48 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run start` | Start production server |
 | `npm run seed` | Seed properties, rooms, beds, products |
 | `npm run lint` | ESLint |
-| `npm run test` | Vitest unit tests |
-| `npm run test:e2e` | Playwright E2E tests |
+| `npm run test` | All Vitest tests (unit + mocked + MongoDB memory-server) |
+| `npm run test:unit` | Unit and mocked integration tests only |
+| `npm run test:integration` | MongoDB memory-server integration tests |
+| `npm run test:e2e` | Playwright E2E smoke tests (optional locally) |
 
-## Environment Variables
+## Third-party integrations
 
-| Variable | Description |
-|----------|-------------|
-| `NEXT_PUBLIC_BASE_URL` | Site URL (with trailing slash), e.g. `http://localhost:3000/` |
-| `DB_CONNECTION_STRING` | MongoDB connection string |
-| `STRIPE_SECRET_KEY` | Stripe secret key |
-| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key |
-| `RESEND_API_KEY` | Resend API key |
-| `NEXT_PUBLIC_SENDER_EMAIL` | From address for emails |
-| `ADMIN_EMAIL_ONE_RECEIVER` | Admin notification email |
-| `ADMIN_EMAIL_TWO_RECEIVER` | Secondary admin email (optional) |
-| `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` | Mapbox token |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp contact number |
-| `USERNAME` / `USER_PASSWORD` | Admin login credentials |
-| `AUTH_SECRET` | JWT signing secret (optional; falls back to `USER_PASSWORD`) |
+Each integration below lists what Le Piaje uses it for, what is **not** in scope, required env vars, and the test file that covers it.
+
+### App config (not a third party)
+
+| Variable | Purpose |
+|----------|---------|
+| `NEXT_PUBLIC_BASE_URL` | Base URL for client-side API fetches (trailing slash required) |
+
+### Integration scope
+
+| Integration | Scope in Le Piaje | Env vars | Not in scope | Tests |
+|-------------|-------------------|----------|--------------|-------|
+| **MongoDB** | Properties, rooms, beds, bookings, payments, purchases, contact forms, error logs | `DB_CONNECTION_STRING` | Analytics, backups, replication (ops) | `src/lib/booking/*.integration.test.ts` |
+| **Stripe** | PaymentIntent for direct bookings and farm shop; webhook confirms orders and assigns beds | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Subscriptions, invoicing, Connect | `src/lib/payments/handleStripeWebhook.test.ts` |
+| **Resend** | Admin booking/purchase alerts and guest confirmation emails via React Email templates | `RESEND_API_KEY`, `NEXT_PUBLIC_SENDER_EMAIL`, `ADMIN_EMAIL_ONE_RECEIVER`, `ADMIN_EMAIL_TWO_RECEIVER` | Marketing campaigns, mailing lists | `src/lib/email/sendBookingEmails.test.ts` |
+| **Mapbox** | Client-side interactive maps on `/reach-us` (regional POIs) and property location maps | `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` | Geocoding, directions API, server-side tiles | `src/lib/integrations/mapbox.test.ts` |
+| **WhatsApp** | Floating `wa.me` chat link on all pages (no API) | `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp Business API, automated templates | `src/lib/integrations/whatsapp.test.ts` |
+| **Admin auth (JWT)** | Signed session cookie after env credential login; protects `/admin/auth/*` | `USERNAME`, `USER_PASSWORD`, `AUTH_SECRET` | Multi-user accounts, OAuth, RBAC | `src/lib/auth/session.test.ts` |
+
+## Testing
+
+Tests run in CI **without live third-party credentials**. External SDKs (Stripe, Resend) are mocked; MongoDB uses an in-memory server.
+
+```
+npm run test              # full suite (CI)
+npm run test:unit         # fast unit + mocked tests
+npm run test:integration  # MongoDB memory-server only
+npm run test:e2e          # Playwright smoke (needs dev server)
+```
+
+| Layer | What it covers |
+|-------|----------------|
+| Unit | Pricing, availability logic, WhatsApp URL builder, Mapbox token guard, JWT session |
+| Mocked integration | Stripe webhook handler, Resend email dispatch |
+| MongoDB integration | Booking lifecycle, bed assignment, availability data shape |
 
 ## Architecture
 
@@ -68,7 +90,7 @@ Shop:
   /shop → POST /api/purchase/payment → Stripe → Webhook saves Purchase
 ```
 
-Availability is served by `GET /api/availability?propertyId=` (replaces external WebSocket).
+Availability is served by `GET /api/availability?propertyId=`.
 
 ## Deployment
 

@@ -5,6 +5,13 @@ dotenv.config();
 
 let isConnected = false;
 
+export async function disconnectDb(): Promise<void> {
+    if (mongoose.connection.readyState !== 0) {
+        await mongoose.disconnect();
+    }
+    isConnected = false;
+}
+
 export async function connection() {
     const uri = process.env.DB_CONNECTION_STRING;
     if (!uri) {
