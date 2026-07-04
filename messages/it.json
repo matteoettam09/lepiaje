@@ -194,10 +194,13 @@
     "payment": {
         "success_title": "Pagamento riuscito!",
         "success_message": "Grazie per il pagamento. La prenotazione è confermata!",
+        "success_message_shop": "Grazie per il pagamento. Il tuo ordine dalla bottega è stato ricevuto!",
         "reference": "Riferimento prenotazione",
         "email_sent": "Ti abbiamo inviato un'email di conferma.",
+        "email_sent_shop": "Ti abbiamo inviato un'email di conferma con i dettagli dell'ordine.",
         "go_home": "Torna alla home",
-        "tuscia": "Scopri la Tuscia"
+        "tuscia": "Scopri la Tuscia",
+        "back_to_shop": "Torna alla bottega"
     },
     "shop_page": {
         "title": "Bottega",

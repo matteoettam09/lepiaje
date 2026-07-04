@@ -70,6 +70,10 @@ export async function POST(req: Request) {
             receipt_email: clientEmail,
         });
 
+        if (!paymentIntent.client_secret) {
+            throw new Error("Stripe did not return a client secret");
+        }
+
         return responseHandler.respond({
             status: HttpStatusCode.OK,
             error: false,

@@ -1,3 +1,4 @@
+import Stripe from "stripe";
 import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { connection } from "@/config/db";
@@ -9,6 +10,18 @@ import {
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 const responseHandler = new ResponseHandler();
+
+function isSignatureVerificationError(err: unknown): boolean {
+    if (err instanceof Stripe.errors.StripeSignatureVerificationError) {
+        return true;
+    }
+    return (
+        typeof err === "object" &&
+        err !== null &&
+        "type" in err &&
+        err.type === "StripeSignatureVerificationError"
+    );
+}
 
 export async function POST(req: Request) {
     try {
@@ -23,7 +36,16 @@ export async function POST(req: Request) {
         }
 
         const payload = await req.text();
-        const stripeHeader = req.headers.get("stripe-signature")!;
+        const stripeHeader = req.headers.get("stripe-signature");
+
+        if (!stripeHeader) {
+            return responseHandler.respond({
+                status: HttpStatusCode.BAD_REQUEST,
+                error: true,
+                errorDetails: "Missing stripe-signature header",
+                message: "Invalid webhook request",
+            });
+        }
 
         const event = constructStripeEvent(payload, stripeHeader, webhookSecret);
         await handleStripeWebhookEvent(event);
@@ -35,6 +57,15 @@ export async function POST(req: Request) {
             error: false,
         });
     } catch (err) {
+        if (isSignatureVerificationError(err)) {
+            return responseHandler.respond({
+                status: HttpStatusCode.BAD_REQUEST,
+                error: true,
+                errorDetails: "Invalid webhook signature",
+                message: "Webhook signature verification failed",
+            });
+        }
+
         console.log("general error in webhook end point", err);
         const logErrorToDb = new Log({
             endpoint: "api/webhook",

@@ -2,6 +2,7 @@ import Stripe from "stripe";
 import Payment from "@/models/Payment";
 import Purchase from "@/models/Purchase";
 import Booking from "@/models/Booking";
+import Log from "@/models/Log";
 import { BookingStatus } from "@/enums";
 import { confirmBookingByUuid } from "@/lib/booking/bookingService";
 import { sendBookingEmails } from "@/lib/email/sendBookingEmails";
@@ -17,6 +18,13 @@ interface PurchaseLineItem {
 async function handlePurchasePaymentIntent(
     paymentIntent: Stripe.PaymentIntent
 ): Promise<void> {
+    const existingPurchase = await Purchase.findOne({
+        stripeId: paymentIntent.id,
+    });
+    if (existingPurchase) {
+        return;
+    }
+
     const clientEmail = paymentIntent.metadata.clientEmail;
     const items = JSON.parse(
         paymentIntent.metadata.items || "[]"
@@ -38,13 +46,18 @@ async function handlePurchasePaymentIntent(
 
     await sendPurchaseNotification(savedPurchases, clientEmail);
 
-    await new Payment({
-        amount: paymentIntent.amount / 100,
-        status: paymentIntent.status,
-        bookerEmail: clientEmail,
+    const existingPayment = await Payment.findOne({
         transactionId: paymentIntent.id,
-        additionalDetails: "farm shop purchase",
-    }).save();
+    });
+    if (!existingPayment) {
+        await new Payment({
+            amount: paymentIntent.amount / 100,
+            status: paymentIntent.status,
+            bookerEmail: clientEmail,
+            transactionId: paymentIntent.id,
+            additionalDetails: "farm shop purchase",
+        }).save();
+    }
 }
 
 async function handleBookingPaymentIntent(
@@ -73,13 +86,18 @@ async function handleBookingPaymentIntent(
         return;
     }
 
-    await new Payment({
-        amount: amountPaid,
-        status: paymentIntent.status,
-        bookerEmail: paymentIntent.metadata.bookerEmail,
-        bookingUuid,
+    const existingPayment = await Payment.findOne({
         transactionId: paymentIntent.id,
-    }).save();
+    });
+    if (!existingPayment) {
+        await new Payment({
+            amount: amountPaid,
+            status: paymentIntent.status,
+            bookerEmail: paymentIntent.metadata.bookerEmail,
+            bookingUuid,
+            transactionId: paymentIntent.id,
+        }).save();
+    }
 
     if (!wasAlreadyConfirmed) {
         await sendBookingEmails(booking);
@@ -110,6 +128,16 @@ export async function handleStripeWebhookEvent(
                     { status: "cancelled" }
                 );
             }
+            await new Log({
+                endpoint: "api/webhook",
+                message: "payment_intent.payment_failed",
+                requestData: JSON.stringify({
+                    paymentIntentId: paymentIntent.id,
+                    bookingUuid: bookingUuid ?? null,
+                }),
+                occurredAt: new Date(),
+                method: "POST",
+            }).save();
             break;
         }
         default:

@@ -1,8 +1,16 @@
+export type OccupantSource =
+    | "internal"
+    | "admin"
+    | "airbnb"
+    | "booking";
+
 export interface Occupant {
     name: string;
     check_in: Date;
     check_out: Date;
     gender: string;
+    source?: OccupantSource;
+    externalUid?: string;
 }
 
 export type BedType = {
