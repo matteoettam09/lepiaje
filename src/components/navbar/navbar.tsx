@@ -23,7 +23,7 @@ export function Navbar() {
       <Sheet>
         <SheetTitle>
           <Link href={"/"} prefetch={false}>
-            <Logo width="w-[5em]" height="h-[5em]" blur="blur-lg" />
+            <Logo width="w-[5em]" height="h-[5em]" blur="blur-lg" priority />
           </Link>
         </SheetTitle>
         <SheetTrigger asChild>

@@ -5,21 +5,24 @@ const Logo = ({
   blur,
   width,
   height,
+  priority = false,
 }: {
   blur: string;
   width: string;
   height: string;
+  priority?: boolean;
 }) => (
-  <div className="relative justify-center flex items-center ">
-    <div className={`relative  ${height} ${width}`}>
+  <div className="relative flex items-center justify-center">
+    <div className={`relative ${height} ${width}`}>
       <div
-        className={`${width} ${height} absolute inset-0 bg-brand-sand rounded-full ${blur}`}
-      ></div>
+        className={`absolute inset-0 rounded-full bg-brand-sand ${blur} ${width} ${height}`}
+      />
       <Image
         src={logoPath}
         alt="Le Piaje Logo"
         fill
         sizes="100%"
+        priority={priority}
         style={{ objectFit: "contain" }}
         className="relative z-40"
       />

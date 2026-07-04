@@ -30,6 +30,21 @@ async function collectImages(
   return images;
 }
 
+function prioritizeMainImage(images: string[]): string[] {
+  const mainIndex = images.findIndex((image) => {
+    const base = path.basename(image, path.extname(image));
+    return base.toLowerCase() === "main";
+  });
+
+  if (mainIndex <= 0) return images;
+
+  return [
+    images[mainIndex],
+    ...images.slice(0, mainIndex),
+    ...images.slice(mainIndex + 1),
+  ];
+}
+
 export async function getImages(folderName: string) {
   const imageDirectory = path.join(
     process.cwd(),
@@ -38,7 +53,8 @@ export async function getImages(folderName: string) {
     folderName
   );
   try {
-    return await collectImages(imageDirectory, folderName);
+    const images = await collectImages(imageDirectory, folderName);
+    return prioritizeMainImage(images);
   } catch (err) {
     console.log("error in getImages server action", JSON.stringify(err));
     return [];
