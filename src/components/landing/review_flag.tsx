@@ -1,4 +1,3 @@
-import type { ComponentType, SVGProps } from "react";
 import ES from "country-flag-icons/react/3x2/ES";
 import BG from "country-flag-icons/react/3x2/BG";
 import GE from "country-flag-icons/react/3x2/GE";
@@ -8,7 +7,9 @@ import IT from "country-flag-icons/react/3x2/IT";
 import US from "country-flag-icons/react/3x2/US";
 import FR from "country-flag-icons/react/3x2/FR";
 
-const flags: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
+type FlagComponent = typeof ES;
+
+const flags: Record<string, FlagComponent> = {
     ES,
     BG,
     GE,
