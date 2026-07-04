@@ -7,6 +7,3 @@ export const rocca_monaldeschi_location: Directions = {
 
 export const rocca_monaldeschi_url =
   "https://visitbolsena.it/cosa-fare/castello-e-rocca-monaldeschi-della-cervara/";
-
-export const rocca_monaldeschi_image_url =
-  "https://visitbolsena.it/wp-content/uploads/2026/02/rocca.jpg";

@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { Mail } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
+import { useTranslations } from "next-intl";
 import { useScrollToForm } from "@/hooks/use_scroll_to_section";
 import {
     buildWhatsAppUrl,
@@ -10,8 +11,9 @@ import {
 } from "@/lib/integrations/whatsapp";
 
 export default function WhatsAppAndEmail() {
+  const t = useTranslations("whatsapp");
   const phoneNumber = getWhatsAppPhoneFromEnv() ?? "";
-  const message = "Hello, I liked the Le Piaje website!";
+  const message = t("opener");
   const { scrollToForm } = useScrollToForm();
   const whatsappUrl = phoneNumber
     ? buildWhatsAppUrl(phoneNumber, message)

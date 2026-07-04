@@ -6,6 +6,3 @@ export const sacro_bosco_location: Directions = {
 };
 
 export const sacro_bosco_url = "https://www.sacrobosco.eu/";
-
-export const sacro_bosco_image_url =
-  "https://www.sacrobosco.eu/wp-content/uploads/2015/04/sacrobosco-_0001_3.jpg";

@@ -6,6 +6,3 @@ export const duomo_orvieto_location: Directions = {
 };
 
 export const duomo_orvieto_url = "https://www.duomodiorvieto.it/";
-
-export const duomo_orvieto_image_url =
-  "https://www.secretumbria.it/wp-content/uploads/2021/05/duomo-santa-maria-assunta-orvieto.jpg";
