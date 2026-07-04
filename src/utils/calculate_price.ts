@@ -6,7 +6,7 @@ interface DateRange {
     to: string | null | Date;
 }
 
-function additionalGuestSurchargePerNight(
+function nightlyGuestCharge(
     totalGuests: number,
     pricePerAdditionalGuest: number,
     propertyId?: number
@@ -62,13 +62,24 @@ export function calculate_price(
         return emptyPriceDetails(basePricePerNight, totalGuests);
     }
 
+    if (propertyId === PropertyEnum.AL_CENTESIMO_CHILOMETRO) {
+        const pricePerPerson = basePricePerNight;
+
+        return {
+            nights,
+            pricePerNight: pricePerPerson,
+            pricePerGuest: 0,
+            totalGuests,
+            totalPrice: nights * totalGuests * pricePerPerson,
+        };
+    }
+
     const pricePerNight = basePricePerNight;
-    const pricePerGuest = additionalGuestSurchargePerNight(
+    const pricePerGuest = nightlyGuestCharge(
         totalGuests,
         pricePerAdditionalGuest,
         propertyId
     );
-
     const totalPrice = nights * (pricePerNight + pricePerGuest);
 
     return {

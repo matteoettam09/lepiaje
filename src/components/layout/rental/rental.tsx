@@ -89,7 +89,9 @@ export default async function PropertyPage({
             propertyId={property.id}
             propertyName={property.name}
             isLaVillaPerlata={isLaVillaPerlata}
-            pricePerAdditionalGuest={property.price_per_additional_guest}
+            {...(!isCentesimo && {
+              pricePerAdditionalGuest: property.price_per_additional_guest,
+            })}
           />
         </div>
       </div>

@@ -5,10 +5,14 @@ export function PriceBreakdown({
   priceDetails,
   pricePerNight,
   pricePerGuest,
+  showAdditionalGuestPrice = true,
+  pricePerNightLabel = "Price per Night:",
 }: {
   priceDetails: PriceDetails | null;
   pricePerNight: number;
-  pricePerGuest: number;
+  pricePerGuest?: number;
+  showAdditionalGuestPrice?: boolean;
+  pricePerNightLabel?: string;
 }) {
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-brand-stone border border-brand-sand shadow-soft">
@@ -19,15 +23,19 @@ export function PriceBreakdown({
           <span className="text-brand-ink">{priceDetails?.nights || "0"}</span>
         </div>
         <div className="flex justify-between">
-          <span className="font-medium text-brand-ink">Price per Night:</span>
+          <span className="font-medium text-brand-ink">{pricePerNightLabel}</span>
           <span className="text-brand-ink">${pricePerNight.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between">
-          <span className="font-medium text-brand-ink">
-            Price per additional guest:
-          </span>
-          <span className="text-brand-ink">${pricePerGuest?.toFixed(2)}</span>
-        </div>
+        {showAdditionalGuestPrice && (
+          <div className="flex justify-between">
+            <span className="font-medium text-brand-ink">
+              Price per additional guest:
+            </span>
+            <span className="text-brand-ink">
+              ${pricePerGuest?.toFixed(2) ?? "0.00"}
+            </span>
+          </div>
+        )}
         <div className="flex justify-between">
           <span className="font-medium text-brand-ink">Total Guests:</span>
           <span className="text-brand-muted">{priceDetails?.totalGuests}</span>

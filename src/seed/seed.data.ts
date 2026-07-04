@@ -7,6 +7,7 @@ import {
     VILLA_BASE_PRICE_PER_NIGHT,
     VILLA_EXTRA_GUEST_PRICE,
 } from "@/constants/villa_pricing";
+import { CENTESIMO_PRICE_PER_PERSON_PER_NIGHT } from "@/constants/centesimo_pricing";
 import { al_centesimo_chilometro_booking_url, al_centesimo_chilometro_google_maps_url, al_centesimo_chilometro_location } from "@/constants/centesimo_chilometro_location";
 
 const generateBeds = (count: number, gender: string): BedType[] => Array.from({ length: count }, () => ({
@@ -166,8 +167,8 @@ The rooms are located on the second floor. You'll find both bed linens and towel
         id: PropertyEnum.AL_CENTESIMO_CHILOMETRO,
         name: "Al Centesimo Chilometro",
         location_name: "164 Via Asinello, 01027 Montefiascone, Italy",
-        price_per_night: 20,
-        price_per_additional_guest: 13,
+        price_per_night: CENTESIMO_PRICE_PER_PERSON_PER_NIGHT,
+        price_per_additional_guest: 0,
         description: `Located in Montefiascone, Al Centesimo Chilometro — Ristoro del Pellegrino welcomes pilgrims and travellers with a garden, free private parking, and a shared lounge. A practical stop along the Via Francigena.`,
         rooms: [...roomSeedDataForAlCentesimoChilometroFemale.map(bed => bed.uuid), ...roomSeedDataForAlCentesimoChilometroMale.map(bed => bed.uuid)],
         room_features: [

@@ -138,6 +138,9 @@
     },
     "booking": {
         "per_night": "/ notte",
+        "per_person_per_night": "/ persona / notte",
+        "price_per_night_label": "Prezzo per notte:",
+        "price_per_person_per_night": "Prezzo per persona per notte:",
         "pick_dates": "Seleziona date",
         "availability": "Disponibilità",
         "male_beds": "Posti letto maschili disponibili",

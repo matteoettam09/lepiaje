@@ -31,11 +31,13 @@ import {
 } from "./availabilityUtils";
 import { advanceBookingDateSelection } from "@/lib/booking/dateSelection";
 import { countBookingGuests } from "@/lib/booking/guestCount";
+import { Property as PropertyEnum } from "@/enums";
 import {
     VILLA_BASE_PRICE_PER_NIGHT,
     VILLA_EXTRA_GUEST_PRICE,
     VILLA_MAX_GUESTS,
 } from "@/constants/villa_pricing";
+import { CENTESIMO_PRICE_PER_PERSON_PER_NIGHT } from "@/constants/centesimo_pricing";
 interface PropertyBookingProps {
   price: number;
   airbnb?: string;
@@ -43,7 +45,7 @@ interface PropertyBookingProps {
   propertyName: string;
   booking?: string;
   isLaVillaPerlata?: boolean;
-  pricePerAdditionalGuest: number;
+  pricePerAdditionalGuest?: number;
 }
 const validationSchema = Yup.object().shape({
   bookerName: Yup.string().required("Booker name is required"),
@@ -86,12 +88,15 @@ export function PropertyBooking({
   booking,
   isLaVillaPerlata,
 }: PropertyBookingProps) {
+  const isCentesimo = propertyId === PropertyEnum.AL_CENTESIMO_CHILOMETRO;
   const effectiveBasePrice = isLaVillaPerlata
     ? VILLA_BASE_PRICE_PER_NIGHT
-    : price;
+    : isCentesimo
+      ? CENTESIMO_PRICE_PER_PERSON_PER_NIGHT
+      : price;
   const effectiveExtraGuestPrice = isLaVillaPerlata
     ? VILLA_EXTRA_GUEST_PRICE
-    : pricePerAdditionalGuest;
+    : (pricePerAdditionalGuest ?? 0);
   const [dates, setDates] = useState<AvailDateRange | null>(null);
   const [hasOverlap, setHasOverlap] = useState<boolean>(false);
   const [guestList, setGuestList] = useState<
@@ -153,7 +158,7 @@ export function PropertyBooking({
     const pricing = calculate_price(
       dates,
       effectiveBasePrice,
-      effectiveExtraGuestPrice,
+      isCentesimo ? 0 : effectiveExtraGuestPrice,
       countBookingGuests({ guests: guestList }),
       propertyId
     );
@@ -210,7 +215,8 @@ export function PropertyBooking({
   return (
     <div className="border rounded-lg p-6">
       <h2 className="text-2xl text-brand-ink font-bold mb-4">
-        €{effectiveBasePrice} {t("per_night")}
+        €{effectiveBasePrice}{" "}
+        {isCentesimo ? t("per_person_per_night") : t("per_night")}
       </h2>
       <div className="space-y-4">
         <Popover>
@@ -394,8 +400,14 @@ export function PropertyBooking({
 
         <PriceBreakdown
           priceDetails={priceDetails}
-          pricePerGuest={effectiveExtraGuestPrice}
           pricePerNight={effectiveBasePrice}
+          pricePerGuest={effectiveExtraGuestPrice}
+          showAdditionalGuestPrice={!isCentesimo}
+          pricePerNightLabel={
+            isCentesimo
+              ? t("price_per_person_per_night")
+              : t("price_per_night_label")
+          }
         />
 
         <Button
