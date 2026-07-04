@@ -162,12 +162,13 @@
         "hero_subtitle": "Discover the farm, the land, and the traditions of Tuscia",
         "farm_tours_title": "Farm & Vineyard Walks",
         "farm_tours_text": "Walk among our vineyards, olive groves, and pomegranate trees. When the season allows, pick organic produce from the garden and learn about life on a working farm in Valle Perlata, near Lake Bolsena.",
-        "pilgrim_title": "Pilgrim's Rest",
-        "pilgrim_text": "Al Centesimo Chilometro — Ristoro del Pellegrino — welcomes walkers on the Via Francigena with dormitory accommodation, a shared kitchen, and a peaceful chapel.",
-        "tasting_title": "Homemade Flavors",
-        "tasting_text": "Taste the authentic flavors of our land: seasonal produce, olive oil, wine, and farm products available from our shop or to enjoy during your stay.",
+        "farm_tours_image_alt": "Farm life at Le Piaje",
+        "boat_trips_title": "Lake Bolsena by Boat",
+        "boat_trips_text": "Set out from the shores near Le Piaje and cross the clear waters of Lake Bolsena to its islands — a timeless way to see the lake, swim in hidden coves, and enjoy a day on the water in the heart of Tuscia.",
+        "boat_trips_image_alt": "Boat on Lake Bolsena",
         "tourism_title": "Explore Tuscia",
-        "tourism_text": "From Orvieto and Civita di Bagnoregio to Bomarzo and the shores of Lake Bolsena, Le Piaje is the perfect base for discovering central Italy's hidden countryside."
+        "tourism_text": "From Orvieto and Civita di Bagnoregio to Bomarzo and the shores of Lake Bolsena, Le Piaje is the perfect base for discovering central Italy's hidden countryside.",
+        "tourism_cta": "Discover Tuscia"
     },
     "booking": {
         "per_night": "/ night",

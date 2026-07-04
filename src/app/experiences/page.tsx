@@ -1,15 +1,27 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import golfHero from "../../../public/assets/golf1.jpeg";
+import legna from "../../../public/assets/farm/legna.jpeg";
+import boat from "../../../public/assets/who_we_are/boat.png";
 
 export default async function ExperiencesPage() {
     const t = await getTranslations("experiences_page");
 
     const sections = [
-        { title: t("farm_tours_title"), text: t("farm_tours_text") },
-        { title: t("pilgrim_title"), text: t("pilgrim_text") },
-        { title: t("tasting_title"), text: t("tasting_text") },
-        { title: t("tourism_title"), text: t("tourism_text") },
+        {
+            title: t("farm_tours_title"),
+            text: t("farm_tours_text"),
+            image: legna,
+            imageAlt: t("farm_tours_image_alt"),
+        },
+        {
+            title: t("boat_trips_title"),
+            text: t("boat_trips_text"),
+            image: boat,
+            imageAlt: t("boat_trips_image_alt"),
+        },
+        { title: t("tourism_title"), text: t("tourism_text"), ctaHref: "/tuscia", ctaLabel: t("tourism_cta") },
     ];
 
     return (
@@ -39,10 +51,30 @@ export default async function ExperiencesPage() {
                             key={section.title}
                             className="border border-brand-sand p-8 bg-brand-stone shadow-soft"
                         >
+                            {"image" in section && section.image ? (
+                                <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-md">
+                                    <Image
+                                        src={section.image}
+                                        alt={section.imageAlt ?? ""}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 896px"
+                                        className="object-cover"
+                                    />
+                                </div>
+                            ) : null}
                             <h2 className="text-2xl font-semibold text-brand-terracotta mb-4">
                                 {section.title}
                             </h2>
                             <p className="text-brand-muted leading-relaxed">{section.text}</p>
+                            {"ctaHref" in section && section.ctaHref ? (
+                                <Link
+                                    href={section.ctaHref}
+                                    prefetch={false}
+                                    className="mt-6 inline-flex px-6 py-3 bg-brand-terracotta text-brand-linen hover:bg-brand-terracotta-dark transition-colors font-medium"
+                                >
+                                    {section.ctaLabel}
+                                </Link>
+                            ) : null}
                         </section>
                     ))}
                 </div>

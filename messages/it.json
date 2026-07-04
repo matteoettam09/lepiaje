@@ -162,12 +162,13 @@
         "hero_subtitle": "Scopri la fattoria, la terra e le tradizioni della Tuscia",
         "farm_tours_title": "Passeggiate in Fattoria e Vigneto",
         "farm_tours_text": "Passeggia tra i nostri vigneti, oliveti e melograni. Quando la stagione lo permette, raccogli prodotti biologici dall'orto e scopri la vita in una fattoria attiva in Valle Perlata, vicino al Lago di Bolsena.",
-        "pilgrim_title": "Ristoro del Pellegrino",
-        "pilgrim_text": "Al Centesimo Chilometro — Ristoro del Pellegrino — accoglie i camminatori della Via Francigena con dormitori, cucina condivisa e una piccola cappella.",
-        "tasting_title": "Sapori Artigianali",
-        "tasting_text": "Assapora i sapori autentici della nostra terra: prodotti di stagione, olio, vino e specialità della fattoria disponibili in bottega o da gustare durante il soggiorno.",
+        "farm_tours_image_alt": "Vita in fattoria a Le Piaje",
+        "boat_trips_title": "Gite in barca sul Lago di Bolsena",
+        "boat_trips_text": "Parti dalle rive vicino a Le Piaje e attraversa le acque limpide del Lago di Bolsena fino alle sue isole — un modo senza tempo per conoscere il lago, tuffarsi in calette nascoste e vivere una giornata sull'acqua nel cuore della Tuscia.",
+        "boat_trips_image_alt": "Barca sul Lago di Bolsena",
         "tourism_title": "Esplora la Tuscia",
-        "tourism_text": "Da Orvieto e Civita di Bagnoregio a Bomarzo e le rive del Lago di Bolsena, Le Piaje è la base ideale per scoprire l'entroterra dell'Italia centrale."
+        "tourism_text": "Da Orvieto e Civita di Bagnoregio a Bomarzo e le rive del Lago di Bolsena, Le Piaje è la base ideale per scoprire l'entroterra dell'Italia centrale.",
+        "tourism_cta": "Scopri la Tuscia"
     },
     "booking": {
         "per_night": "/ notte",

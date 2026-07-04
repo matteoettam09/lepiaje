@@ -7,6 +7,7 @@ import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-
 import { useTranslations, useLocale } from "next-intl";
 import { ProductType, CartItem } from "@/types";
 import { Button } from "@/components/ui/button";
+import { PRODUCT_IMAGES } from "@/constants/product_images";
 import shopHero from "../../../public/assets/barbecue.jpg";
 
 let stripePromise: ReturnType<typeof loadStripe> | null = null;
@@ -117,6 +118,29 @@ function ShopCheckoutWrapper({
     );
 }
 
+function ProductCardImage({
+    productId,
+    alt,
+}: {
+    productId: string;
+    alt: string;
+}) {
+    const image = PRODUCT_IMAGES[productId];
+    if (!image) return null;
+
+    return (
+        <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-md">
+            <Image
+                src={image}
+                alt={alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover"
+            />
+        </div>
+    );
+}
+
 export default function ShopPage() {
     const t = useTranslations("shop_page");
     const locale = useLocale();
@@ -190,6 +214,10 @@ export default function ShopPage() {
                             key={product.productId}
                             className="border border-brand-sand p-6 bg-brand-stone shadow-soft"
                         >
+                            <ProductCardImage
+                                productId={product.productId}
+                                alt={getProductName(product)}
+                            />
                             <h3 className="text-xl font-semibold text-brand-ink mb-2">
                                 {getProductName(product)}
                             </h3>
