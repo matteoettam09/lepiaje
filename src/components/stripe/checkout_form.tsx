@@ -8,11 +8,16 @@ import {
 } from "@stripe/react-stripe-js";
 import { BookingType } from "@/types";
 import { useLocale } from "next-intl";
-import { submit_new_booking } from "@/services/submit_new_booking";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
+
+interface PaymentInitResponse {
+  clientSecret: string;
+  bookingReference: string;
+  amount: number;
+}
 
 export function PaymentWrapper({
   bookingData,
@@ -24,51 +29,53 @@ export function PaymentWrapper({
   setErrorDetails: Dispatch<SetStateAction<string>>;
 }) {
   const [clientSecret, setClientSecret] = useState("");
+  const [bookingReference, setBookingReference] = useState("");
+  const [confirmedAmount, setConfirmedAmount] = useState(0);
+  const [initError, setInitError] = useState("");
   const locale = useLocale();
-  const secretPaymentHandler = async () => {
-    try {
-      const response = await fetch("/api/payment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: bookingData.totalPaid!,
-          bookingData,
-          bookerEmail: bookingData.bookerEmail,
-        }),
-      });
-      if (!response) {
-        throw new Error(
-          `something went wrong with secretPaymentHandler ${JSON.stringify(response)}`
-        );
-      }
-      const secret = await response.json();
-      if (!secret.message) {
-        throw new Error(
-          `something went wrong with secretPaymentHandler ${JSON.stringify(secret.message)}`
-        );
-      }
-      setClientSecret(secret.message);
-    } catch (err) {
-      console.error("Error fetching payment secret:", err);
-    }
-  };
 
   useEffect(() => {
-    secretPaymentHandler();
-    // eslint-disable-next-line
-  }, [bookingData.totalPaid]);
+    const initPayment = async () => {
+      try {
+        const response = await fetch("/api/payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ bookingData }),
+        });
+
+        const result = await response.json();
+        if (!response.ok || result.error) {
+          throw new Error(result.message || "Failed to initialize payment");
+        }
+
+        const paymentData = result.message as PaymentInitResponse;
+        setClientSecret(paymentData.clientSecret);
+        setBookingReference(paymentData.bookingReference);
+        setConfirmedAmount(paymentData.amount);
+      } catch (err) {
+        const message =
+          err instanceof Error ? err.message : "Payment initialization failed";
+        setInitError(message);
+        setErrorDetails(message);
+        showAlert(message);
+      }
+    };
+
+    initPayment();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookingData.checkIn, bookingData.checkOut, bookingData.numberOfGuests]);
+
+  if (initError) {
+    return <p className="text-red-500 mt-2">{initError}</p>;
+  }
 
   return (
     clientSecret && (
       <Elements
         stripe={stripePromise}
         options={{
-          clientSecret: clientSecret!,
-
-          appearance: {
-            theme: "night",
-          },
-
+          clientSecret,
+          appearance: { theme: "night" },
           locale: locale as StripeElementLocale,
         }}
       >
@@ -76,6 +83,8 @@ export function PaymentWrapper({
           setErrorDetails={setErrorDetails}
           bookingData={bookingData}
           showAlert={showAlert}
+          bookingReference={bookingReference}
+          confirmedAmount={confirmedAmount}
         />
       </Elements>
     )
@@ -86,84 +95,68 @@ function PaymentForm({
   bookingData,
   setErrorDetails,
   showAlert,
+  bookingReference,
+  confirmedAmount,
 }: {
   bookingData: BookingType;
   setErrorDetails: Dispatch<SetStateAction<string>>;
   showAlert: (arg: string) => void;
+  bookingReference: string;
+  confirmedAmount: number;
 }) {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleBookingSubmission = async () => {
-    try {
-      const response = await submit_new_booking(bookingData); // Your booking submission logic
-
-      if (!response.error) {
-        showAlert("Booking successful!");
-        return true;
-      } else {
-        setIsProcessing(false);
-        setErrorDetails(response.errorDetails || "Booking failed.");
-        showAlert("There was an issue with your booking.");
-        return false;
-      }
-    } catch (error) {
-      console.error("Error during booking submission:", error);
-      setIsProcessing(false);
-      setErrorDetails("An unexpected error occurred.");
-      showAlert("Booking failed.");
-      return false;
-    }
-  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!stripe || !elements) return;
 
     setIsProcessing(true);
-    const booked = await handleBookingSubmission();
-    if (!booked) {
-      return;
+
+    const returnUrl = new URL(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`
+    );
+    if (bookingReference) {
+      returnUrl.searchParams.set("ref", bookingReference);
     }
+
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        receipt_email: bookingData.bookerEmail, // Optional: Email for payment receipt ?
-        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
+        receipt_email: bookingData.bookerEmail,
+        return_url: returnUrl.toString(),
       },
     });
 
     if (error) {
-      setErrorMessage(error.message || "not error set");
+      setErrorMessage(error.message || "Payment failed");
+      setErrorDetails(error.message || "Payment failed");
+      showAlert("Payment failed. Please try again.");
       setIsProcessing(false);
     }
   };
+
+  const displayAmount = confirmedAmount || bookingData.totalPaid || 0;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="text-center text-gray-200 text-lg font-semibold">
         Amount to Pay:{" "}
-        <span className="text-green-400">
-          €{bookingData.totalPaid!.toFixed(2)}
-        </span>
+        <span className="text-green-400">€{displayAmount.toFixed(2)}</span>
       </div>
 
-      {/* Stripe Payment Element */}
       <PaymentElement />
 
-      {/* Submit Button */}
       <button
         type="submit"
         disabled={!stripe || isProcessing}
         className="w-full font-bold bg-green-500 text-gray-200 px-4 py-2 rounded mt-4"
       >
-        {isProcessing
-          ? "Processing..."
-          : `Pay  €${bookingData.totalPaid!.toFixed(2)}`}
+        {isProcessing ? "Processing..." : `Pay €${displayAmount.toFixed(2)}`}
       </button>
 
-      {/* Error Message */}
       {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
     </form>
   );

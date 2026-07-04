@@ -1,4 +1,4 @@
-import { AdminBlockDates } from "./property/property_booking";
+import { AdminBlockDates } from "@/components/property/admin_block_dates";
 import { fetch_property } from "@/services/fetch_property";
 import { Property as PropertyEnum } from "@/enums";
 

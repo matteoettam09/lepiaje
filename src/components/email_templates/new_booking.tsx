@@ -41,6 +41,11 @@ function BookingNotificationTemplate({
               . Here are the details:
             </Text>
             <Section className="bg-gray-50 rounded-lg p-6 mb-4">
+              {bookingData.bookingReference && (
+                <Text className="text-gray-900 font-bold mb-2">
+                  Reference: {bookingData.bookingReference}
+                </Text>
+              )}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Text className="text-gray-700 font-semibold">

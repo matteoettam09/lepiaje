@@ -1,56 +1,80 @@
 # Le Piaje
 
-Add a description about Le Piaje which is meaningful to describe the project
+Le Piaje is an Italian agriturismo website for Montefiascone / Lake Bolsena (Tuscia). It offers direct booking for two properties, a farm shop, bilingual marketing (EN/IT), and an admin panel.
 
 ## Tech Stack
 
-To-do
+- **Next.js 15** (App Router) + React 19 + TypeScript
+- **MongoDB** + Mongoose
+- **Stripe** (bookings + shop)
+- **Resend** (transactional email)
+- **next-intl** (English / Italian)
+- **Tailwind CSS** + shadcn/ui
+- **Mapbox** (reach-us map)
+
+## Getting Started
+
+```bash
+npm install
+cp .env.example .env.local  # create and fill in env vars
+npm run seed                # seed MongoDB (dev only)
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run seed` | Seed properties, rooms, beds, products |
+| `npm run lint` | ESLint |
+| `npm run test` | Vitest unit tests |
+| `npm run test:e2e` | Playwright E2E tests |
 
 ## Environment Variables
 
-`NEXT_PUBLIC_BASE_URL`
-The project's current base url wether it is development or production
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_BASE_URL` | Site URL (with trailing slash), e.g. `http://localhost:3000/` |
+| `DB_CONNECTION_STRING` | MongoDB connection string |
+| `STRIPE_SECRET_KEY` | Stripe secret key |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key |
+| `RESEND_API_KEY` | Resend API key |
+| `NEXT_PUBLIC_SENDER_EMAIL` | From address for emails |
+| `ADMIN_EMAIL_ONE_RECEIVER` | Admin notification email |
+| `ADMIN_EMAIL_TWO_RECEIVER` | Secondary admin email (optional) |
+| `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` | Mapbox token |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp contact number |
+| `USERNAME` / `USER_PASSWORD` | Admin login credentials |
+| `AUTH_SECRET` | JWT signing secret (optional; falls back to `USER_PASSWORD`) |
 
-`DB_CONNECTION_STRING`
-The mongodb connection string Example: mongodb+srv://[dbusername]:[dbpasswor]@[cluster].[appid].mongodb.net/[datanasename]?retryWrites=true&w=majority
+## Architecture
 
-`NEXT_PUBLIC_SENDER_EMAIL`
-the email from which users will received notifications, normally the email that is provided from the domain
+```
+Guest booking flow:
+  Select dates → POST /api/payment (pending booking + PaymentIntent)
+  → Stripe checkout → Webhook confirms booking + assigns beds + emails
 
-`NEXT_PUBLIC_WHATSAPP_NUMBER`
-the whatsapp number users will be taking to chat with once clicked the whatsapp button on the page
+Admin:
+  /admin — login
+  /admin/auth — block dates, view bookings/orders
 
-`RESEND_API_KEY`=
-The api key(free) from resend service to send emails, now at 1000 emails a month
+Shop:
+  /shop → POST /api/purchase/payment → Stripe → Webhook saves Purchase
+```
 
-`ADMIN_EMAIL_ONE_RECEIVER`
-This email won't be used to send emails to clients, but instead, it will be used to notify the administrator of the page when a client has performed an operation such as a booking, cancellation or purchase
+Availability is served by `GET /api/availability?propertyId=` (replaces external WebSocket).
 
-`ADMIN_EMAIL_TWO_RECEIVER`
-This email won't be used to send emails to clients, but instead, it will be used to notify the administrator of the page when a client has performed an operation such as a booking, cancellation or purchase
+## Deployment
 
-`STRIPE_API_KEY`
-stripe api key that will handle the payments of the app
+Designed for **Vercel**. Configure Stripe webhook to `https://your-domain/api/webhook`.
 
-square brackets [] are only to make it more readable and they are not necessary when writing the actual string
+## Properties
 
-`NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN`
-the access token provided with a mapbox free account to access map features and styles
-
-`NEXT_PUBLIC_WEB_SOCKET_SERVER`
-the websocket deployed url from the project that helps controlling and managing syncing the calendars
-
-`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=`
-your stripe publishable key which you can get at the stripe page login in to your account
-
-`STRIPE_SECRET_KEY=sk_test_your_secret_key`
-your stripe secret key which you can get at the stripe page login in to your account
-
-`STRIPE_WEBHOOK_SECRET`
-your stripe webhook secret string
-
-`USERNAME`
-the username to login to admin panel
-
-`USER_PASSWORD`
-the password to login to admin panel
+- **La Villa Perlata** — whole-property countryside villa (`/property/villa-perlata`)
+- **Al Centesimo Chilometro** — pilgrim hostel with gender-segregated dorms (`/property/centesimo-chilometro`)

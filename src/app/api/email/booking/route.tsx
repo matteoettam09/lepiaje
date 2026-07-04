@@ -1,16 +1,16 @@
 import { HttpStatusCode } from "@/enums";
 import { ResponseHandler } from "@/helpers/response_handler";
 import { BookingType } from "@/types";
-import { Resend } from "resend";
+import { getResendClient } from "@/lib/email/resendClient";
 import BookingNotificationTemplate from "@/components/email_templates/new_booking";
 
 const responseHandler = new ResponseHandler();
-const resend = new Resend(process.env.RESEND_API_KEY);
-const emailFrom = "delivered@resend.dev";
+const emailFrom = process.env.NEXT_PUBLIC_SENDER_EMAIL || "delivered@resend.dev";
 const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
 
 export async function POST(request: Request) {
   try {
+    const resend = getResendClient();
     if (!resend) {
       return responseHandler.respond({
         status: HttpStatusCode.BAD_REQUEST,

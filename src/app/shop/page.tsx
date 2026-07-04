@@ -1,0 +1,233 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { useTranslations, useLocale } from "next-intl";
+import { ProductType, CartItem } from "@/types";
+import { Button } from "@/components/ui/button";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+
+interface CartEntry extends CartItem {
+    product: ProductType;
+}
+
+function PaymentForm({
+    amount,
+    clientEmail,
+    onCancel,
+}: {
+    amount: number;
+    clientEmail: string;
+    onCancel: () => void;
+}) {
+    const stripe = useStripe();
+    const elements = useElements();
+    const t = useTranslations("shop_page");
+    const [processing, setProcessing] = useState(false);
+    const [error, setError] = useState("");
+
+    const handlePay = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!stripe || !elements) return;
+        setProcessing(true);
+        const { error: payError } = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+                return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success?type=shop`,
+                receipt_email: clientEmail,
+            },
+        });
+        if (payError) {
+            setError(payError.message || "Payment failed");
+            setProcessing(false);
+        }
+    };
+
+    return (
+        <form onSubmit={handlePay} className="space-y-4 mt-4 border-t border-gray-700 pt-4">
+            <p className="text-green-400 font-bold">{t("total")}: €{amount.toFixed(2)}</p>
+            <PaymentElement />
+            <div className="flex gap-2">
+                <Button type="submit" disabled={processing} className="bg-green-600 flex-1">
+                    {processing ? "..." : t("checkout")}
+                </Button>
+                <Button type="button" variant="outline" onClick={onCancel}>
+                    Cancel
+                </Button>
+            </div>
+            {error && <p className="text-red-400 text-sm">{error}</p>}
+        </form>
+    );
+}
+
+function ShopCheckoutWrapper({
+    cart,
+    clientEmail,
+    onCancel,
+}: {
+    cart: CartEntry[];
+    clientEmail: string;
+    onCancel: () => void;
+}) {
+    const [clientSecret, setClientSecret] = useState("");
+    const [amount, setAmount] = useState(0);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        fetch("/api/purchase/payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                items: cart.map(({ productId, quantity }) => ({ productId, quantity })),
+                clientEmail,
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.error) throw new Error(data.message);
+                setClientSecret(data.message.clientSecret);
+                setAmount(data.message.amount);
+            })
+            .catch((err) => setError(err.message));
+    }, [cart, clientEmail]);
+
+    if (error) return <p className="text-red-400">{error}</p>;
+    if (!clientSecret) return <p className="text-gray-400">Loading payment...</p>;
+
+    return (
+        <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: "night" } }}>
+            <PaymentForm amount={amount} clientEmail={clientEmail} onCancel={onCancel} />
+        </Elements>
+    );
+}
+
+export default function ShopPage() {
+    const t = useTranslations("shop_page");
+    const locale = useLocale();
+    const [products, setProducts] = useState<ProductType[]>([]);
+    const [cart, setCart] = useState<CartEntry[]>([]);
+    const [email, setEmail] = useState("");
+    const [checkout, setCheckout] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch("/api/products")
+            .then((res) => res.json())
+            .then((data) => {
+                if (!data.error) setProducts(data.message || []);
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
+    const addToCart = (product: ProductType) => {
+        setCart((prev) => {
+            const existing = prev.find((item) => item.productId === product.productId);
+            if (existing) {
+                return prev.map((item) =>
+                    item.productId === product.productId
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                );
+            }
+            return [...prev, { productId: product.productId, quantity: 1, product }];
+        });
+    };
+
+    const cartTotal = cart.reduce(
+        (sum, item) => sum + item.product.price * item.quantity,
+        0
+    );
+
+    const getProductName = (p: ProductType) =>
+        locale === "it" && p.nameIt ? p.nameIt : p.name;
+    const getProductDesc = (p: ProductType) =>
+        locale === "it" && p.descriptionIt ? p.descriptionIt : p.description;
+    const getProductUnit = (p: ProductType) =>
+        locale === "it" && p.unitIt ? p.unitIt : p.unit;
+
+    return (
+        <div className="min-h-screen bg-slate-950 text-gray-200 pt-28 pb-16 px-4">
+            <div className="max-w-5xl mx-auto">
+                <header className="text-center mb-12">
+                    <h1 className="text-4xl font-bold text-green-400 mb-2">{t("title")}</h1>
+                    <p className="text-gray-400">{t("subtitle")}</p>
+                </header>
+
+                {loading && <p className="text-center">Loading...</p>}
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                    {products.map((product) => (
+                        <div
+                            key={product.productId}
+                            className="border border-gray-800 rounded-xl p-6 bg-slate-900"
+                        >
+                            <h3 className="text-xl font-semibold text-green-300 mb-2">
+                                {getProductName(product)}
+                            </h3>
+                            <p className="text-gray-400 text-sm mb-4">{getProductDesc(product)}</p>
+                            <p className="text-lg font-bold mb-4">
+                                €{product.price.toFixed(2)} / {getProductUnit(product)}
+                            </p>
+                            <Button
+                                onClick={() => addToCart(product)}
+                                className="w-full bg-green-700 hover:bg-green-600"
+                            >
+                                {t("add_to_cart")}
+                            </Button>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="border border-gray-700 rounded-xl p-6 bg-slate-900 max-w-lg mx-auto">
+                    <h2 className="text-xl font-bold mb-4">Cart</h2>
+                    {cart.length === 0 ? (
+                        <p className="text-gray-500">{t("empty_cart")}</p>
+                    ) : (
+                        <>
+                            <ul className="space-y-2 mb-4">
+                                {cart.map((item) => (
+                                    <li key={item.productId} className="flex justify-between">
+                                        <span>
+                                            {getProductName(item.product)} x{item.quantity}
+                                        </span>
+                                        <span>€{(item.product.price * item.quantity).toFixed(2)}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                            <p className="font-bold text-green-400 mb-4">
+                                {t("total")}: €{cartTotal.toFixed(2)}
+                            </p>
+                            {!checkout ? (
+                                <div className="space-y-3">
+                                    <input
+                                        type="email"
+                                        placeholder="Email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="w-full border rounded p-2 text-gray-900"
+                                        required
+                                    />
+                                    <Button
+                                        className="w-full bg-green-600"
+                                        disabled={!email || cart.length === 0}
+                                        onClick={() => setCheckout(true)}
+                                    >
+                                        {t("checkout")}
+                                    </Button>
+                                </div>
+                            ) : (
+                                <ShopCheckoutWrapper
+                                    cart={cart}
+                                    clientEmail={email}
+                                    onCancel={() => setCheckout(false)}
+                                />
+                            )}
+                        </>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}

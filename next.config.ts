@@ -1,39 +1,37 @@
+import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
+
+const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   async rewrites() {
-    return [{
-      source: "/about",
-      destination: "/aboutUs"
-    }
-    ]
+    return [
+      {
+        source: "/about",
+        destination: "/aboutUs",
+      },
+    ];
   },
-  experimental: {
-    esmExternals: "loose"
-  },
-
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
+        protocol: "https",
         hostname: "picsum.photos",
-      }
-    ]
+      },
+    ],
   },
-
   serverExternalPackages: ["mongoose"],
   webpack: (config) => {
     config.resolve.fallback = {
-      ...config.resolve.fallbe
-      , fs: false
-    },
-      config.experiments = {
-        topLevelAwait: true,
-        layers: true
-
-      }
+      ...config.resolve.fallback,
+      fs: false,
+    };
+    config.experiments = {
+      topLevelAwait: true,
+      layers: true,
+    };
     return config;
-  }
+  },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

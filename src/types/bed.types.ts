@@ -10,7 +10,7 @@ export interface Occupant {
 export type BedType = {
     uuid: string,
     room_gender: string,
-    occupant: Occupant[],
+    occupants: Occupant[],
     submittedAt: Date
 }
 

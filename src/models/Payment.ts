@@ -8,6 +8,11 @@ const paymentSchema = new Schema<Payment>(
             ref: "bookings",
             required: true,
         },
+        bookingUuid: {
+            type: String,
+            required: false,
+            trim: true,
+        },
         amount: {
             type: Number,
             required: true,

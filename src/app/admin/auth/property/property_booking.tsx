@@ -313,7 +313,7 @@ export function AdminBlockDates({ propertyId }: { propertyId: number }) {
     };
 
     try {
-      const isSubmitted = await submit_new_booking(bookingData);
+      const isSubmitted = await submit_new_booking(bookingData, "block");
       if (isSubmitted.error) {
         console.log("error", isSubmitted.message);
         console.log("error", isSubmitted.errorDetails);

@@ -5,6 +5,8 @@ export interface Guests {
     check_out?: Date | string,
 }
 
+export type BookingStatusType = "pending" | "confirmed" | "cancelled";
+
 export interface BookingType {
     uuid?: string;
     bookerName?: string;
@@ -21,7 +23,10 @@ export interface BookingType {
     propertyId: number;
     checkInTime: string;
     checkOutTime: string;
-    roomId?: string
+    roomId?: string;
+    status?: BookingStatusType;
+    stripePaymentIntentId?: string;
+    bookingReference?: string;
 }
 
 
