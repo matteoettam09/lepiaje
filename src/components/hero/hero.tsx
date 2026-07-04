@@ -15,7 +15,7 @@ export default function Hero({
   children,
 }: HeroProps) {
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative h-screen w-full overflow-hidden bg-brand-stone">
       <HeroBackgroundVideo />
       <div
         className="absolute inset-0"

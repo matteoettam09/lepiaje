@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 
 export function HeroBackgroundVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isReady, setIsReady] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   const handleEnded = () => {
     const video = videoRef.current;
@@ -15,25 +15,26 @@ export function HeroBackgroundVideo() {
     }
   };
 
+  if (failed) {
+    return null;
+  }
+
   return (
-    <div className="absolute inset-0 bg-brand-ink" aria-hidden>
-      <video
-        ref={videoRef}
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-          isReady ? "opacity-100" : "opacity-0"
-        }`}
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        onCanPlay={() => setIsReady(true)}
-        onEnded={handleEnded}
-      >
-        <source
-          src="/assets/villa_perlata/esterni/hero_video.mp4"
-          type="video/mp4"
-        />
-      </video>
-    </div>
+    <video
+      ref={videoRef}
+      className="absolute inset-0 h-full w-full object-cover"
+      autoPlay
+      muted
+      playsInline
+      preload="auto"
+      aria-hidden
+      onError={() => setFailed(true)}
+      onEnded={handleEnded}
+    >
+      <source
+        src="/assets/villa_perlata/esterni/hero_video.mp4"
+        type="video/mp4"
+      />
+    </video>
   );
 }
