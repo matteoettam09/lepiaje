@@ -120,9 +120,10 @@ export function CalendarSyncSettings({ propertyId }: { propertyId: number }) {
                 Calendar sync (Airbnb + Booking.com)
             </h2>
             <p className="text-sm text-brand-muted mb-6">
-                Le Piaje polls OTA calendars every 15 minutes. Airbnb and Booking.com
-                refresh imported calendars on their own schedule (typically 2–4 hours).
-                Pending webapp checkouts do not block OTAs until payment is confirmed.
+                Le Piaje polls OTA calendars once per day (Vercel cron). Use Sync now
+                for an immediate pull. Airbnb and Booking.com refresh imported
+                calendars on their own schedule (typically 2–4 hours). Pending webapp
+                checkouts do not block OTAs until payment is confirmed.
             </p>
 
             <div className="space-y-6">

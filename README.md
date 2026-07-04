@@ -104,7 +104,7 @@ Le Piaje acts as the **iCal sync hub** to reduce overbooking across the webapp, 
 
 1. In **Admin → property page**, paste each OTA **import URL** (`.ics` from Airbnb/Booking.com extranet).
 2. Copy the Le Piaje **export URL** into each OTA’s calendar import settings.
-3. Le Piaje polls import feeds every **15 minutes** (`vercel.json` cron → `GET /api/cron/sync-calendars`).
+3. Le Piaje polls import feeds **once per day** via Vercel cron (`vercel.json` → `GET /api/cron/sync-calendars`). Use **Sync now** in admin for immediate updates.
 
 | Direction | Endpoint |
 |-----------|----------|
@@ -118,6 +118,8 @@ Le Piaje acts as the **iCal sync hub** to reduce overbooking across the webapp, 
 |----------|---------|
 | `CRON_SECRET` | Bearer token for `/api/cron/sync-calendars` |
 | `NEXT_PUBLIC_BASE_URL` | Used to build export URLs shown in admin |
+
+**Vercel cron limits:** [Hobby plans](https://vercel.com/docs/cron-jobs/usage-and-pricing) allow at most **one run per day** (`0 6 * * *` in `vercel.json` = daily at 06:00 UTC, ±59 min). Expressions like `*/15 * * * *` fail Hobby deployment. On **Pro**, you can change `vercel.json` to `*/15 * * * *` for 15-minute polling.
 
 **Setup guides:** [Airbnb calendar sync](https://www.airbnb.com/help/article/99) · [Booking.com sync calendars](https://partner.booking.com/en-gb/help/rates-availability/extranet-calendar/how-synchronise-your-calendars-across-channels)
 
