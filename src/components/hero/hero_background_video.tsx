@@ -22,7 +22,7 @@ export function HeroBackgroundVideo() {
       muted
       playsInline
       preload="metadata"
-      poster="/assets/villa_perlata/esterni/ingresso.png"
+      poster="/assets/villa_perlata/esterni/hero_video_poster.jpg"
       aria-hidden
       onEnded={handleEnded}
     >
