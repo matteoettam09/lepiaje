@@ -32,7 +32,6 @@ describe("sendBookingEmails", () => {
         vi.clearAllMocks();
         process.env.NEXT_PUBLIC_SENDER_EMAIL = "onboarding@resend.dev";
         process.env.ADMIN_EMAIL_ONE_RECEIVER = "admin@example.com";
-        process.env.ADMIN_EMAIL_TWO_RECEIVER = "admin2@example.com";
     });
 
     it("sends admin and guest confirmation emails", async () => {
@@ -52,7 +51,7 @@ describe("sendBookingEmails", () => {
         expect(mockResend.emails.send).toHaveBeenCalledTimes(2);
         expect(mockResend.emails.send).toHaveBeenCalledWith(
             expect.objectContaining({
-                to: ["admin@example.com", "admin2@example.com"],
+                to: ["admin@example.com"],
                 subject: "New booking: LP-TEST123",
             })
         );

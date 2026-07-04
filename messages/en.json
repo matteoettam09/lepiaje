@@ -16,6 +16,9 @@
     "footer": {
         "copyright": "© {year} Le Piaje. All rights reserved."
     },
+    "whatsapp": {
+        "opener": "Hello! I found Le Piaje online and would like some information about a stay."
+    },
     "landing_page": {
         "hero": {
             "sub_title": "Where the welcome is as genuine as the land's flavors",

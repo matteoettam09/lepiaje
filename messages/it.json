@@ -16,6 +16,9 @@
     "footer": {
         "copyright": "© {year} Le Piaje. Tutti i diritti riservati."
     },
+    "whatsapp": {
+        "opener": "Buongiorno! Ho trovato Le Piaje online e vorrei informazioni per un soggiorno."
+    },
     "landing_page": {
         "hero": {
             "sub_title": "Dove l'accoglienza è genuina come i sapori della terra",

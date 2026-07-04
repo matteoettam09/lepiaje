@@ -5,17 +5,14 @@ import { BookingType } from "@/types";
 
 const emailFrom = process.env.NEXT_PUBLIC_SENDER_EMAIL || "delivered@resend.dev";
 const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
-const adminEmailTwo = process.env.ADMIN_EMAIL_TWO_RECEIVER || "";
 
 export async function sendBookingEmails(booking: BookingType): Promise<void> {
     const resend = getResendClient();
     if (!resend || !adminEmail) return;
 
-    const adminRecipients = [adminEmail, adminEmailTwo].filter(Boolean);
-
     await resend.emails.send({
         from: emailFrom,
-        to: adminRecipients,
+        to: [adminEmail],
         subject: `New booking: ${booking.bookingReference}`,
         react: BookingNotificationTemplate({ bookingData: booking }),
     });
