@@ -1,7 +1,7 @@
 import Bed from "@/models/Bed";
 import { getPropertyBeds } from "@/lib/calendar/propertyBeds";
 import { CalendarPlatform, ExternalCalendarEvent } from "@/types/calendar.types";
-import { OccupantSource } from "@/types/bed.types";
+import { Occupant, OccupantSource } from "@/types/bed.types";
 
 function blockLabel(platform: CalendarPlatform): string {
     return platform === "airbnb" ? "Airbnb block" : "Booking.com block";
@@ -17,17 +17,16 @@ export async function applyExternalBlocks(
 
     const source = platform as OccupantSource;
     const activeUids = new Set(events.map((event) => event.uid));
-    const eventsByUid = new Map(events.map((event) => [event.uid, event]));
 
     for (const bed of beds) {
-        bed.occupants = bed.occupants.filter((occupant) => {
+        bed.occupants = bed.occupants.filter((occupant: Occupant) => {
             if (occupant.source !== source) return true;
             return activeUids.has(occupant.externalUid || "");
         });
 
         for (const event of events) {
             const existing = bed.occupants.find(
-                (occupant) => occupant.externalUid === event.uid
+                (occupant: Occupant) => occupant.externalUid === event.uid
             );
 
             if (existing) {
@@ -61,7 +60,7 @@ export async function clearExternalBlocksForPlatform(
 
     for (const bed of beds) {
         const nextOccupants = bed.occupants.filter(
-            (occupant) => occupant.source !== source
+            (occupant: Occupant) => occupant.source !== source
         );
         if (nextOccupants.length !== bed.occupants.length) {
             await Bed.updateOne(

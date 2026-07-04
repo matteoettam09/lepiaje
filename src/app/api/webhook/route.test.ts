@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { POST } from "@/app/api/webhook/route";
 import { HttpStatusCode } from "@/enums";
-import Stripe from "stripe";
 
 vi.mock("@/config/db", () => ({
     connection: vi.fn().mockResolvedValue(true),

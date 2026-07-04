@@ -169,6 +169,7 @@ export function PropertyBooking({
     effectiveBasePrice,
     effectiveExtraGuestPrice,
     propertyId,
+    isCentesimo,
   ]);
 
   useEffect(() => {

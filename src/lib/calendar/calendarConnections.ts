@@ -172,13 +172,11 @@ export async function syncExternalCalendars(options?: {
         ? { propertyId: options.propertyId, enabled: true }
         : { enabled: true };
 
-    const connections = await CalendarConnection.find(query).lean();
+    const connections = (await CalendarConnection.find(query).lean()) as unknown as CalendarConnectionType[];
     const results = [];
 
     for (const connection of connections) {
-        const result = await syncCalendarConnection(
-            connection as CalendarConnectionType
-        );
+        const result = await syncCalendarConnection(connection);
         results.push({
             propertyId: connection.propertyId,
             platform: connection.platform as CalendarPlatform,

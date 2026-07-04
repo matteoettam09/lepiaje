@@ -6,7 +6,6 @@ import { createMockStripe } from "@/__tests__/mocks/stripe";
 import { getStripeClient } from "@/lib/payments/stripeClient";
 import { computeBookingPrice } from "@/lib/payments/pricing";
 import { createPendingBooking } from "@/lib/booking/bookingService";
-import { sendBookingRequestEmails } from "@/lib/email/sendBookingRequestEmails";
 import { createBookingPaymentIntent } from "@/lib/payments/createBookingPaymentIntent";
 import { VILLA_MAX_GUESTS } from "@/constants/villa_pricing";
 
