@@ -130,9 +130,7 @@ function PaymentForm({
 
     setIsProcessing(true);
 
-    const returnUrl = new URL(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`
-    );
+    const returnUrl = new URL("/payment/success", window.location.origin);
     if (bookingReference) {
       returnUrl.searchParams.set("ref", bookingReference);
     }

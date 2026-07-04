@@ -8,7 +8,7 @@ interface NotifyAdminResponse {
 
 export async function notifyAdmin(emailInfo: EmailType, emailType: Email): Promise<NotifyAdminResponse> {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${emailType}`, {
+        const response = await fetch(`/${emailType}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

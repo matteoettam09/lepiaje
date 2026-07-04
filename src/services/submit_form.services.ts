@@ -2,7 +2,7 @@ import { FormType } from "@/types";
 
 export async function submitForm(formData: FormType): Promise<{ error: boolean, message: string }> {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/form`, {
+        const response = await fetch("/api/form", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

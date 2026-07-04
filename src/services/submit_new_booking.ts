@@ -7,7 +7,7 @@ export const submit_new_booking = async (
     mode: "block" | "pending" = "block"
 ): Promise<{ error: boolean; message: string; errorDetails: string }> => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/booking`, {
+        const response = await fetch("/api/booking", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

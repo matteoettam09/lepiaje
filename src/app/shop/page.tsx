@@ -44,7 +44,7 @@ function PaymentForm({
         const { error: payError } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success?type=shop`,
+                return_url: `${window.location.origin}/payment/success?type=shop`,
                 receipt_email: clientEmail,
             },
         });

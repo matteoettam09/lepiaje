@@ -49,16 +49,22 @@ export default function ContactForm() {
     onSubmit: async (values) => {
       setIsLoading(true);
       const submission = await submitForm(values);
-      if (!submission) {
-        formik.resetForm();
+      if (submission.error) {
         setHasSuceeded(false);
         showAlert("Something has gone wrong with submitting the form");
         setIsLoading(false);
         return;
       }
-      await notifyAdmin(values, Email.FORM_SUBMITTED);
+      const emailResult = await notifyAdmin(values, Email.FORM_SUBMITTED);
       formik.resetForm();
       setIsLoading(false);
+      if (emailResult.error) {
+        setHasSuceeded(true);
+        showAlert(
+          "Your message was saved, but we could not send the notification email."
+        );
+        return;
+      }
       setHasSuceeded(true);
       showAlert("The form has been submitted successfully!");
     },
