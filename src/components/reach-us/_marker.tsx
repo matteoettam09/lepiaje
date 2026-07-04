@@ -1,4 +1,4 @@
-import { Marker } from "react-map-gl";
+import { Marker } from "react-map-gl/maplibre";
 import Logo from "../logo/logo";
 import { FaLocationDot } from "react-icons/fa6";
 interface CustomMarkerProps {

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { Badge } from "lucide-react";
+import dynamic from "next/dynamic";
 import Logo from "@/components/logo/logo";
 import {
   Dialog,
@@ -14,7 +15,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useSuccessAlert } from "@/hooks/use_alert";
 import { Alert } from "../alerts/alerts";
 import { BookingType } from "@/types";
-import { PaymentWrapper } from "../stripe/checkout_form";
+
+const PaymentWrapper = dynamic(
+  () =>
+    import("../stripe/checkout_form").then((mod) => ({
+      default: mod.PaymentWrapper,
+    })),
+  { ssr: false }
+);
 
 interface BookingSummaryProps {
   isOpen: boolean;
@@ -44,10 +52,12 @@ export default function BookingSummaryModal({
         }
       }}
     >
-      <DialogDescription hidden>
-        Booking summary and payment form
-      </DialogDescription>
-      <DialogContent className="my-4 bg-slate-950 py-8  w-[90%] h-screen overflow-scroll">
+      {isOpen && (
+        <>
+          <DialogDescription hidden>
+            Booking summary and payment form
+          </DialogDescription>
+          <DialogContent className="my-4 max-h-[90vh] w-[90%] overflow-y-auto bg-slate-950 py-8">
         <DialogHeader>
           <DialogTitle className="text-gray-400 text-center">
             Booking Confirmation
@@ -105,16 +115,18 @@ export default function BookingSummaryModal({
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-gray-200 text-center font-semibold text-lg mb-4">
-                  Complete Your Payment
-                </h3>
-                <PaymentWrapper
-                  setErrorDetails={setErrorDetails}
-                  showAlert={showAlert}
-                  bookingData={bookingData}
-                />
-              </div>
+              {isOpen && (
+                <div>
+                  <h3 className="text-gray-200 text-center font-semibold text-lg mb-4">
+                    Complete Your Payment
+                  </h3>
+                  <PaymentWrapper
+                    setErrorDetails={setErrorDetails}
+                    showAlert={showAlert}
+                    bookingData={bookingData}
+                  />
+                </div>
+              )}
 
               {isVisible && (
                 <Alert
@@ -130,7 +142,9 @@ export default function BookingSummaryModal({
             </div>
           </CardContent>
         </Card>
-      </DialogContent>
+          </DialogContent>
+        </>
+      )}
     </Dialog>
   );
 }

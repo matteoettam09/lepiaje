@@ -1,58 +1,44 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
-import { getImages } from "@/utils/get_images_on_folder";
 import { motion } from "framer-motion";
 
 interface OurTeamImagesProps {
-  folderName: string;
+  imageUrls: string[];
 }
 
-export function OurTeam({ folderName }: OurTeamImagesProps) {
+export function OurTeam({ imageUrls }: OurTeamImagesProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [teamMembers, setTeamMembers] = useState<
-    {
-      name: string;
-      role: string;
-      image: string;
-      bio: string;
-    }[]
-  >([]);
-
-  useEffect(() => {
-    async function loadImages() {
-      const imageUrls = await getImages(folderName);
-      const teamMembers = [
-        {
-          name: "Name here",
-          role: "Role here",
-          image: imageUrls[0],
-          bio: "some words and descriptions of what they do or how contributed",
-        },
-        {
-          name: "Name here",
-          role: "Role here",
-          image: imageUrls[1],
-          bio: "some words and descriptions of what they do or how contributed",
-        },
-        {
-          name: "Name here",
-          role: "Role here",
-          image: imageUrls[2],
-          bio: "some words and descriptions of what they do or how contributed",
-        },
-        {
-          name: "Name here",
-          role: "Role here",
-          image: imageUrls[3],
-          bio: "some words and descriptions of what they do or how contributed",
-        },
-      ];
-      setTeamMembers(teamMembers);
-    }
-    loadImages();
-  }, [folderName]);
+  const teamMembers = useMemo(
+    () => [
+      {
+        name: "Name here",
+        role: "Role here",
+        image: imageUrls[0],
+        bio: "some words and descriptions of what they do or how contributed",
+      },
+      {
+        name: "Name here",
+        role: "Role here",
+        image: imageUrls[1],
+        bio: "some words and descriptions of what they do or how contributed",
+      },
+      {
+        name: "Name here",
+        role: "Role here",
+        image: imageUrls[2],
+        bio: "some words and descriptions of what they do or how contributed",
+      },
+      {
+        name: "Name here",
+        role: "Role here",
+        image: imageUrls[3],
+        bio: "some words and descriptions of what they do or how contributed",
+      },
+    ],
+    [imageUrls]
+  );
 
   return (
     <AnimateOnScroll

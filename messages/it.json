@@ -19,7 +19,67 @@
         "hero": {
             "title": "Le Piaje",
             "sub_title": "Ospitalità Genuina, come i Sapori della Terra",
-            "main_text": "Siamo una famiglia di imprenditori agricoli con un profondo impegno verso l'ospitalità e la valorizzazione del patrimonio naturale e culturale della nostra terra. Che siate viaggiatori curiosi, famiglie in cerca di relax, buongustai o amanti della natura incontaminata, Le Piaje vi aprirà le sue porte per farvi vivere un'esperienza unica. Scoprirete un mondo fatto di sapori autentici, percorsi e panorami che raccontano la storia della Tuscia."
+            "main_text": "Siamo una famiglia di imprenditori agricoli con un profondo impegno verso l'ospitalità e la valorizzazione del patrimonio naturale e culturale della nostra terra. Che siate viaggiatori curiosi, famiglie in cerca di relax, buongustai o amanti della natura incontaminata, Le Piaje vi aprirà le sue porte per farvi vivere un'esperienza unica. Scoprirete un mondo fatto di sapori autentici, percorsi e panorami che raccontano la storia della Tuscia.",
+            "cta_villa": "Prenota La Villa Perlata",
+            "cta_hostel": "Ostello del pellegrino",
+            "cta_contact": "Contattaci"
+        },
+        "guest_favorite": {
+            "badge": "Preferito dagli ospiti",
+            "subtitle": "Una delle case più amate su Airbnb, secondo gli ospiti"
+        },
+        "testimonials": {
+            "title": "Cosa Dicono i Nostri Ospiti",
+            "reviews": [
+                {
+                    "name": "Alba",
+                    "country": "Spagna",
+                    "headline": "Posto fantastico!!!!",
+                    "quote": "Il proprietario è super gentile. C'è colazione gratuita e posti auto nella proprietà. Il tavolo e le sedie nel cortile creano uno spazio molto accogliente."
+                },
+                {
+                    "name": "Aneliya",
+                    "country": "Bulgaria",
+                    "headline": "È stato perfetto",
+                    "quote": "Tutto era perfetto. L'host è stato molto cordiale, accogliente e disponibile per tutta la durata del soggiorno. L'alloggio era pulito, confortevole e aveva tutto il necessario. La posizione era eccellente, a pochi minuti a piedi dal centro, ideale per esplorare la zona. Abbiamo davvero apprezzato il nostro soggiorno."
+                },
+                {
+                    "name": "Tamuna",
+                    "country": "Georgia",
+                    "headline": "Vorrei tornarci!",
+                    "quote": "Tutto era perfetto. Sono arrivata in treno, era tardi e non c'erano autobus in stazione: l'host è venuto a prendermi in macchina gratuitamente. Il posto era davvero pulito, confortevole, con un'atmosfera familiare. Giardino carino, buona colazione… Avevo prenotato una notte e ne ho passate due; ci resterei volentieri anche una settintera."
+                },
+                {
+                    "name": "Magnus",
+                    "country": "Norway",
+                    "headline": "Ecco qui, non troverete di meglio in zona.",
+                    "quote": "Una vera scoperta in un'area altrimenti molto costosa. Vicino al paese, circa 10 minuti a piedi o un breve tragitto in auto. Gli host sono fantastici e i servizi perfetti. C'è anche una semplice colazione, caffè e succo. Con l'auto è un ottimo posto per rilassarsi dopo aver esplorato il lago e i dintorni. Il Lago di Bolsena e i paesi sulle rive sono assolutamente splendidi, senza essere invasi dalla folla. Una vera scoperta."
+                },
+                {
+                    "name": "Albert",
+                    "country": "Kazakistan",
+                    "headline": "Mi è piaciuto davvero tutto.",
+                    "quote": "Una casa bella, accogliente e spaziosa, una grande proprietà dove passeggiare tra vigneti e olivi. Il Lago di Bolsena è vicino, con spiagge libere meravigliose e acqua limpida. Lo consigliamo senza riserve."
+                },
+                {
+                    "name": "Adriano",
+                    "country": "Italia",
+                    "headline": "La casa è meravigliosa e la vista è mozzafiato.",
+                    "quote": "A pochi minuti dal lago, garantisce un'incredibile comodità. Di notte si vedono benissimo le stelle. La casa è curata e bellissima. Giuliana è stata molto gentile. Lo consiglio vivamente a chi cerca una vacanza rilassante e tranquilla. Tornerò."
+                },
+                {
+                    "name": "Darlene",
+                    "country": "USA",
+                    "headline": "Questa casa è un tesoro nascosto.",
+                    "quote": "Le foto dell'annuncio non rendono giustizia al posto. Abbiamo amato la vista e la tranquillità della fattoria sotto di noi. La casa corrisponde alla descrizione. Abbiamo usato la cucina, completamente attrezzata, e mangiato ogni giorno all'aperto con quella vista splendida. La posizione è a metà strada tra il lago e Montefiascone. Unico inconveniente: Wi-Fi intermittente, ma l'host è stato molto comunicativo e proattivo."
+                },
+                {
+                    "name": "Claire",
+                    "country": "Francia",
+                    "headline": "È il nostro airbnb preferito in assoluto!",
+                    "quote": "Una bellissima casa spaziosa in campagna, un giardino enorme, molto privata, circondata da uliveti. Abbiamo raccolto frutta e verdura dal giardino e rilassato sul portico all'ombra. La cucina è grande e ha tutto il necessario, oltre a un ottimo macchinato del caffè con capsule incluse! L'aria condizionata in ogni stanza è stata perfetta con il caldo estivo. Ottima posizione: 5 minuti da Montefiascone con ristoranti e negozi, e pochi minuti dal lago con spiaggette per nuotare. Semplicemente fantastico, grazie!!!"
+                }
+            ]
         },
         "contact_form": {
             "title": "Contattaci",

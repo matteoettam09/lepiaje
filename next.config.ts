@@ -4,14 +4,6 @@ import type { NextConfig } from "next";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: "/about",
-        destination: "/aboutUs",
-      },
-    ];
-  },
   images: {
     remotePatterns: [
       {

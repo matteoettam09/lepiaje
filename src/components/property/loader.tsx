@@ -7,7 +7,7 @@ function Skeleton({ className }: { className: string }) {
 
 export default function PropertyPageSkeleton() {
   return (
-    <div className="container mx-auto px-4 py-32">
+    <div className="container mx-auto px-4 pt-28 pb-16">
       <Skeleton className="h-8 w-3/4 mb-4" />
       <Skeleton className="h-6 w-1/3 mb-6" />
 

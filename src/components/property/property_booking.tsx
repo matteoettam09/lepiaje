@@ -2,7 +2,7 @@
 import * as Yup from "yup";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import Link from "next/link";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -46,6 +46,29 @@ const validationSchema = Yup.object().shape({
   bookerPhone: Yup.string().optional(),
   bookerGender: Yup.string().required("Gender is necessary"),
 });
+
+type BookerFormValues = {
+  bookerName: string;
+  bookerEmail: string;
+  bookerPhone: string;
+  bookerGender: string;
+};
+
+function SyncBookerValues({
+  values,
+  isLaVillaPerlata,
+  onSync,
+}: {
+  values: BookerFormValues;
+  isLaVillaPerlata?: boolean;
+  onSync: (values: BookerFormValues, isLaVillaPerlata?: boolean) => void;
+}) {
+  useEffect(() => {
+    onSync(values, isLaVillaPerlata);
+  }, [values, isLaVillaPerlata, onSync]);
+
+  return null;
+}
 
 export function PropertyBooking({
   price,
@@ -123,6 +146,18 @@ export function PropertyBooking({
     }
   }, [isLaVillaPerlata]);
 
+  const syncBookerValues = useCallback(
+    (values: BookerFormValues, isVilla?: boolean) => {
+      setBookerEmail(values.bookerEmail);
+      setBookerPhone(values.bookerPhone);
+      setBookerName(values.bookerName);
+      if (!isVilla) {
+        setBookerGender(values.bookerGender);
+      }
+    },
+    []
+  );
+
   const bookingData: BookingType = {
     propertyId,
     propertyName,
@@ -182,7 +217,6 @@ export function PropertyBooking({
           >
             <Calendar
               locale={locale === "it" ? it : enUS}
-              autoFocus
               mode="range"
               defaultMonth={(dates?.from as Date) || undefined}
               selected={{
@@ -210,18 +244,13 @@ export function PropertyBooking({
             // eslint-disable-next-line
             onSubmit={(values) => {}}
           >
-            {({ values, handleChange, handleBlur }) => {
-              // eslint-disable-next-line
-              useEffect(() => {
-                setBookerEmail(values.bookerEmail);
-                setBookerPhone(values.bookerPhone);
-                setBookerName(values.bookerName);
-                if (!isLaVillaPerlata) {
-                  setBookerGender(values.bookerGender);
-                }
-              }, [values]);
-
-              return (
+            {({ values, handleChange, handleBlur }) => (
+              <>
+                <SyncBookerValues
+                  values={values}
+                  isLaVillaPerlata={isLaVillaPerlata}
+                  onSync={syncBookerValues}
+                />
                 <Form>
                   <div>
                     <div>
@@ -330,8 +359,8 @@ export function PropertyBooking({
                     />
                   </div>
                 </Form>
-              );
-            }}
+              </>
+            )}
           </Formik>
         </div>
 
@@ -396,11 +425,13 @@ export function PropertyBooking({
           )}
         </div>
       </div>
-      <BookingSummaryModal
-        isOpen={showSummary}
-        onClose={() => setShowSummary(false)}
-        bookingData={bookingData}
-      />
+      {showSummary && (
+        <BookingSummaryModal
+          isOpen={showSummary}
+          onClose={() => setShowSummary(false)}
+          bookingData={bookingData}
+        />
+      )}
     </div>
   );
 }

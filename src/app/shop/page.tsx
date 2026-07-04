@@ -7,7 +7,16 @@ import { useTranslations, useLocale } from "next-intl";
 import { ProductType, CartItem } from "@/types";
 import { Button } from "@/components/ui/button";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+let stripePromise: ReturnType<typeof loadStripe> | null = null;
+
+function getStripePromise() {
+    const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+    if (!key) return null;
+    if (!stripePromise) {
+        stripePromise = loadStripe(key);
+    }
+    return stripePromise;
+}
 
 interface CartEntry extends CartItem {
     product: ProductType;
@@ -96,8 +105,11 @@ function ShopCheckoutWrapper({
     if (error) return <p className="text-red-400">{error}</p>;
     if (!clientSecret) return <p className="text-gray-400">Loading payment...</p>;
 
+    const stripe = getStripePromise();
+    if (!stripe) return <p className="text-red-400">Payment is not configured.</p>;
+
     return (
-        <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: "night" } }}>
+        <Elements stripe={stripe} options={{ clientSecret, appearance: { theme: "night" } }}>
             <PaymentForm amount={amount} clientEmail={clientEmail} onCancel={onCancel} />
         </Elements>
     );

@@ -16,7 +16,7 @@ export default async function PropertyPage({
 
   if (!property) {
     return (
-      <div className="w-full h-full bg-[#121212] flex items-center justify-center">
+      <div className="w-full h-full bg-brand-charcoal flex items-center justify-center">
         <div className="text-2xl text-red-500 font-bold">No property found</div>
         );
       </div>

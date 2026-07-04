@@ -12,14 +12,14 @@ import Link from "next/link";
 import { NavLinks } from "./nav_links";
 
 const mobileLinkClass =
-  "text-center text-[#ffff] justify-center flex w-full items-center py-2 text-lg font-semibold";
+  "text-center text-brand-cream justify-center flex w-full items-center py-2 text-lg font-semibold";
 
 const desktopLinkClass =
-  "whitespace-nowrap text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-lepiajeBrown hover:scale-105 duration-150 transition-all hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none";
+  "whitespace-nowrap text-brand-cream group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-brand-gold hover:scale-105 duration-150 transition-all hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none";
 
 export function Navbar() {
   return (
-    <header className=" top-0 fixed z-50 bg-lepiajeBrown flex h-24 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
+    <header className=" top-0 fixed z-50 bg-brand-gold flex h-24 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
       <Sheet>
         <SheetTitle>
           <Link href={"/"} prefetch={false}>
@@ -27,7 +27,7 @@ export function Navbar() {
           </Link>
         </SheetTitle>
         <SheetTrigger asChild>
-          <div className="  text-[#fff] flex w-full items-center justify-end lg:justify-end md:justify-end sm:justify-end">
+          <div className="text-brand-cream flex w-full items-center justify-end lg:justify-end md:justify-end sm:justify-end">
             <Button
               variant="outline"
               size="icon"
@@ -40,10 +40,10 @@ export function Navbar() {
         </SheetTrigger>
 
         <SheetContent
-          className="bg-opacity-10 bg-[#121212] backdrop-filter backdrop-blur-md "
+          className="bg-opacity-10 bg-brand-charcoal backdrop-filter backdrop-blur-md "
           side="right"
         >
-          <div className="text-[#ffff] place-content-center grid gap-2 py-6">
+          <div className="text-brand-cream place-content-center grid gap-2 py-6">
             <NavLinks className={mobileLinkClass} />
             <div className="flex justify-center items-center my-16 space-x-6">
               <Link href="mailto:giulianaclementini.ad@gmail.com" className="hover:text-gray-900 transition-colors">

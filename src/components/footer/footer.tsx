@@ -30,7 +30,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="w-full flex py-4 justify-center items-center">
-        <span className="text-sm text-lepiajeBrown">
+        <span className="text-sm text-brand-gold">
           {t("copyright", { year })}
         </span>
       </div>

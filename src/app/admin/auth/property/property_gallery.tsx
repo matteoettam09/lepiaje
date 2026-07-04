@@ -18,7 +18,7 @@ export function PropertyGallery({ images }: { images: string[] | undefined }) {
           className="rounded-lg"
         />
       </div>
-      <div className="mt-4 flex space-x-4 scrollbar-thin scrollbar-track-slate-800 scrollbar-thumb-lepiajeBrown overflow-x-auto pb-2">
+      <div className="mt-4 flex space-x-4 scrollbar-thin scrollbar-track-slate-800 scrollbar-thumb-brand-gold overflow-x-auto pb-2">
         {images?.map((image, index) => (
           <button
             key={index}

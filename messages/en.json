@@ -19,7 +19,67 @@
         "hero": {
             "title": "Le Piaje",
             "sub_title": "A Welcome as Genuine as the Tastes of the Land",
-            "main_text": "We are a family of agricultural entrepreneurs with a deep commitment to hospitality and the enhancement of the natural and cultural heritage of our land. Whether you are curious travelers, families looking for relaxing times, gourmets or lovers of uncontaminated nature, Le Piaje will open its doors to you to make you live a unique experience. You will discover a world made of authentic flavors, routes and views telling the story of Tuscia."
+            "main_text": "We are a family of agricultural entrepreneurs with a deep commitment to hospitality and the enhancement of the natural and cultural heritage of our land. Whether you are curious travelers, families looking for relaxing times, gourmets or lovers of uncontaminated nature, Le Piaje will open its doors to you to make you live a unique experience. You will discover a world made of authentic flavors, routes and views telling the story of Tuscia.",
+            "cta_villa": "Book La Villa Perlata",
+            "cta_hostel": "Pilgrim hostel",
+            "cta_contact": "Contact us"
+        },
+        "guest_favorite": {
+            "badge": "Guest favorite",
+            "subtitle": "One of the most loved homes on Airbnb, according to guests"
+        },
+        "testimonials": {
+            "title": "What Our Clients Say",
+            "reviews": [
+                {
+                    "name": "Alba",
+                    "country": "Spain",
+                    "headline": "Fantastic place!!!!",
+                    "quote": "The owner is suuuuuper friendly. There's free breakfast and some parking spots in the property. The table and chairs in the courtyard create a very cozy space."
+                },
+                {
+                    "name": "Aneliya",
+                    "country": "Bulgaria",
+                    "headline": "It was perfect",
+                    "quote": "Everything was perfect. The host was very friendly, welcoming, and helpful throughout our stay. The accommodation was clean, comfortable, and had everything we needed. The location was excellent, just a short walk from the city centre, making it easy to explore the area. We really enjoyed our stay."
+                },
+                {
+                    "name": "Tamuna",
+                    "country": "Georgia",
+                    "headline": "I would love to go back!",
+                    "quote": "Everything was perfect. First of all I arrived by train it was late no buses at station and the host came by car and took me at home for free, the place was really clean, comfortable with sweet family vibe. Cute garden, good breakfast… I booked for one night and I stayed 2 and I would love to stay there even for whole week."
+                },
+                {
+                    "name": "Magnus",
+                    "country": "Norway",
+                    "headline": "This is it, you cant find a better deal in this area.",
+                    "quote": "A true find in this otherwise very expensive area. Close to town, about 10min walk or very short ride. Hosts are quite amazing and ammenities perfect. There is even a simple breakfast awailable, coffee and juice. With a car, its a great place to chill out after exploring the lake and areas around. And Bolena Lake and its lakeside towns is absolutely gorgeous, without being run over by the crowds. A true find."
+                },
+                {
+                    "name": "Albert",
+                    "country": "Kazakhstan",
+                    "headline": "I really liked everything.",
+                    "quote": "A beautiful, cozy, huge house, a large property, you can walk among the vineyards and olive trees. Lake Bolsena is nearby, with wonderful free beaches and clear water. We recommend it without reservation."
+                },
+                {
+                    "name": "Adriano",
+                    "country": "Italy",
+                    "headline": "The house is wonderful and the view is breathtaking.",
+                    "quote": "Just a few minutes from the lake, it guarantees incredible convenience. And at night, you can see the stars really well. The house is well maintained and beautiful. Giuliana was very kind. I highly recommend it for those who want to have a relaxing and peaceful vacation. I will be back."
+                },
+                {
+                    "name": "Darlene",
+                    "country": "USA",
+                    "headline": "This house is a hidden gem.",
+                    "quote": "When looking at the pictures on the listing it doesn't do it justice. We enjoyed the beautiful views and the tranquility of the farm we were overlooking. The house is as described on the listing. We used the kitchen as it was fully stocked and enjoyed eating outside every day overlooking the tremendous view. The location of the property is midway between the lake and Montefiascone. Our only issue we experienced was intermittent wi-fi, but the host was very communicative and proactive with this issue."
+                },
+                {
+                    "name": "Claire",
+                    "country": "France",
+                    "headline": "This is our favorite air bnb we have ever stayed in!",
+                    "quote": "A beautiful spacious house in the country, huge garden, very private, and surrounded by olive groves. We gathered fruit and vegetables from the many plants in the garden and enjoyed relaxing on the portico in the shade. The kitchen was large and has everything you need to prepare meals, also a great coffee machine and coffee pods provided! The air-conditioning in every room was great as it's so hot this summer. The location was great too, 5 mins to Montefiascone which had many restaurants and shops, and also only a few minutes to the lake that has many little beaches for swimming. Just awesome thank you!!!"
+                }
+            ]
         },
         "contact_form": {
             "title": "Contact Us",

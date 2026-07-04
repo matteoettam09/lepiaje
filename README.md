@@ -10,16 +10,25 @@ Le Piaje is an Italian agriturismo website for Montefiascone / Lake Bolsena (Tus
 - **Resend** (transactional email)
 - **next-intl** (English / Italian)
 - **Tailwind CSS** + shadcn/ui
-- **Mapbox** (reach-us and property maps)
+- **MapLibre GL** + OpenFreeMap (reach-us and property maps; no API key)
 
 ## Getting Started
 
 ```bash
 pnpm install
 cp .env.example .env.local
-pnpm run seed                # seed MongoDB (dev only)
+pnpm run db:up              # start MongoDB (Docker Desktop must be running)
+pnpm run seed               # seed MongoDB (dev only)
 pnpm run dev
 ```
+
+MongoDB must be running before `pnpm run seed`. The easiest local setup is Docker:
+
+```bash
+pnpm run db:up
+```
+
+If you prefer Homebrew instead: `brew install mongodb-community@7` then `brew services start mongodb-community@7`.
 
 Open [http://localhost:3000](http://localhost:3000).
 
@@ -30,6 +39,8 @@ Open [http://localhost:3000](http://localhost:3000).
 | `pnpm run dev` | Start development server |
 | `pnpm run build` | Production build |
 | `pnpm run start` | Start production server |
+| `pnpm run db:up` | Start local MongoDB via Docker Compose |
+| `pnpm run db:down` | Stop local MongoDB container |
 | `pnpm run seed` | Seed properties, rooms, beds, products |
 | `pnpm run lint` | ESLint |
 | `pnpm run test` | All Vitest tests (unit + mocked + MongoDB memory-server) |
@@ -54,7 +65,7 @@ Each integration below lists what Le Piaje uses it for, what is **not** in scope
 | **MongoDB** | Properties, rooms, beds, bookings, payments, purchases, contact forms, error logs | `DB_CONNECTION_STRING` | Analytics, backups, replication (ops) | `src/lib/booking/*.integration.test.ts` |
 | **Stripe** | PaymentIntent for direct bookings and farm shop; webhook confirms orders and assigns beds | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Subscriptions, invoicing, Connect | `src/lib/payments/handleStripeWebhook.test.ts` |
 | **Resend** | Admin booking/purchase alerts and guest confirmation emails via React Email templates | `RESEND_API_KEY`, `NEXT_PUBLIC_SENDER_EMAIL`, `ADMIN_EMAIL_ONE_RECEIVER`, `ADMIN_EMAIL_TWO_RECEIVER` | Marketing campaigns, mailing lists | `src/lib/email/sendBookingEmails.test.ts` |
-| **Mapbox** | Client-side interactive maps on `/reach-us` (regional POIs) and property location maps | `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` | Geocoding, directions API, server-side tiles | `src/lib/integrations/mapbox.test.ts` |
+| **MapLibre / OpenFreeMap** | Client-side interactive maps on `/reach-us` (regional POIs) and property location maps | None (free tiles) | Geocoding, directions API, server-side tiles | `src/lib/integrations/maps.test.ts` |
 | **WhatsApp** | Floating `wa.me` chat link on all pages (no API) | `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp Business API, automated templates | `src/lib/integrations/whatsapp.test.ts` |
 | **Admin auth (JWT)** | Signed session cookie after env credential login; protects `/admin/auth/*` | `USERNAME`, `USER_PASSWORD`, `AUTH_SECRET` | Multi-user accounts, OAuth, RBAC | `src/lib/auth/session.test.ts` |
 
@@ -71,7 +82,7 @@ pnpm run test:e2e          # Playwright smoke (needs dev server)
 
 | Layer | What it covers |
 |-------|----------------|
-| Unit | Pricing, availability logic, WhatsApp URL builder, Mapbox token guard, JWT session |
+| Unit | Pricing, availability logic, WhatsApp URL builder, map config, JWT session |
 | Mocked integration | Stripe webhook handler, Resend email dispatch |
 | MongoDB integration | Booking lifecycle, bed assignment, availability data shape |
 

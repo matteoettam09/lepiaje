@@ -65,7 +65,7 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       <SheetDescription hidden>
-        <label className="text-2xl font-semibold text-lepiajeBrown">
+        <label className="text-2xl font-semibold text-brand-gold">
           Le Piaje
         </label>
       </SheetDescription>

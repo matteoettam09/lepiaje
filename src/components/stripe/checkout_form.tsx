@@ -9,9 +9,16 @@ import {
 import { BookingType } from "@/types";
 import { useLocale } from "next-intl";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
+let stripePromise: ReturnType<typeof loadStripe> | null = null;
+
+function getStripePromise() {
+  const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  if (!key) return null;
+  if (!stripePromise) {
+    stripePromise = loadStripe(key);
+  }
+  return stripePromise;
+}
 
 interface PaymentInitResponse {
   clientSecret: string;
@@ -35,6 +42,11 @@ export function PaymentWrapper({
   const locale = useLocale();
 
   useEffect(() => {
+    if (!getStripePromise()) {
+      setInitError("Payment is not configured.");
+      return;
+    }
+
     const initPayment = async () => {
       try {
         const response = await fetch("/api/payment", {
@@ -69,10 +81,13 @@ export function PaymentWrapper({
     return <p className="text-red-500 mt-2">{initError}</p>;
   }
 
+  const stripe = getStripePromise();
+
   return (
-    clientSecret && (
+    clientSecret &&
+    stripe && (
       <Elements
-        stripe={stripePromise}
+        stripe={stripe}
         options={{
           clientSecret,
           appearance: { theme: "night" },

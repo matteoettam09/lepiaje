@@ -66,7 +66,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
       </div>
       <div className="max-w-4xl mx-auto relative z-10 p-4">
         <React.Fragment>
-          <h1 className="text-lepiajeWhite font-thin text-4xl text-center pb-8">
+          <h1 className="text-brand-cream font-thin text-4xl text-center pb-8">
             A peak into our world
           </h1>
           <div className="relative  h-[30em]  mb-4 overflow-hidden rounded-lg">
@@ -108,7 +108,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
           </div>
         </React.Fragment>
       </div>
-      <div className="relative z-40 scrollbar-thin scrollbar-track-[#121212] scrollbar-thumb-lepiajeBrown flex w-full justify-center space-x-2 px-4 overflow-x-scroll pb-2">
+      <div className="relative z-40 scrollbar-thin scrollbar-track-brand-charcoal scrollbar-thumb-brand-gold flex w-full justify-center space-x-2 px-4 overflow-x-scroll pb-2">
         {images.map((image, index) => (
           <motion.div
             key={index}

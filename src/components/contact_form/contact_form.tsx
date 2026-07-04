@@ -76,7 +76,7 @@ export default function ContactForm() {
         success={hasSuceeded}
       />
 
-      <div className="w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-slate-950 rounded-xl shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
+      <div className="w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-slate-950 rounded-xl shadow-brand-gold/40 shadow-2xl drop-shadow-2xl overflow-hidden">
         <div className="md:max-2xl:w-1/2 w-full relative ">
           <Image
             src={formImageBackground}
@@ -97,20 +97,20 @@ export default function ContactForm() {
               <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
             </div>
             <div>
-              <h2 className="text-xl font-light mb-4 text-lepiajeBrown">
+              <h2 className="text-xl font-light mb-4 text-brand-gold">
                 {t("title")}
               </h2>
-              <p className="text-sm text-lepiajeWhite">{t("main_text")}</p>
+              <p className="text-sm text-brand-cream">{t("main_text")}</p>
             </div>
           </div>
         </div>
 
         {/* Right side - Form */}
 
-        <div className="md:max-2xl:w-1/2 bg-gradient-to-r from-[#121212] to-[#664906] w-full p-8">
+        <div className="md:max-2xl:w-1/2 bg-gradient-to-r from-brand-charcoal to-brand-gold-dark w-full p-8">
           <form onSubmit={formik.handleSubmit} className="space-y-4 my-4">
             <div>
-              <Label className="text-lepiajeWhite" htmlFor="name">
+              <Label className="text-brand-cream" htmlFor="name">
                 {t("form_inputs.full_name")}
               </Label>
               <Input
@@ -129,7 +129,7 @@ export default function ContactForm() {
             </div>
 
             <div>
-              <Label className="text-lepiajeWhite" htmlFor="email">
+              <Label className="text-brand-cream" htmlFor="email">
                 Email
               </Label>
               <Input
@@ -150,7 +150,7 @@ export default function ContactForm() {
             </div>
 
             <div>
-              <Label className="text-lepiajeWhite" htmlFor="phone">
+              <Label className="text-brand-cream" htmlFor="phone">
                 Phone
               </Label>
               <Input
@@ -171,7 +171,7 @@ export default function ContactForm() {
             </div>
 
             <div>
-              <Label className="text-lepiajeWhite" htmlFor="message">
+              <Label className="text-brand-cream" htmlFor="message">
                 Message
               </Label>
               <Textarea
@@ -191,7 +191,7 @@ export default function ContactForm() {
               )}
             </div>
 
-            <Button type="submit" className="w-full bg-lepiajeBrown">
+            <Button type="submit" className="w-full bg-brand-gold">
               {isLoading ? (
                 <PulsingDotSpinner color="bg-green-400" />
               ) : (
