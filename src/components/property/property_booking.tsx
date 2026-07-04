@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import GuestList from "./property_guest_list";
-import { format, addDays, startOfDay, isBefore, isSameDay } from "date-fns";
+import { format } from "date-fns";
 import { useLocale, useTranslations } from "next-intl";
 import { it, enUS } from "react-day-picker/locale";
 import { BookingType } from "@/types";
@@ -29,6 +29,7 @@ import {
   processAvailabilityForDates,
   DateRange as AvailDateRange,
 } from "./availabilityUtils";
+import { advanceBookingDateSelection } from "@/lib/booking/dateSelection";
 import { countBookingGuests } from "@/lib/booking/guestCount";
 import {
     VILLA_BASE_PRICE_PER_NIGHT,
@@ -115,19 +116,7 @@ export function PropertyBooking({
     (beds?.male_rooms?.length ?? 0) + (beds?.female_rooms?.length ?? 0);
 
   const handleDateSelect = (range: DateRange | undefined) => {
-    if (!range?.from) {
-      setDates(null);
-      return;
-    }
-
-    const from = startOfDay(range.from);
-    let to = range.to ? startOfDay(range.to) : undefined;
-
-    if (!to || isBefore(to, from) || isSameDay(to, from)) {
-      to = addDays(from, 1);
-    }
-
-    setDates({ from, to });
+    setDates((prev) => advanceBookingDateSelection(prev, range));
   };
 
   const maxGuests = isLaVillaPerlata
