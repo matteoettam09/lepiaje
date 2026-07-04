@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useSuccessAlert } from "@/hooks/use_alert";
-import formImageBackground from "../../../public/assets/villa_perlata/interno3.jpeg";
+import formImageBackground from "../../../public/assets/villa_perlata/terra/fuoco.jpeg";
 import { submitForm } from "@/services/submit_form.services";
 import { notifyAdmin } from "@/services/notify_admin";
 import { PulsingDotSpinner } from "../loader/loader";

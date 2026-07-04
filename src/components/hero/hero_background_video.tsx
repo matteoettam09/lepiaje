@@ -22,11 +22,11 @@ export function HeroBackgroundVideo() {
       muted
       playsInline
       preload="metadata"
-      poster="/assets/farm/melograni.jpeg"
+      poster="/assets/villa_perlata/esterni/ingresso.png"
       aria-hidden
       onEnded={handleEnded}
     >
-      <source src="/assets/hero_video.mp4" type="video/mp4" />
+      <source src="/assets/villa_perlata/esterni/hero_video.mp4" type="video/mp4" />
     </video>
   );
 }

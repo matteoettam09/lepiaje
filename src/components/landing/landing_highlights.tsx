@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import friends from "../../../public/assets/friends.png";
-import ristoro from "../../../public/assets/ristoro.jpeg";
-import boat from "../../../public/assets/boat.png";
+import friends from "../../../public/assets/villa_perlata/esterni/friends.png";
+import ristoro from "../../../public/assets/100esimo/ristoro.jpeg";
+import boat from "../../../public/assets/who_we_are/boat.png";
 import orto2 from "../../../public/assets/farm/orto2.jpeg";
 
 type CaptionKey = "friends" | "ristoro" | "boat" | "farm";

@@ -3,7 +3,7 @@
 import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import verna from "../../../public/assets/who_we_are/verna.jpg";
+import ceramica from "../../../public/assets/who_we_are/ceramica.jpeg";
 
 export function OurMission() {
   const t = useTranslations("about_us_page.our_mission");
@@ -24,7 +24,7 @@ export function OurMission() {
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           <div className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 max-w-md mx-auto lg:max-w-none md:max-2xl:h-[28em] h-[24em] relative rounded-lg shadow-lg overflow-hidden">
             <Image
-              src={verna}
+              src={ceramica}
               alt="Our mission"
               fill
               sizes="100%"

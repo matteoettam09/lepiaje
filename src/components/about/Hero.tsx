@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
-import villaPerlata6 from "../../../public/assets/villa_perlata/6.jpg"; // TODO: Replace with actual image desired
+import villaPerlata6 from "../../../public/assets/villa_perlata/esterni/1.jpg";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 

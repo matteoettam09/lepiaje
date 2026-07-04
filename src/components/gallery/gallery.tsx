@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import galleryBackground from "../../../public/assets/villa_perlata/13.jpg";
+import galleryBackground from "../../../public/assets/villa_perlata/esterni/12.jpg";
 
 export default function Gallery() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
