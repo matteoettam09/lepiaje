@@ -6,6 +6,3 @@ export const civita_di_bagnoregio_location: Directions = {
 };
 
 export const civita_di_bagnoregio_url = "https://civitadibagnoregio.cloud/";
-
-export const civita_di_bagnoregio_image_url =
-  "https://civitadibagnoregio.cloud/assets/img/DSC_9418-scaled-1.jpg";

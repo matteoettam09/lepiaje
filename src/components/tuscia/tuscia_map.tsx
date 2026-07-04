@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Map, { MapRef } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useTranslations } from "next-intl";
@@ -151,6 +151,15 @@ export default function TusciaMap({
     setLockedZoom(map.getZoom());
   }, []);
 
+  useEffect(() => {
+    Object.values(placeImages)
+      .filter(Boolean)
+      .forEach((src) => {
+        const img = new window.Image();
+        img.src = src;
+      });
+  }, [placeImages]);
+
   const places = useMemo<Place[]>(
     () =>
       PLACE_DEFS.map((def) => ({
@@ -171,7 +180,7 @@ export default function TusciaMap({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row">
-      <div className="h-[38vh] min-h-[240px] w-full shrink-0 lg:h-auto lg:min-h-0 lg:w-[55%]">
+      <div className="h-[28vh] max-h-[200px] min-h-[160px] w-full shrink-0 lg:h-auto lg:max-h-none lg:min-h-0 lg:w-[55%]">
         <Map
           ref={mapRef}
           mapStyle={MAP_STYLE_URL}
@@ -203,7 +212,7 @@ export default function TusciaMap({
           ))}
         </Map>
       </div>
-      <div className="min-h-0 flex-1 w-full lg:w-[45%]">
+      <div className="w-full shrink-0 lg:min-h-0 lg:w-[45%] lg:flex-1">
         {selectedPlace && (
           <PlaceInfo
             name={selectedPlace.name}
@@ -211,6 +220,7 @@ export default function TusciaMap({
             image={selectedPlace.image}
             link={selectedPlace.link}
             linkLabel={t("link")}
+            priority={selectedPlace.id === DEFAULT_PLACE_ID}
           />
         )}
       </div>

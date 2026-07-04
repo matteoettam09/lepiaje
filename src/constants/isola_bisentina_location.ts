@@ -6,6 +6,3 @@ export const isola_bisentina_location: Directions = {
 };
 
 export const isola_bisentina_url = "https://www.isolabisentina.org/";
-
-export const isola_bisentina_image_url =
-  "https://www.isolabisentina.org/wp-content/uploads/2023/04/1Ajpg-640x555.jpg";
