@@ -15,10 +15,10 @@ Le Piaje is an Italian agriturismo website for Montefiascone / Lake Bolsena (Tus
 ## Getting Started
 
 ```bash
-npm install
+pnpm install
 cp .env.example .env.local
-npm run seed                # seed MongoDB (dev only)
-npm run dev
+pnpm run seed                # seed MongoDB (dev only)
+pnpm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
@@ -27,15 +27,15 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Production build |
-| `npm run start` | Start production server |
-| `npm run seed` | Seed properties, rooms, beds, products |
-| `npm run lint` | ESLint |
-| `npm run test` | All Vitest tests (unit + mocked + MongoDB memory-server) |
-| `npm run test:unit` | Unit and mocked integration tests only |
-| `npm run test:integration` | MongoDB memory-server integration tests |
-| `npm run test:e2e` | Playwright E2E smoke tests (optional locally) |
+| `pnpm run dev` | Start development server |
+| `pnpm run build` | Production build |
+| `pnpm run start` | Start production server |
+| `pnpm run seed` | Seed properties, rooms, beds, products |
+| `pnpm run lint` | ESLint |
+| `pnpm run test` | All Vitest tests (unit + mocked + MongoDB memory-server) |
+| `pnpm run test:unit` | Unit and mocked integration tests only |
+| `pnpm run test:integration` | MongoDB memory-server integration tests |
+| `pnpm run test:e2e` | Playwright E2E smoke tests (optional locally) |
 
 ## Third-party integrations
 
@@ -63,10 +63,10 @@ Each integration below lists what Le Piaje uses it for, what is **not** in scope
 Tests run in CI **without live third-party credentials**. External SDKs (Stripe, Resend) are mocked; MongoDB uses an in-memory server.
 
 ```
-npm run test              # full suite (CI)
-npm run test:unit         # fast unit + mocked tests
-npm run test:integration  # MongoDB memory-server only
-npm run test:e2e          # Playwright smoke (needs dev server)
+pnpm run test              # full suite (CI)
+pnpm run test:unit         # fast unit + mocked tests
+pnpm run test:integration  # MongoDB memory-server only
+pnpm run test:e2e          # Playwright smoke (needs dev server)
 ```
 
 | Layer | What it covers |
