@@ -38,7 +38,7 @@
     "mongoose": "^8.9.2",
     "motion": "^11.15.0",
     "net": "^1.0.2",
-    "next": "15.1.2",
+    "next": "15.1.11",
     "next-intl": "^3.26.3",
     "react": "^19.0.0",
     "react-day-picker": "^9.5.0",
