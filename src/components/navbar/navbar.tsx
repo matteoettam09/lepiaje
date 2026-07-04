@@ -6,8 +6,6 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Logo from "../logo/logo";
-import { Mail, Phone } from "lucide-react";
-import { FaFacebookF, FaInstagram } from "react-icons/fa6";
 import Link from "next/link";
 import { NavLinks } from "./nav_links";
 
@@ -48,24 +46,6 @@ export function Navbar() {
               className={mobileLinkClass}
               contactClassName={`${mobileLinkClass} mt-2 shrink-0 whitespace-nowrap rounded-md bg-brand-terracotta px-6 text-brand-linen hover:bg-brand-terracotta-dark hover:text-brand-linen`}
             />
-            <div className="flex justify-center items-center my-16 space-x-6">
-              <Link href="mailto:giulianaclementini.ad@gmail.com" className="text-brand-muted hover:text-brand-terracotta transition-colors">
-                <Mail size={21} />
-                <span className="sr-only">Email</span>
-              </Link>
-              <Link href="tel:+393383032673" className="text-brand-muted hover:text-brand-terracotta transition-colors">
-                <Phone size={20} />
-                <span className="sr-only">Phone</span>
-              </Link>
-              <Link href="https://instagram.com/lepiaje" target="_blank" rel="noopener noreferrer" className="text-brand-muted hover:text-brand-terracotta transition-colors">
-                <FaInstagram size={20} />
-                <span className="sr-only">Instagram</span>
-              </Link>
-              <Link href="https://facebook.com/lepiaje" target="_blank" rel="noopener noreferrer" className="text-brand-muted hover:text-brand-terracotta transition-colors">
-                <FaFacebookF size={20} />
-                <span className="sr-only">Facebook</span>
-              </Link>
-            </div>
             <Logo width="w-[6em]" height="h-[6em]" blur="blur-lg" />
           </div>
         </SheetContent>

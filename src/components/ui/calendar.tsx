@@ -1,5 +1,6 @@
 import React from "react";
 import { DayPicker } from "react-day-picker";
+import { startOfDay } from "date-fns";
 import { cn } from "@/lib/utils";
 
 type DisabledDate = {
@@ -26,21 +27,15 @@ function Calendar({
   //TODO small webApp to manually block dates (domingo)
 
   return (
-    <div>
+    <div className={cn(loading && "opacity-60")}>
       <DayPicker
-        disabled={
-          loading
-            ? true
-            : [
-                { before: new Date(Date.now()) },
-                ...datesBlocked.map((date) => {
-                  return {
-                    from: new Date(date.from!),
-                    to: new Date(date.to!),
-                  };
-                }),
-              ]
-        }
+        disabled={[
+          { before: startOfDay(new Date()) },
+          ...datesBlocked.map((date) => ({
+            from: new Date(date.from!),
+            to: new Date(date.to!),
+          })),
+        ]}
         showOutsideDays={showOutsideDays}
         className={cn("p-3", className)}
         classNames={{

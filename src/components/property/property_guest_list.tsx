@@ -20,7 +20,10 @@ export default function GuestList({
 }) {
   const addGuest = () => {
     if (guestList.length + 1 < maxGuests) {
-      setGuestList([...guestList, { name: "", gender: "" }]);
+      setGuestList([
+        ...guestList,
+        { name: "", gender: isLaVillaPerlata ? "mixed" : "" },
+      ]);
     }
   };
 
@@ -99,7 +102,7 @@ export default function GuestList({
       <div className="flex justify-center">
         <Button
           onClick={addGuest}
-          disabled={guestList.length >= maxGuests}
+          disabled={guestList.length + 1 >= maxGuests}
           className="mt-4"
         >
           <Plus className="h-4 w-4 mr-2" />
