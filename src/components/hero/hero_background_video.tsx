@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export function HeroBackgroundVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [failed, setFailed] = useState(false);
 
   const handleEnded = () => {
     const video = videoRef.current;
@@ -14,6 +15,10 @@ export function HeroBackgroundVideo() {
     }
   };
 
+  if (failed) {
+    return null;
+  }
+
   return (
     <video
       ref={videoRef}
@@ -21,12 +26,15 @@ export function HeroBackgroundVideo() {
       autoPlay
       muted
       playsInline
-      preload="metadata"
-      poster="/assets/villa_perlata/esterni/hero_video_poster.jpg"
+      preload="auto"
       aria-hidden
+      onError={() => setFailed(true)}
       onEnded={handleEnded}
     >
-      <source src="/assets/villa_perlata/esterni/hero_video.mp4" type="video/mp4" />
+      <source
+        src="/assets/villa_perlata/esterni/hero_video.mp4"
+        type="video/mp4"
+      />
     </video>
   );
 }

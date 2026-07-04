@@ -52,12 +52,6 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Each integration below lists what Le Piaje uses it for, what is **not** in scope, required env vars, and the test file that covers it.
 
-### App config (not a third party)
-
-| Variable | Purpose |
-|----------|---------|
-| `NEXT_PUBLIC_BASE_URL` | Base URL for client-side API fetches (trailing slash required) |
-
 ### Integration scope
 
 | Integration | Scope in Le Piaje | Env vars | Not in scope | Tests |
