@@ -1,6 +1,7 @@
 import Property from "@/models/Property";
 import { calculate_price } from "@/utils/calculate_price";
 import { BookingType } from "@/types";
+import { countBookingGuests } from "@/lib/booking/guestCount";
 
 export async function computeBookingPrice(
     bookingData: BookingType
@@ -18,7 +19,7 @@ export async function computeBookingPrice(
         { from: bookingData.checkIn, to: bookingData.checkOut },
         property.price_per_night,
         property.price_per_additional_guest,
-        bookingData.numberOfGuests
+        countBookingGuests(bookingData)
     );
 
     return { totalPrice: priceDetails.totalPrice };

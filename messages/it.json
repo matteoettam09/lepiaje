@@ -111,10 +111,6 @@
         }
     },
     "about_us_page": {
-        "hero": {
-            "title": "La Nostra Storia in Tuscia",
-            "sub_title": "Azienda agricola, ospitalità e sapori del Lago di Bolsena"
-        },
         "our_mission": {
             "title": "La Nostra Missione",
             "main_text": "A Le Piaje uniamo l'agricoltura attiva a un'ospitalità autentica. Invitiamo gli ospiti a vivere la nostra terra attraverso soggiorni in campagna, accoglienza per pellegrini sulla Via Francigena e i sapori genuini della nostra azienda.",
@@ -122,19 +118,6 @@
             "bullet_point_two": "Offrire soggiorni agriturismo autentici radicati nella nostra famiglia contadina",
             "bullet_point_three": "Accogliere pellegrini e viaggiatori con ospitalità semplice e sincera",
             "bullet_point_four": "Produrre e condividere cibo artigianale dal nostro orto, vigneto e oliveto"
-        },
-        "life_gallery": {
-            "title": "La Vita a Le Piaje",
-            "tabs": {
-                "meet_us": "Conoscici",
-                "farm": "Fattoria e Terra",
-                "guests_events": "Ospiti ed Eventi"
-            },
-            "captions": {
-                "meet_us": "La famiglia e le persone di Le Piaje — un'accoglienza come a casa.",
-                "farm": "Vigneti, oliveti e orto biologico al centro di tutto ciò che facciamo.",
-                "guests_events": "Convivialità, giornate al lago, eventi e soggiorni che sembrano casa."
-            }
         },
         "book_ctas": {
             "villa": "Prenota La Villa Perlata",

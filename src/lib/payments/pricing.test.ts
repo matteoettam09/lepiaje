@@ -20,7 +20,7 @@ describe("computeBookingPrice", () => {
         checkInTime: "15:00",
         checkOutTime: "11:00",
         numberOfGuests: 2,
-        guests: [],
+        guests: [{ name: "Extra Guest", gender: "female" }],
     };
 
     beforeEach(() => {
@@ -43,6 +43,22 @@ describe("computeBookingPrice", () => {
         } as Awaited<ReturnType<typeof Property.findOne>>);
 
         const result = await computeBookingPrice(baseBooking);
+
+        expect(result.error).toBeUndefined();
+        expect(result.totalPrice).toBe(2 * (20 + 15));
+    });
+
+    it("derives guest count from guests array, ignoring client numberOfGuests", async () => {
+        vi.mocked(Property.findOne).mockResolvedValue({
+            price_per_night: 20,
+            price_per_additional_guest: 15,
+        } as Awaited<ReturnType<typeof Property.findOne>>);
+
+        const result = await computeBookingPrice({
+            ...baseBooking,
+            numberOfGuests: 99,
+            guests: [{ name: "Extra Guest", gender: "female" }],
+        });
 
         expect(result.error).toBeUndefined();
         expect(result.totalPrice).toBe(2 * (20 + 15));

@@ -7,6 +7,7 @@ import { createPendingBooking } from "@/lib/booking/bookingService";
 import { computeBookingPrice } from "@/lib/payments/pricing";
 import { getStripeClient } from "@/lib/payments/stripeClient";
 import { createBookingPaymentIntent } from "@/lib/payments/createBookingPaymentIntent";
+import { withGuestCount } from "@/lib/booking/guestCount";
 
 const responseHandler = new ResponseHandler();
 
@@ -24,9 +25,11 @@ export async function POST(req: Request) {
     }
 
     try {
-        const { bookingData }: { bookingData: BookingType } = await req.json();
+        const { bookingData: rawBookingData }: { bookingData: BookingType } =
+            await req.json();
+        const bookingData = withGuestCount(rawBookingData);
 
-        if (!bookingData?.bookerEmail || !bookingData.checkIn || !bookingData.checkOut) {
+        if (!bookingData.bookerEmail || !bookingData.checkIn || !bookingData.checkOut) {
             return responseHandler.respond({
                 status: HttpStatusCode.BAD_REQUEST,
                 error: true,

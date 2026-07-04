@@ -111,10 +111,6 @@
         }
     },
     "about_us_page": {
-        "hero": {
-            "title": "Our Story in Tuscia",
-            "sub_title": "Farm, hospitality, and the flavors of Lake Bolsena"
-        },
         "our_mission": {
             "title": "Our Mission",
             "main_text": "At Le Piaje we combine working agriculture with warm hospitality. We invite guests to experience our land through stays in the countryside, pilgrim hospitality on the Via Francigena, and the authentic tastes of our farm.",
@@ -122,19 +118,6 @@
             "bullet_point_two": "Offer genuine agriturismo stays rooted in our family farm",
             "bullet_point_three": "Welcome pilgrims and travelers with simple, honest hospitality",
             "bullet_point_four": "Produce and share homemade food from our garden, vineyard, and olive groves"
-        },
-        "life_gallery": {
-            "title": "Life at Le Piaje",
-            "tabs": {
-                "meet_us": "Meet Us",
-                "farm": "Farm & Land",
-                "guests_events": "Guests & Events"
-            },
-            "captions": {
-                "meet_us": "The family and hands behind Le Piaje — welcoming you as one of our own.",
-                "farm": "Vineyards, olive groves, and kitchen gardens at the heart of everything we do.",
-                "guests_events": "Shared meals, lake days, celebrations, and stays that feel like coming home."
-            }
         },
         "book_ctas": {
             "villa": "Book La Villa Perlata",

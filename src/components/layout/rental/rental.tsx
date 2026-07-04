@@ -63,7 +63,6 @@ export default async function PropertyPage({
             </h2>
             <p className="whitespace-pre-line text-brand-muted">{description}</p>
           </div>
-          {/* TODO<> add reviews here</> */}
         </div>
 
         <div className="md:max-2xl:order-2 order-1">

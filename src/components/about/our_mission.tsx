@@ -18,7 +18,7 @@ export function OurMission() {
   return (
     <AnimateOnScroll
       index={1}
-      className="py-12 sm:py-16 md:py-20 lg:py-24 bg-brand-stone"
+      className="pt-28 pb-12 sm:pb-16 md:pb-20 lg:pb-24 bg-brand-stone"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">

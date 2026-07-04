@@ -29,6 +29,7 @@ import {
   processAvailabilityForDates,
   DateRange as AvailDateRange,
 } from "./availabilityUtils";
+import { countBookingGuests } from "@/lib/booking/guestCount";
 interface PropertyBookingProps {
   price: number;
   airbnb?: string;
@@ -135,7 +136,7 @@ export function PropertyBooking({
       dates,
       price,
       pricePerAdditionalGuest,
-      guestList.length + 1
+      countBookingGuests({ guests: guestList })
     );
     setPriceDetails(pricing);
     // eslint-disable-next-line
@@ -173,7 +174,7 @@ export function PropertyBooking({
         check_out: (dates?.to as Date) || undefined,
       };
     }),
-    numberOfGuests: guestList.length + 1, //TODO check if it is better to add it here or dynamically on email and booking schema
+    numberOfGuests: countBookingGuests({ guests: guestList }),
     totalPaid: priceDetails?.totalPrice || 0,
     bookerEmail,
     bookerPhone,

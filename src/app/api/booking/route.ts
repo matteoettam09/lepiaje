@@ -7,6 +7,7 @@ import {
     confirmBookingImmediately,
     createPendingBooking,
 } from "@/lib/booking/bookingService";
+import { withGuestCount } from "@/lib/booking/guestCount";
 
 export async function POST(request: Request) {
     const responseHandler = new ResponseHandler();
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
         }
 
         const body = await request.json();
-        const booking: BookingType = body;
+        const booking: BookingType = withGuestCount(body);
         const mode: "block" | "pending" = body.mode === "block" ? "block" : "pending";
 
         if (!booking.checkIn || !booking.checkOut || !booking.bookerEmail || !booking.numberOfGuests || !booking.propertyName) {
